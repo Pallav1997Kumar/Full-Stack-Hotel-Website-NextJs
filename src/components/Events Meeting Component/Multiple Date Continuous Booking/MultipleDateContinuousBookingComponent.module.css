@@ -1,0 +1,150 @@
+.multipleContinuousDateBookContainer{
+    margin: 4% 0%;
+    border: 1px solid blue;
+    padding: 2%;
+}
+
+.eachLabelHeading{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.05rem;
+    margin-top: 2.5%;
+    margin-bottom: 0.6%;
+}
+
+.eachLabelForTime{
+    margin: 0.5%;
+}
+
+.eachLabelNaming{
+    margin-right: 3%;
+}
+
+.noteLine1{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 0.9rem;
+    padding-top: 0.5%;
+    color: red;
+}
+
+.noteLine2{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 0.9rem;
+    color: red;
+}
+
+.allSeatingArrangement{
+    display: flex;
+    flex-direction: row;
+}
+
+.eachSeatingArrangement{
+    width: 15%;
+}
+
+.eachLabelForSeating{
+    margin: 1%;
+}
+
+.eachLabelSeatName{
+    padding-left: 4%;
+}
+
+.eachLabelYesNoFood{
+    margin: 0.5%;
+}
+
+.foodYesNo{
+    margin-right: 3%;
+}
+
+.foodSelectorCategory{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 1% 0%;
+}
+
+.foodSelectorCategoryHeader{
+    font-weight: bold;
+    width: 30%;
+}
+
+.eachFoodContainer{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+}
+
+.eachFoodLabeling{
+    width: 15%;
+} 
+
+.eachLabelForFoodItem{
+    margin: 0.5%;
+}
+
+.eachFoodLabelContent{
+    margin-left: 2%;
+}
+
+.buttonContainer{
+    margin-top: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.inputError{
+    color: red;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    background-color: lightgoldenrodyellow;
+    padding: 1%;
+}
+
+.roomAvailable{
+    color: green;
+    font-weight: 600;
+    font-size: 1.1rem;
+    background-color: lightgoldenrodyellow;
+    padding: 1%;
+}
+
+.roomNotAvailable{
+    color: orangered;
+    padding: 0.2%;
+    font-weight: 700;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+}
+
+.roomSuccessfullyAdded{
+    color: green;
+    font-weight: 600;
+    font-size: 1.1rem;
+    background-color: lightgoldenrodyellow;
+    padding: 1%;
+}
+
+.roomDetailsContainer{
+    padding: 1%;
+    background-color: blanchedalmond;
+    margin-top: 1%;
+}
+
+.successfullyCartAdded{
+    display: flex;
+    margin: 1%;
+    align-items: center;
+    justify-content: center;
+}
+
+.successfullyCartAdded p{
+    color: green;
+    font-weight: 600;
+    padding: 1%;
+    background-color: whitesmoke;
+}

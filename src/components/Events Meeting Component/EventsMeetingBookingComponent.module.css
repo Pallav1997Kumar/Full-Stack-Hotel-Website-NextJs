@@ -1,0 +1,18 @@
+.meetingEventBookContainer{
+    background-color: antiquewhite;
+    padding: 2%;
+}
+
+.heading{
+    text-align: center;
+}
+
+.labelHead{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.05rem;
+    margin-bottom: 0.6%;
+}
+
+.eachLabel{
+    margin: 0.5%
+}

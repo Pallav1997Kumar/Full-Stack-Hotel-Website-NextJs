@@ -1,0 +1,22 @@
+.header{
+    text-align: center;
+    font-size: 2.5rem;
+    margin: 2%;
+}
+
+.aboutPageContainer{
+    display: flex;
+    flex-direction: row;
+    margin: 2%;
+}
+
+.hotelDescription{
+    padding: 0% 1.25%;
+    text-align: center;
+    word-spacing: 2px;
+    letter-spacing: 1px;
+}
+
+.hotelDescription p{
+    padding-bottom: 2%;
+}

@@ -1,0 +1,37 @@
+.imageContainer{
+    margin: 1% 0%;
+}
+
+.facilityContainer{
+    margin: 5% 12%;
+}
+
+.facilityContainer h2{
+    font-size: 1.5rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    margin-bottom: 2%;
+    word-spacing: 15px;
+    letter-spacing: 2px;
+}
+
+.facilityContainer p{
+    margin: 1% 0%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: italic;
+    word-spacing: 10px;
+    line-height: 190%;
+}
+
+.facilityContainer ol{
+    margin: 2%;
+}
+
+.facilityContainer li{
+    padding: 1% 0%
+}
+
+.facilityContainer li:hover{
+    cursor: pointer;
+    color: darkgoldenrod;
+}

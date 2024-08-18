@@ -1,0 +1,26 @@
+.contactInfoContainer{
+    margin: 2%;
+    text-align: center;   
+}
+
+.contactInfoDiv{
+    display: flex;
+    margin: 2%;
+}
+
+.addressEmailNumber{
+    width: 33%;
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 2%;
+    border: 2.5px solid orange;
+    padding: 4%;
+}
+
+.getInTouch{
+    display: flex;
+    flex-direction: row;
+}

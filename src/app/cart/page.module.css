@@ -1,0 +1,68 @@
+.myCart{
+    margin: 2%;
+}
+
+.myCart h2{
+    text-align: center;
+}
+
+.categoryCart{
+    margin: 2% 3%;;
+}
+
+.categoryCart h4{
+    margin-bottom: 1%;
+}
+
+.categoryCart ol{
+    margin-left: 3%;
+}
+
+.categoryCart li{
+    list-style:lower-roman;
+    padding: 0.5%;
+}
+
+.categoryCart li:hover{
+    cursor: pointer;
+    color: goldenrod;
+}
+
+.allCart{
+    margin: 2% 4%;
+}
+
+.emptyCart{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: antiquewhite;
+    padding: 5% 0%;
+}
+
+.emptyCart p{
+    text-transform: uppercase;
+    font-weight: 800;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 2rem;
+    padding: 0.5%;
+    line-height: 200%;
+    letter-spacing: 1.25px;
+    word-spacing: 3px;
+    text-decoration: underline;
+}
+
+.loginBtnContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2%;
+}
+
+.proceedBtnContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2%;
+}

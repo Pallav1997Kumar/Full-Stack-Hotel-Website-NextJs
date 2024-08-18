@@ -1,0 +1,20 @@
+.imageContainer{
+    margin: 1% 0%;
+}
+
+.swimmingContainer{
+    margin: 5% 12%;
+}
+
+.swimmingContainer h1{
+    text-align: center;
+    margin-bottom: 1%;
+    font-family: 'Times New Roman', Times, serif;
+    letter-spacing: 2px;
+    word-spacing: 12.5px;
+}
+
+.swimmingContainer p{
+    padding: 0.7% 0%;
+    line-height: 180%;
+}

@@ -1,0 +1,17 @@
+.roomContainer{
+    margin: 3% 5%;
+}
+
+.roomContainer h2{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: xx-large;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 2px;
+    word-spacing: 6px;
+    margin-bottom: 2%;
+}
+
+.roomIntro{
+    font-style: italic;
+}

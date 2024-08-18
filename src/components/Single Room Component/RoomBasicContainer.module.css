@@ -1,0 +1,42 @@
+.firstContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin: 4% 0%;
+}
+
+.firstImage{
+    width: 55%;
+}
+
+.basicDescription{
+    width: 45%;
+}
+
+.basicDescription p{
+    font-family: 'Times New Roman', Times, serif;
+    line-height: 150%;
+    margin: 2.5% 0% 4% 0%;
+    word-spacing: 4px;
+    letter-spacing: 1.5px;
+    font-size: 1.1rem;;
+}
+
+.tabular{
+    margin: 5% 0%;
+}
+
+.eachRow{
+    display: flex;
+    flex-direction: row;
+    padding: 1% 0%;
+    width: 100%;
+}
+
+.tabularHeading{
+    width: 40%;
+}
+
+.tabularNormal{
+    width: 60%;
+}

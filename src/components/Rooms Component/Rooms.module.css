@@ -1,0 +1,41 @@
+.roomContainer{
+    margin: 2%;
+    background-color: azure;
+    display: flex;
+    flex-direction: row;
+}
+
+.imageContainer{
+    padding: 2%;
+}
+
+.roomDescriptionContainer{
+    padding: 3%;
+}
+
+.roomDescriptionContainer h2{
+    font-family: 'Times New Roman', Times, serif;
+    margin-bottom: 3%;
+}
+
+.roomDescriptionContainer p{
+    padding-bottom: 2%;
+}
+
+.startingPrice{
+    padding: 1%;
+    background-color: aquamarine;
+    color: rebeccapurple;
+}
+
+.button{
+    display: flex;
+}
+
+.button .explore{
+    padding: 2% 4% 0% 0%;
+}
+
+.button .book{
+    padding: 2% 0% 0% 4%;
+}

@@ -1,0 +1,16 @@
+.eachEventMeetingCartInformation{
+    width: 60%;
+    padding: 0%;
+}
+
+.eachEventMeetingTitle{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1%;
+}
+
+.totalValueTitle{
+    font-weight: 600;
+    padding-bottom: 2%;
+}

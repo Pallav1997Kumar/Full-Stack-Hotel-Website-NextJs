@@ -1,0 +1,18 @@
+.imageGalleryContainer h3{
+    font-size: 1.35rem;
+    font-style: italic;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.imagesGallery{
+    margin: 2% 0%;
+    display: flex;
+}
+
+.threeGalleryImage{
+    width: 33.33%;
+}
+
+.twoGalleryImage{
+    width: 50%;
+}

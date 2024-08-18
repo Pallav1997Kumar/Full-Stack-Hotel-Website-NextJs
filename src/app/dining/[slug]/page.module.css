@@ -1,0 +1,100 @@
+.diningContainer{
+    margin: 3%;
+}
+
+.diningContainer h2{
+    margin-bottom: 2%;
+}
+
+.topContainer{
+    display: flex;
+    flex-direction: row;
+}
+
+.imageContainer{
+    width: 45%;
+}
+
+.restaurantDescription{
+    width: 55%;
+}
+
+.contactNo{
+    color: brown;
+}
+
+.shortDescription{
+    padding: 1% 0%;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.2rem;
+    font-style: italic;
+}
+
+.diningDescription{
+    padding: 1% 0%;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.2rem;
+}
+
+.cuisineTiming{
+    display: flex;
+    flex-direction: row;
+    margin: 2% 0%;
+}
+
+.cuisine{
+    width: 35%;
+    color: rgb(202, 49, 49);
+}
+
+.eachCuisine{
+    padding: 1% 0%;
+    list-style-type: lower-roman;
+    color: rgb(66, 60, 60);
+}
+
+.timing{
+    width: 65%;
+    color: rgb(202, 49, 49);
+}
+
+.eachTime{
+    display: flex;
+    flex-direction: row;
+    padding: 0.75% 0%;
+}
+
+.foodCategory{
+    width: 30%;
+    color: rgb(78, 107, 21)
+}
+
+.foodTiming{
+    width: 70%;
+    color: rgb(66, 60, 60);
+}
+
+.minPrice{
+    display: flex;
+    flex-direction: row;
+    background-color: salmon;
+    padding: 1% 2%;
+    margin-top: 3%;
+}
+
+.eachTablePrice{
+    padding-right: 2.5%;
+    font-weight: 600;
+    color: wheat;
+    font-size: 1.05rem;
+}
+
+.reserveTableContainer{
+    display: flex;
+    flex-direction: row;
+    margin: 2.5% 0%;
+}
+
+.reserveTable{
+    width: 55%;
+}

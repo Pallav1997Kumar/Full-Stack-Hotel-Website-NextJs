@@ -1,0 +1,13 @@
+.hotelName{
+  color: rgb(59, 54, 54);
+  font-size: 3rem;
+  margin: 2%;
+  text-align: center;
+}
+
+.hotelSubIntro{
+  color: gray;
+  font-size: 1.35rem;
+  margin-left: 2%;
+  margin-bottom: 1.5%;
+}

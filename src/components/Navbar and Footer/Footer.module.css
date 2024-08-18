@@ -1,0 +1,98 @@
+.footer{
+    background-color: rgba(10, 10, 10, 0.800);
+    width: 100%;
+    color: white;
+    display: flex;
+}
+
+.footerLeft{
+    width: 30%;
+    padding: 2%;
+    color: wheat;
+    font-weight: 600;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.25rem;
+    letter-spacing: 1px;
+    word-spacing: 1.5px;
+}
+
+.footerContact{
+    width: 40%;
+    padding: 2%;
+}
+
+.follow{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 600;
+    font-size: 2rem;
+    letter-spacing: 1.25px;
+    word-spacing: 2px;
+    color: rgb(223, 250, 250);
+}
+
+.social{
+    color: rgb(223, 250, 250);
+    font-family: 'Times New Roman', Times, serif;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    padding-bottom: 2.5%;
+}
+
+.footerContact li{
+    list-style: none;
+    display: inline;
+    padding-top: 1%;
+    padding-right: 4%;
+    color: blanchedalmond;
+}
+
+.footerContact li:hover{
+    color: aquamarine;
+}
+
+.contact{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 600;
+    font-size: 1.75rem;
+    letter-spacing: 1.20px;
+    word-spacing: 1.8px;
+    margin: 6% 0% 1.65% 0%;
+    color: rgb(223, 250, 250);
+}
+
+.address{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 600;
+    font-size: 1.75rem;
+    letter-spacing: 1.20px;
+    word-spacing: 1.8px;
+    margin: 6% 0% 1.65% 0%;
+    color: rgb(223, 250, 250);
+}
+
+.menuItem{
+    width: 30%;
+    padding: 2%;
+}
+
+.menu{
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    margin-bottom: 2%;
+    color: rgba(141, 247, 247, 0.849);
+}
+
+.menuItem li{
+    list-style: none;
+    padding: 1% 0%;
+    color: antiquewhite;
+}
+
+.menuItem li:hover{
+    border-bottom: 1px solid burlywood;
+    background-color: gray;
+    margin: 2% 0%;
+}

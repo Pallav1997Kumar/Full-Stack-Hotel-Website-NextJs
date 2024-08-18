@@ -1,0 +1,79 @@
+.navbarContainer{
+    display: flex;
+    width: 100%;
+    background-color: rgba(14, 145, 14, 0.589);
+}
+
+.hotelLogo{
+    width: 17%;
+    padding-left: 2%;
+}
+
+.hotelRouting{
+    width: 62%;
+    padding: 2.25% 0% 2% 0%;
+}
+
+.hotelRouting li{
+    list-style: none;
+    display: inline;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1rem;
+    padding: 1.5%;
+    text-transform: uppercase;
+}
+
+.hotelRouting li:hover{
+    background-color: green;
+    cursor: pointer;
+    color: rgb(206, 199, 199);
+    border-bottom: 5px solid rgb(206, 199, 199);
+}
+
+.loginCartRouting{
+    width: 21%;
+    padding: 2.25% 0% 2% 0%;
+}
+
+.loginCartRouting li{
+    list-style: none;
+    display: inline;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1rem;
+    padding: 5%;
+    text-transform: uppercase;
+    transition: color 1s, background-color 1s, border 1s;
+}
+
+.loginCartRouting li:hover{
+    background-color: blueviolet;
+    cursor: pointer;
+    color: ghostwhite;
+    border: 2px solid ghostwhite;
+    transition: color 1.25s, background-color 1.25s, border 1.25s;
+}
+
+.userProfileRouting{
+    width: 17.5%;
+    padding: 2.25% 0% 2% 0%;
+}
+
+.userProfileRouting li{
+    list-style: none;
+    display: inline;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1rem;
+    padding: 5% 0%;
+    text-transform: uppercase;
+    transition: color 1s, background-color 1s, border 1s;
+}
+
+.userProfileRouting li:hover{
+    background-color: green;
+    cursor: pointer;
+    color: rgb(206, 199, 199);
+    border-bottom: 5px solid rgb(206, 199, 199);
+}

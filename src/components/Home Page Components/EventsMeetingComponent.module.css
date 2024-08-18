@@ -1,0 +1,63 @@
+.eventsContainer{
+    padding: 2% 4%;
+    background-color: rgba(255, 192, 203, 0.600);
+}
+
+.eventsContainer h2{
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.75rem;
+    margin-bottom: 1.5%;
+}
+
+.eventsOnlyContainer{
+    background-color: rgba(189, 188, 188, 0.3);
+    border: 3px solid gray;
+    padding: 1%;
+}
+
+.seeMore{
+    text-align: end;
+    padding-right: 2.5%;
+    font-family: 'Times New Roman', Times, serif;
+    color: red;
+    text-decoration: underline;
+    margin-bottom: 0.75%;
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: color 1s, font-size 1.5s;
+}
+
+.seeMore:hover{
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: darkred;
+    transition: color 2s, font-size 1.5s;
+}
+
+.events{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.eachEventStyle{
+    width: 33%;
+    padding: 0.5% 1%;
+}
+
+.eachEventStyle h4{
+    font-style: italic;
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 1%;
+}
+
+.eachEventStyle h4:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.eachEventStyle p{
+    text-align: center;
+}

@@ -1,0 +1,25 @@
+.amenitiesContainer h3{
+    font-size: 1.35rem;
+    font-style: italic;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.amenities{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.amenitiesSubContainer{
+    width: 33%;
+    padding: 2% 4% 2% 0%;
+}
+
+.amenitiesSubContainer h5{
+    font-size: 1.06rem;
+    margin-bottom: 2%;
+}
+
+.amenitiesSubContainer li{
+    padding: 3% 0%;
+}

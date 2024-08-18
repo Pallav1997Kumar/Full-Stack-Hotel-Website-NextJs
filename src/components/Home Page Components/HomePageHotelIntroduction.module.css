@@ -1,0 +1,50 @@
+.homePageIntroduction{
+    padding: 0%;
+}
+
+.hotelIntroduction{
+    background-color: rgba(250, 91, 91, 0.500);
+    padding: 2% 4%;
+}
+
+.hotelIntro{
+    padding: 0.5%;
+    font-size: 1.1rem;
+    letter-spacing: 1.25px;
+    word-spacing: 2.5px;
+    line-height: 150%;
+    font-weight: 500;
+    color: rgba(31, 29, 29, 0.70);
+}
+
+.hotelHeading{
+    font-size: 1.25rem;
+    letter-spacing: 1.5px;
+    word-spacing: 2.75px;
+    margin: 1% 0% 0.7% 0%;
+}
+
+.hotelHightlightsContainer{
+    padding: 2% 4%;
+    background-color: rgba(68, 255, 255, 0.500);
+}
+
+.hotelHightlights{
+    color: rgba(87, 84, 84, 0.788);
+    padding: 0.5%;
+}
+
+.hotelHightlightsText{
+    color: rgba(23, 32, 2, 0.788);
+    margin-left: 1%;
+}
+
+.hotelPoliciesContainer{
+    padding: 2% 4%;
+    background-color: rgba(126, 252, 0, 0.500);
+}
+
+.hotelPoliciesText{
+    color: rgba(23, 32, 2, 0.788);
+    padding: 0.5%;
+}

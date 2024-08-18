@@ -1,0 +1,55 @@
+.pageContainer{
+    padding: 3%;
+}
+
+.pageContainer h1{
+    font-size: 1.75rem;
+    text-transform: uppercase;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bolder;
+    letter-spacing: 1.25px;
+    word-spacing: 3px;
+}
+
+.pageContainer h2{
+    font-size: 1.35rem;
+    text-transform: uppercase;
+    margin: 4% 0% 1% 0%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.selectDropdown{
+    padding: 1%;
+    border: 1px solid blue;
+}
+
+.selectDropdown:focus{
+    outline: none;
+    border: 2px solid blue;
+}
+
+.buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4%;
+}
+
+.successErrorMessage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5%;
+}
+
+.successMessage{
+    color: green;
+    font-weight: 800;
+    font-size: 1.25rem;
+}
+
+.errorMessage{
+    color: red;
+    font-weight: 800;
+    font-size: 1.25rem;
+}

@@ -1,0 +1,150 @@
+.book h3{
+    font-size: 1.35rem;
+    font-style: italic;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.startingPrice{
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin: 1% 0%;
+    padding: 1%;
+    color: rgb(36, 33, 33);
+    background-color: rgb(185, 219, 248);
+}
+
+.bookBox{
+    border: 1px solid black;
+    margin: 1% 2% 2% 0%;
+    padding: 2%;
+}
+
+.checkinCheckout{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin: 1% 0%;
+}
+
+.checkin{
+    border: 1px solid black;
+    padding: 1%;
+    width: 50%;
+    margin: 0% 1%;
+    display: flex;
+}
+
+.checkout{
+    border: 1px solid black;
+    padding: 1%;
+    width: 50%;
+    margin: 0% 1%;
+    display: flex;
+}
+
+.checkTitle{
+    font-size: 1.5rem;
+}
+
+.checkDate{
+    font-size: 1.3rem;
+}
+
+.checkInfo{
+    padding-right: 5%;
+    cursor: pointer;
+}
+
+.roomsGuests{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin: 1% 0%;
+}
+
+.rooms{
+    width: 50%;
+    padding: 1%;
+    margin: 0% 1%;
+    border: 1px solid black;
+}
+
+.rooms button{
+    padding: 1%;
+    margin: 0.3%;
+}
+
+.displayRooms{
+    padding: 0.5% 3%;
+}
+
+.guests{
+    width: 50%;
+    padding: 1%;
+    margin: 0% 1%;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+}
+
+.guestBasic{
+    width: 40%;
+}
+
+.editGuest:hover{
+    color: darkorange;
+    cursor: pointer;
+}
+
+.guestDetails{
+    width: 100%;
+}
+
+.viewAvalabilityButton{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.errorBlock{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.errorBlock p{
+    color: red;
+    font-weight: 600;
+    padding: 1%;
+    margin-bottom: 1%;
+    background-color: lightcyan;
+}
+
+.addCartButton{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.addCartButton p{
+    color: green;
+    font-weight: 600;
+    padding: 1%;
+    margin-bottom: 1%;
+    background-color: lightcyan;
+}
+
+.successfullyAddedCart{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.successfullyAddedCart p{
+    padding: 1%;
+    color: green;
+    background-color: azure;
+    font-weight: 700;
+}

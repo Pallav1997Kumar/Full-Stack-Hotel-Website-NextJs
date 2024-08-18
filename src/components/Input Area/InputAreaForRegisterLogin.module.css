@@ -1,0 +1,35 @@
+.labelContainer{
+    padding: 0.5% 0%;
+    width: 100%;
+    margin-bottom: 1%;
+}
+
+.eachLabelContainer{
+    display: flex;
+}
+
+.labelName{
+    width: 33%;
+    color: rgb(20, 20, 173);
+}
+
+.labelInput{
+    width: 67%;
+}
+
+.labelInput input{
+    width: 70%;
+    padding: 1%;
+    border: 1px solid blue;
+    background-color: rgb(250, 249, 249);
+}
+
+.labelInput input:focus {
+    outline: none;
+    border: 2px solid blue;
+}
+
+.error{
+    color: red;
+    font-size: 0.8rem;
+}

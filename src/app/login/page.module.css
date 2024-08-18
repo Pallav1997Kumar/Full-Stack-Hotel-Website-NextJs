@@ -1,0 +1,54 @@
+.loginContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginFormPart {
+    width: 60%;
+    margin: 2%;
+    padding: 3% 1.5%;
+    background-color: whitesmoke; 
+    border: 1px solid black;
+}
+
+.loginFormPart h1{
+    text-align: center;
+    margin-bottom: 3%;
+}
+
+.imagePart {
+    width: 40%;
+}
+
+.buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4%;
+}
+
+.errorMessageContainer{
+    margin: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: red;
+    font-weight: 700;
+}
+
+.registerNavigation{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 1rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.registerLink{
+    color: blue;
+    text-decoration: underline;
+    padding-top: 0.5%;
+}

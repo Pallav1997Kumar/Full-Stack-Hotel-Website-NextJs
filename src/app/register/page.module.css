@@ -1,0 +1,79 @@
+.registerContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.registerFormPart {
+    width: 60%;
+    margin: 2%;
+    padding: 3% 1.5%;
+    background-color: whitesmoke; 
+    border: 1px solid black;
+}
+
+.registerFormPart h1{
+    text-align: center;
+}
+
+.imagePart {
+    width: 40%;
+}
+
+.heading{
+    font-weight: bolder;
+    font-size: 1.25rem;
+    color: darkblue;
+    padding: 5% 0% 0.5% 0%;
+    border: 1px soloid blue;
+}
+
+.selectDropdown{
+    padding: 1%;
+    border: 1px solid blue;
+}
+
+.selectDropdown:focus{
+    outline: none;
+    border: 2px solid blue;
+}
+
+.buttonContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4%;
+}
+
+.errorOrSucessMessage{
+    margin: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error{
+    color: red;
+    font-weight: 700;
+}
+
+.success{
+    color: green;
+    font-weight: 600;
+}
+
+.loginNavigation{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 1rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.loginLink{
+    color: blue;
+    text-decoration: underline;
+    padding-top: 0.5%;
+}

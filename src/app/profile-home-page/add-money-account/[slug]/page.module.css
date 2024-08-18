@@ -1,0 +1,161 @@
+.addMoney{
+    margin: 3.5%;
+}
+
+.addMoney h2{
+    font-size: 1.6rem;
+    margin-bottom: 1.25%;
+}
+
+.moneyLabel{
+    display: flex;
+    flex-direction: row;
+    padding: 0.5%;
+    width: 100%;
+}
+
+.amountHeading{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    width: 25%;
+}
+
+.amountInput{
+    width: 50%;
+}
+
+.amountInput input{
+    padding: 0.85%;
+    font-size: 1.01rem;
+    font-weight: 600;
+    border: 2px solid seagreen;
+    background-color: lightcyan;
+    text-align: center;
+}
+
+.amountInput input:focus{
+    outline: none;
+    border: 2px solid darkmagenta;
+}
+
+.minimumAmount{
+    color: rgb(54, 36, 172);
+    font-size: 0.9rem;
+}
+
+.amountProceed{
+    width: 25%;
+}
+
+.cardDetailsContainer{
+    margin: 3% 5%;
+    padding: 3%;
+    border: 1px solid sienna;
+    background-color: seashell;
+}
+
+.cardLabel{
+    display: flex;
+    flex-direction: row;
+    padding: 1.5%;
+    width: 90%;
+}
+
+.cardLabelTitle{
+    width: 30%;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.cardLabelInput{
+    width: 70%;
+}
+
+.cardLabelInput input{
+    padding: 0.8%;
+    width: 80%;
+    font-weight: 700;
+    font-size: 1rem;
+    border: 2px solid lightgrey;
+    background-color: snow;
+}
+
+.cardLabelInput input:focus{
+    outline: none;
+    border: 2.5px solid rgb(25, 168, 137);
+}
+
+.cardLabelAmountInput{
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+}
+
+.cardLabelAmountInput input{
+    padding: 0.8%;
+    width: 80%;
+    font-weight: 700;
+    font-size: 1rem;
+    border: 2px solid lightgrey;
+    background-color: snow;
+}
+
+.editAmount{
+    padding: 1% 2%;
+}
+
+.editAmount:hover{
+    color: blue;
+    cursor: pointer;
+}
+
+.cardLabelInputError{
+    width: 70%;
+}
+
+.cardLabelInputError input{
+    padding: 0.8%;
+    width: 80%;
+    font-weight: 700;
+    font-size: 1rem;
+    border: 2px solid red;
+    background-color: snow;
+}
+
+.cardLabelInputError input:focus{
+    outline: none;
+    border: 2.5px solid red;
+}
+
+.cardErrorMessage{
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: 'Times New Roman', Times, serif;
+    color: red;
+    word-spacing: 2px;
+    letter-spacing: 1px;
+}
+
+.cardBtnContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.25%;
+    margin-bottom: 1%;
+}
+
+.paymentMessage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.paymentErrorMessage{
+    color: red;
+}
+
+.paymentSuccessMessage{
+    color: green;
+}

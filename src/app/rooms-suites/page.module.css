@@ -1,0 +1,18 @@
+.imageContainer{
+    margin: 1% 0%;
+}
+
+.descriptionContainer{
+    margin: 2%;
+    padding: 0% 3%;
+    text-align: center;
+}
+
+.descriptionContainer p{
+    font-size: 1.25rem;
+    padding: 1%;
+    word-spacing: 2px;
+    letter-spacing: 1px;
+    color: rgb(117, 101, 101);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}

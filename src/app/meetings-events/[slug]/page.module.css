@@ -1,0 +1,92 @@
+.meetingEventsContainer{
+    margin: 3%;
+}
+
+.meetingEventsContainer h2{
+    margin-bottom: 2%;
+    font-size: 2rem;
+}
+
+.meetingEventsContainer h3{
+    margin-bottom: 2%;
+}
+
+.topContainer{
+    display: flex;
+    flex-direction: row;
+}
+
+.imageContainer{
+    width: 45%;
+}
+
+.meetingEventsInfoDetails{
+    width: 55%;
+}
+
+.meetingEventsShortDescription{
+    padding: 1% 0%;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.2rem;
+    font-style: italic;
+}
+
+.meetingEventsDescription{
+    padding: 1% 0%;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.3rem;
+}
+
+.meetingEventAreaInformationContainer{
+    margin: 3% 0%;
+}
+
+.meetingEventAreaInformation{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+}
+
+.meetingEventAreaInfoTitle{
+    width: 40%;
+    border:1px solid gray;
+    padding: 1%;
+}
+
+.meetingEventAreaInfoDetails{
+    width: 60%;
+    border:1px solid gray;
+    padding: 1%;
+}
+
+.middleContainer{
+    margin: 3% 0%;
+    display: flex;
+    flex-direction: row;
+}
+
+.meetingEventAreaSeatingCapacityInfoContainer{
+    width: 60%;
+}
+
+.eachSeatingArrangement{
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+}
+
+.meetingEventAreaSeatingTitle{
+    width: 50%;
+    border: 1px solid gray;
+    padding: 1%;
+}
+
+.meetingEventAreaSeatingCapacity{
+    width: 50%;
+    border:1px solid gray;
+    padding: 1%;
+}
+
+.meetingEventAreaOtherConveniencesContainer{
+    width: 40%;
+}

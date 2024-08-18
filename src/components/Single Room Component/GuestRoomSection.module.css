@@ -1,0 +1,57 @@
+.eachRoom{
+    margin: 2% 0%;
+}
+
+.adultInfo{
+    margin-right: 1.25%;
+}
+
+.childInfo{
+    margin-right: 1.25%;
+}
+
+.totalInfo{
+    margin: 0% 12%;
+}
+
+.edit{
+    text-align: left;
+    color: lightslategray;
+}
+
+.edit:hover{
+    text-align: left;
+    color: lightskyblue;
+    cursor: pointer;
+}
+
+.countNumberGuest{
+    margin: 0% 0.6%;
+    padding: 0.5%;
+    background-color: beige;
+}
+
+.countNumberGuest:hover{
+    margin: 0% 0.6%;
+    padding: 0.5%;
+    background-color: lightsalmon;
+}
+
+.countNumberGuestActive{
+    margin: 0% 0.6%;
+    padding: 0.5%;
+    background-color: salmon;
+}
+
+.guestCategoryChildren{
+    margin-left: 10%;
+}
+
+.guestCategoryTotal{
+    margin-left: 10%;
+    margin-right: 2%;
+}
+
+.button{
+    margin-left: 7%;
+}
