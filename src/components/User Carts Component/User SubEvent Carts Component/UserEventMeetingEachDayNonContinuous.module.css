@@ -1,0 +1,30 @@
+.eachDateNumber{
+    padding: 1% 0%;
+    display: flex;
+    flex-direction: row;
+}
+
+.eachDateNumberInformation{
+    float: left;
+    width: 70%;
+}
+
+.eachDateNumberInformationInsideBox{
+    float: left;
+    width: 100%;
+    padding: 0.5%;
+}
+
+.eachDateNumberInformationTitle{
+    font-weight: 600;
+}
+
+.eachSlot{
+    float: left;
+    width: 100%;
+    padding: 0.5%;
+}
+
+.eachSlotTitle{
+    font-weight: 600;
+}

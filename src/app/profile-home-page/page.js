@@ -63,17 +63,24 @@ export default function page(){
                         </Link>
                     </li>
                     <li>
-                        <Link href='/'>My Carts</Link>
+                        <Link href={`/profile-home-page/my-cart/${loginUserId}`}>
+                            My Carts
+                        </Link>
                     </li>
                     <li>
                         <Link href='/'>View Past Bookings</Link>
                     </li>
                     <li>
-                        <Link href={`/profile-home-page/view-account-balance/${loginUserId}`}>View Account Balance</Link>
+                        <Link href={`/profile-home-page/view-account-balance/${loginUserId}`}>
+                            View Account Balance
+                        </Link>
                     </li>
                     <li>
-                        <Link href={`/profile-home-page/add-money-account/${loginUserId}`}>Add Money to Account</Link>
+                        <Link href={`/profile-home-page/add-money-account/${loginUserId}`}>
+                            Add Money to Account
+                        </Link>
                     </li>
+
                     <li onClick ={logoutHandler}>Logout</li>
                 </ul>
             </div>

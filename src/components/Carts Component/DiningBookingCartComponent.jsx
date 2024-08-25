@@ -78,10 +78,6 @@ function DiningBookingCartComponent(){
                             </p>
                             <p className={styles.diningCartEachInfo}>
                                 <span className={styles.diningCartEachInfoTitle}>Table Booking Date: </span>
-                                {eachDiningInCart.noOfGuests}
-                            </p>
-                            <p className={styles.diningCartEachInfo}>
-                                <span className={styles.diningCartEachInfoTitle}>Number Of Guests: </span>
                                 {getDateTextFromFullDate(eachDiningInCart.tableBookingDate)}
                             </p>
                             <p className={styles.diningCartEachInfo}>

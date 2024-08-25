@@ -10,9 +10,10 @@ import Button from '@mui/material/Button';
 
 import styles from "./DiningBookingComponent.module.css";
 
-import { useAppDispatch } from "@/redux store/hooks.js";
+import { useAppDispatch, useAppSelector } from "@/redux store/hooks.js";
 import { addNewBookingToDiningCart } from "@/redux store/features/Booking Features/diningBookingCartSlice.js";
 import { convertDateTextToDate } from "@/functions/date.js";
+import { getDiningEachDayPrice } from "@/redux store/features/Price Features/diningEachDayPriceSlice";
 
 
 const initialDiningTableCount = {
@@ -46,7 +47,9 @@ function diningTableCounterReducer(state, action){
 
 
 function DiningBookingComponent(props){
+
     const dispatch = useAppDispatch();
+    const loginUserIdDetails = useAppSelector((reduxStore)=> reduxStore.userSlice.loginUserDetails);
 
     const [diningTableCountState, diningTableCountDispatch] = useReducer(diningTableCounterReducer, initialDiningTableCount);
     const tableCountTwoPerson = diningTableCountState.twoPersonTableCount;
@@ -54,6 +57,7 @@ function DiningBookingComponent(props){
     const tableCountSixPerson = diningTableCountState.sixPersonTableCount;
 
     useEffect(()=>{
+        dispatch(getDiningEachDayPrice());
         fetchDiningEachDayData();
     },[]);
 
@@ -87,6 +91,7 @@ function DiningBookingComponent(props){
     const [validateErrorMessgae, setValidateErrorMessgae] = useState('');
     const [showAddCartBlock, setAddCartBlock] = useState(false);
     const [addedToCart, setAddedToCart] = useState(false);
+    const [isDataSavingToCart, setIsDataSavingToCart] = useState(false);
     const [bookingDetailsForCart, setBookingDetailsForCart] = useState(null);
 
     // let priceForBooking = 0;
@@ -264,9 +269,39 @@ function DiningBookingComponent(props){
             ...diningBookingDetails,
             priceForBooking
         }
-        dispatch(addNewBookingToDiningCart(diningDetailsForCart));
-        console.log(diningDetailsForCart);
-        setAddedToCart(true);
+        setIsDataSavingToCart(true);
+        if(loginUserIdDetails == null){
+            dispatch(addNewBookingToDiningCart(diningDetailsForCart));
+            setAddedToCart(true);
+            setIsDataSavingToCart(false);
+        }
+        if(loginUserIdDetails !== null){
+            addToCartDatabaseClickHandlerFunction(diningDetailsForCart);
+        }
+    }
+
+    async function addToCartDatabaseClickHandlerFunction(diningDetailsForCart){
+        try {
+            const loginUserId = loginUserIdDetails.userId;
+            const response = await fetch(`/api/add-cart/dining/${loginUserId}`, {
+                method: 'POST',
+                body: JSON.stringify(diningDetailsForCart),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            });
+            const data = await response.json();
+            if(response.status === 200){
+                if(data.message === 'Cart Information Successfully Added To Cart'){
+                    setAddedToCart(true);
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        finally{
+            setIsDataSavingToCart(false);
+        }
     }
 
     const addCartClickHandler = useCallback(addCartClickHandlerFunction, [dispatch, bookingDetailsForCart, priceForBooking]);
@@ -380,7 +415,13 @@ function DiningBookingComponent(props){
                 }
                 {(!addedToCart && showAddCartBlock) &&
                 <div className={styles.buttonContainer}>
+                    {!isDataSavingToCart &&
                     <Button onClick={addCartClickHandler} variant="contained">Add to Cart</Button>
+                    }
+
+                    {isDataSavingToCart &&
+                    <Button variant="contained" disabled>Please Wait...</Button>
+                    }
                     <p className={styles.availableSlot}>The Selected Date and Time Slot is available.</p>
                     <p className={styles.availableSlot}>Please Pay Rs {priceForBooking} for Table Booking.</p>
                 </div>}

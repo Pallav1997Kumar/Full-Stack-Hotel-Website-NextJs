@@ -14,7 +14,6 @@ export const loginUserDetailsSlice = createSlice({
             return state.loginUserDetails;
         },
         login: function(state, action){
-            console.log(action);
             state.loginUserDetails = action.payload;
         },
         updateUserDetails: function(state, action){

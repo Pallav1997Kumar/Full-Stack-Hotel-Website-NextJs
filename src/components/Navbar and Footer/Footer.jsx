@@ -1,15 +1,32 @@
+'use client'
 import React from "react";
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook, faInstagram, faSquareXTwitter, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 import styles from "./Footer.module.css";
 import hotelBasicInfo from "@/json objects/hotelBasicInfo.js";
+import { useAppDispatch } from "@/redux store/hooks.js";
+import { updateLoginPageCalledFrom, updateLoginRedirectPage } from "@/redux store/features/Login Page Called From Features/loginPageCalledFromSlice";
 
 
 function Footer() {
+
+   const router = useRouter();
+   const dispatch = useAppDispatch();
+
+   function loginClickHandler(event){
+      event.preventDefault();
+      const loginPageCalledFrom = 'Footer';
+      const loginRedirectPage = '/profile-home-page';
+      dispatch(updateLoginPageCalledFrom(loginPageCalledFrom));
+      dispatch(updateLoginRedirectPage(loginRedirectPage));
+      router.push('/login');
+  }
+
    return(
     <div className={styles.footer}>
         <div className={styles.footerLeft}>
@@ -85,7 +102,7 @@ function Footer() {
                   <Link href="/contactUs">Contact Us</Link>
                </li>
                <li>
-                  <Link href="/login">Login</Link>
+                  <Link onClick={loginClickHandler} href="/login">Login</Link>
                </li>
                <li>
                   <Link href="/register">Register</Link>

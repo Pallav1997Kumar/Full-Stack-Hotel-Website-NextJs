@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
@@ -7,13 +7,16 @@ import 'react-calendar/dist/Calendar.css';
 
 import styles from "./EachDateBookingComponent.module.css";
 
-import { getDateText, convertDateTextToDate } from "@/functions/date.js";
-import { getCommaAndSeperatedArray } from "@/functions/array.js";
+import { convertDateTextToDate } from "@/functions/date.js";
 import EventMeetingBookingsDetailsConfirmation from '@/components/Events Meeting Component/Common Components/EventMeetingBookingsDetailsConfirmation.jsx';
 import PriceDetailsEachDate from "./PriceDetailsEachDate.jsx";
+import { useAppSelector } from "@/redux store/hooks.js";
 
 
 function EachDateBookingComponent(props){
+
+    const eachDayFoodPrice = useAppSelector((reduxStore) => reduxStore.eventMeetingEachDayFoodPriceSliceName.eachDayFoodPrice);
+
     const meetingEventsInfoTitle = props.meetingEventsInfoTitle;
     const meetingEventsSeatingInfo = props.meetingEventsSeatingInfo;
     const dateNumber = props.dateNumber;
@@ -27,7 +30,6 @@ function EachDateBookingComponent(props){
     const [maximumGuestAttending, setMaximumGuestAttending] = useState(1);
     const [wantFoodServices, setWantFoodServices] = useState('No');
 
-    const [meetingEventDateFoodDetails, setMeetingEventDateFoodDetails] = useState(null);
     const [selectedMeals, setSelectedMeals] = useState({
         midNight: [],
         morning: [],
@@ -37,16 +39,15 @@ function EachDateBookingComponent(props){
     });
     const [totalPriceEventMeetingRoom, setTotalPriceEventMeetingRoom] = useState(0);
 
-    useEffect(()=>{
-        fetchDateFoodDetails();
-    },[meetingEventBookingDate]);
-
     const [checkAvailabiltyBlockDisplay, setCheckAvailabiltyBlockDisplay] = useState(true);
     const [incorrectInput, setIncorrectInput] = useState(false);
     const [incorrectInputMessage, setIncorrectInputMessage] = useState('');
     const [isRoomDetailsEditable, setRoomDetailsEditable] = useState(true);
     const [showWantEditButton, setShowWantEditButton] = useState(true);
+    const [showContinueButton, setShowContinueButton] = useState(true);
     const [bookingDetailsForCart, setBookingDetailsForCart] = useState(null);
+
+    const meetingEventDateFoodDetails = fetchDateFoodDetails(eachDayFoodPrice);
 
     const isRoomAvailable = true;
 
@@ -78,20 +79,12 @@ function EachDateBookingComponent(props){
     if(wantFoodServices == 'Yes' && meetingEventBookingDate != null && meetingEventBookingTime.length > 0){
         showFoodOptions = true;
     }
-    
-    let midNightFoodArray = [];
-    let morningFoodArray = [];
-    let afternoonFoodArray = [];
-    let eveningFoodArray = [];
-    let nightFoodArray = [];
 
-    if(meetingEventDateFoodDetails != null){
-        midNightFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Mid Night');
-        morningFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Morning');
-        afternoonFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Afternoon');
-        eveningFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Evening');
-        nightFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Night');
-    }
+    const midNightFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Mid Night');
+    const morningFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Morning');
+    const afternoonFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Afternoon');
+    const eveningFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Evening');
+    const nightFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Night');
 
     let maximumGuestAllowedForSeatingArrangement = 0;
     if(meetingEventSeatingArrangement != ''){
@@ -102,20 +95,14 @@ function EachDateBookingComponent(props){
     }
 
 
-    async function fetchDateFoodDetails(){
-        try {
-            const response = await fetch('/api/hotel-booking-information/events-meeting-room-information/each-day-food-price/');
-            const data = await response.json();
-            const allDayFoodDetails = data.meetingEventFoodPriceWithDate;
-            const bookingDate = convertDateTextToDate(meetingEventBookingDate).toString();
-            const bookingDateFoodDetails = allDayFoodDetails.find(function(eachDate){
-                const eachDateString = eachDate.date.split("T")[0];
-                return bookingDate == eachDateString;
-            });
-            setMeetingEventDateFoodDetails(bookingDateFoodDetails.eventTimingDetails);
-        } catch (error) {
-            console.log(error);
-        }
+    function fetchDateFoodDetails(eachDayFoodPrice){
+        const allDayFoodDetails = eachDayFoodPrice.meetingEventFoodPriceWithDate;
+        const bookingDate = convertDateTextToDate(meetingEventBookingDate).toString();
+        const bookingDateFoodDetails = allDayFoodDetails.find(function(eachDate){
+            const eachDateString = eachDate.date.split("T")[0];
+            return bookingDate == eachDateString;
+        });
+        return (bookingDateFoodDetails.eventTimingDetails);
     }
     
     function getFoodListOfCurrentMeal(foodDetailsOfDate, foodCategory){
@@ -278,6 +265,7 @@ function EachDateBookingComponent(props){
             totalPriceEventMeetingRoom
         }
         setShowWantEditButton(false);
+        setShowContinueButton(false);
         console.log(currentDateBookingDetailsWithPrice);
         props.onGetRoomBookingInfo(currentDateBookingDetailsWithPrice);;
     }
@@ -601,7 +589,9 @@ function EachDateBookingComponent(props){
                 <Button variant="contained" onClick={editDetailsClickHandler}>Want to Edit details</Button>
                 }
                 <br />
+                {showContinueButton &&
                 <Button variant="contained" onClick={continueClickHandler}>Continue</Button>
+                }
             </div>
             }
 

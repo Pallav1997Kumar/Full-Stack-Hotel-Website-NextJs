@@ -14,8 +14,9 @@ import BookingPriceDetails from "./BookingPriceDetails.jsx";
 import { getOnlyDate, getOnlyMonth, getOnlyYear, getOnlyDay, nextDay } from "@/functions/date.js";
 import { convertDateTextToDate } from "@/functions/date.js";
 import { getAllElementsInArrayFormatFromStartToEndOfNumber } from "@/functions/array.js";
-import { useAppDispatch } from "@/redux store/hooks.js";
+import { useAppDispatch, useAppSelector } from "@/redux store/hooks.js";
 import { addNewBookingToRoomCart } from "@/redux store/features/Booking Features/roomBookingCartSlice.js";
+import { getRoomsSuitesEachDayPrice } from "@/redux store/features/Price Features/roomsSuitesEachDayPriceSlice";
 
 
 const modalBoxStyle = {
@@ -58,9 +59,12 @@ function roomCounterReducer(state, action){
 }
 
 export default function BookingRoomContainer(props) {
+
     const dispatch = useAppDispatch();
+    const loginUserIdDetails = useAppSelector((reduxStore)=> reduxStore.userSlice.loginUserDetails);
 
     useEffect(()=>{
+        dispatch(getRoomsSuitesEachDayPrice());
         fetchRoomsSuitesEachDayData();
     },[]);
 
@@ -80,6 +84,7 @@ export default function BookingRoomContainer(props) {
     const [showAddCartButton, setShowAddCartButton] = useState(false);
     const [showError, setShowError] = useState('');
     const [roomAddedToCart, setRoomAddedToCart] = useState(false);
+    const [isDataSavingToCart, setIsDataSavingToCart] = useState(false);
     const [roomsDetailsAddedToCart, setRoomsDetailsAddedToCart] = useState();
     
     // let totalGuestCount = 0;
@@ -264,9 +269,40 @@ export default function BookingRoomContainer(props) {
             ...roomsBookingDetails, 
             totalPriceOfAllRooms
         }
+        setIsDataSavingToCart(true);
         console.log(roomsDetailsForCart);
-        dispatch(addNewBookingToRoomCart(roomsDetailsForCart));
-        setRoomAddedToCart(true);
+        if(loginUserIdDetails == null){
+            dispatch(addNewBookingToRoomCart(roomsDetailsForCart));
+            setRoomAddedToCart(true);
+            setIsDataSavingToCart(false);
+        }
+        if(loginUserIdDetails !== null){
+            addToCartDatabaseHandlerFunction(roomsDetailsForCart);
+        }  
+    }
+
+    async function addToCartDatabaseHandlerFunction(roomsDetailsForCart){  
+        try {
+            const loginUserId = loginUserIdDetails.userId;
+            const response = await fetch(`/api/add-cart/rooms-suites/${loginUserId}`, {
+                method: 'POST',
+                body: JSON.stringify(roomsDetailsForCart),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            });
+            const data = await response.json();
+            if(response.status === 200){
+                if(data.message === 'Cart Information Successfully Added To Cart'){
+                    setRoomAddedToCart(true);
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        finally{
+            setIsDataSavingToCart(false);
+        }
     }
 
     const addCartHandler = useCallback(addCartHandlerFunction, [dispatch, roomsDetailsAddedToCart, totalPriceOfAllRooms]);
@@ -384,9 +420,15 @@ export default function BookingRoomContainer(props) {
                         roomDetailsForCart={roomsDetailsAddedToCart} 
                         setTotalPriceOfRoom={getTotalPriceOfRoom} 
                     />
+                    {!isDataSavingToCart &&
                     <Button onClick={addCartHandler} variant="contained">
                         Add to Cart 
                     </Button>
+                    }
+
+                    {isDataSavingToCart &&
+                    <Button variant="contained" disabled>Please Wait</Button>
+                    }
                 </div>
                 }
                 {roomAddedToCart && 

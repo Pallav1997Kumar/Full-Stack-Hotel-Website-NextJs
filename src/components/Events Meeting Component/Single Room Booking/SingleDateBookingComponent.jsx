@@ -8,13 +8,16 @@ import 'react-calendar/dist/Calendar.css';
 import styles from "./SingleDateBookingComponent.module.css";
 
 import { convertDateTextToDate } from "@/functions/date.js";
-import { useAppDispatch } from "@/redux store/hooks.js";
+import { useAppDispatch, useAppSelector } from "@/redux store/hooks.js";
 import { addNewBookingToEventMeetingCart } from "@/redux store/features/Booking Features/eventMeetingRoomBookingCartSlice.js";
 import PriceDetailsSingleDate from './PriceDetailsSingleDate.jsx';
 import EventMeetingBookingsDetailsConfirmation from '@/components/Events Meeting Component/Common Components/EventMeetingBookingsDetailsConfirmation.jsx';
 
 
 function SingleDateBookingComponent(props) {
+
+    const eachDayFoodPrice = useAppSelector((reduxStore) => reduxStore.eventMeetingEachDayFoodPriceSliceName.eachDayFoodPrice);
+    const loginUserIdDetails = useAppSelector((reduxStore)=> reduxStore.userSlice.loginUserDetails);
 
     const meetingEventsInfoTitle = props.meetingEventsInfoTitle;
     const meetingEventsSeatingInfo = props.meetingEventsSeatingInfo;
@@ -30,7 +33,6 @@ function SingleDateBookingComponent(props) {
     const [maximumGuestAttending, setMaximumGuestAttending] = useState(1);
     const [wantFoodServices, setWantFoodServices] = useState('No');
 
-    const [meetingEventDateFoodDetails, setMeetingEventDateFoodDetails] = useState(null);
     const [selectedMeals, setSelectedMeals] = useState({
         midNight: [],
         morning: [],
@@ -40,17 +42,15 @@ function SingleDateBookingComponent(props) {
     });
     const [totalPriceEventMeetingRoom, setTotalPriceEventMeetingRoom] = useState(0);
 
-
-    useEffect(()=>{
-        fetchDateFoodDetails();
-    },[meetingEventBookingDate]);
-
     const [checkAvailabiltyBlockDisplay, setCheckAvailabiltyBlockDisplay] = useState(true);
     const [incorrectInput, setIncorrectInput] = useState(false);
     const [incorrectInputMessage, setIncorrectInputMessage] = useState('');
     const [isRoomDetailsEditable, setRoomDetailsEditable] = useState(true);
+    const [isDataSavingToCart, setIsDataSavingToCart] = useState(false);
     const [showSuccessfullyCartAddedBlock, setShowSuccessfullyCartAddedBlock] = useState(false);
     const [bookingDetailsForCart, setBookingDetailsForCart] = useState(null);
+
+    const meetingEventDateFoodDetails = fetchDateFoodDetails(eachDayFoodPrice);
 
 
     const isRoomAvailable = true;
@@ -84,19 +84,12 @@ function SingleDateBookingComponent(props) {
         showFoodOptions = true;
     }
 
-    let midNightFoodArray = [];
-    let morningFoodArray = [];
-    let afternoonFoodArray = [];
-    let eveningFoodArray = [];
-    let nightFoodArray = [];
+    const midNightFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Mid Night');
+    const morningFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Morning');
+    const afternoonFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Afternoon');
+    const eveningFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Evening');
+    const nightFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Night');
 
-    if(meetingEventDateFoodDetails != null){
-        midNightFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Mid Night');
-        morningFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Morning');
-        afternoonFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Afternoon');
-        eveningFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Evening');
-        nightFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Night');
-    }
 
     let maximumGuestAllowedForSeatingArrangement = 0;
     if(meetingEventSeatingArrangement != ''){
@@ -107,20 +100,16 @@ function SingleDateBookingComponent(props) {
     }
 
 
-    async function fetchDateFoodDetails(){
-        try {
-            const response = await fetch('/api/hotel-booking-information/events-meeting-room-information/each-day-food-price/');
-            const data = await response.json();
-            const allDayFoodDetails = data.meetingEventFoodPriceWithDate;
-            const bookingDate = convertDateTextToDate(meetingEventBookingDate).toString();
-            const bookingDateFoodDetails = allDayFoodDetails.find(function(eachDate){
-                const eachDateString = eachDate.date.split("T")[0];
-                return bookingDate == eachDateString;
-            });
-            setMeetingEventDateFoodDetails(bookingDateFoodDetails.eventTimingDetails);
-        } catch (error) {
-            console.log(error);
-        }
+    function fetchDateFoodDetails(eachDayFoodPrice){
+        const allDayFoodDetails = eachDayFoodPrice.meetingEventFoodPriceWithDate;
+        const bookingDate = convertDateTextToDate(meetingEventBookingDate).toString();
+        const bookingDateFoodDetails = allDayFoodDetails.find(function(eachDate){
+            const eachDateString = eachDate.date.split("T")[0];
+            return bookingDate == eachDateString;
+        });
+
+        return bookingDateFoodDetails.eventTimingDetails;
+        
     }
 
     function getFoodListOfCurrentMeal(foodDetailsOfDate, foodCategory){
@@ -283,10 +272,42 @@ function SingleDateBookingComponent(props) {
             ...eventBookingDetails,
             totalPriceEventMeetingRoom
         }
+        setIsDataSavingToCart(true);
         console.log(bookingDetailsWithPrice);
-        dispatch(addNewBookingToEventMeetingCart(bookingDetailsWithPrice));
-        setShowSuccessfullyCartAddedBlock(true);
+        if(loginUserIdDetails === null){
+            dispatch(addNewBookingToEventMeetingCart(bookingDetailsWithPrice));
+            setShowSuccessfullyCartAddedBlock(true);
+            setIsDataSavingToCart(false);
+        }
+        if(loginUserIdDetails !== null){
+            addToCartDatabseClickHandler(bookingDetailsWithPrice);
+        }
     }
+
+    async function addToCartDatabseClickHandler(bookingDetailsWithPrice){
+        try {
+            const loginUserId = loginUserIdDetails.userId;
+            const response = await fetch(`/api/add-cart/meeting-events/single-date/${loginUserId}`, {
+                method: 'POST',
+                body: JSON.stringify(bookingDetailsWithPrice),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            });
+            const data = await response.json();
+            if(response.status === 200){
+                if(data.message === 'Cart Information Successfully Added To Cart'){
+                    setShowSuccessfullyCartAddedBlock(true);
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        finally{
+            setIsDataSavingToCart(false);
+        }
+    }
+
 
     return (
         <div className={styles.singleDateBookContainer}>
@@ -358,13 +379,6 @@ function SingleDateBookingComponent(props) {
                     />
                     <label className={styles.eachLabelNaming} htmlFor="mid-night"> Mid Night (12AM-4AM) </label>
                 </label>
-                }
-
-                {isRoomDetailsEditable && 
-                <p className={styles.noteLine1}>Note: Date for "Mid Night (12AM-4AM)" will be on next day of Date you select while Booking.</p>
-                }
-                {isRoomDetailsEditable && 
-                <p className={styles.noteLine2}>For eg. you select 20th April 2024 and time is 12AM to 4AM. Then booking is for 21st April 2024 for time 12AM to 4AM.</p>
                 }
 
                 {isRoomDetailsEditable &&
@@ -613,7 +627,13 @@ function SingleDateBookingComponent(props) {
                     <Button variant="contained" onClick={editDetailsClickHandler}>Want to Edit details</Button>
                     <br />
                     
+                    {!isDataSavingToCart &&
                     <Button variant="contained" onClick={addCartClickHandler}>Add to Cart</Button>
+                    }
+
+                    {isDataSavingToCart &&
+                    <Button variant="contained" disabled>Please Wait...</Button>
+                    }
                 </div>
                 } 
                 

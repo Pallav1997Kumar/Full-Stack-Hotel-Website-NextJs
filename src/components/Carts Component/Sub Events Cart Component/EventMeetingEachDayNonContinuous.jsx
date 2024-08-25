@@ -1,3 +1,4 @@
+'use client'
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -7,6 +8,18 @@ import styles from './EventMeetingEachDayNonContinuous.module.css';
 
 import { getDateTextFromFullDate } from "@/functions/date.js";
 import { getCommaAndSeperatedArray, getSubarraysOfTwoElements } from "@/functions/array.js";
+
+
+const boxStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '45%',
+    width: 1000,
+    bgcolor: 'background.paper',
+    transform: 'translate(-50%, -50%)',
+    border: '2px solid #000',
+    p: 2.5
+}
 
 
 function EventMeetingEachDayNonContinuous(props){
@@ -47,17 +60,6 @@ function EventMeetingEachDayNonContinuous(props){
     }
 
     const [viewDateDetails, setViewDateDetails] = useState(false);
-
-    const boxStyle = {
-        position: 'absolute',
-        top: '50%',
-        left: '45%',
-        width: 1000,
-        bgcolor: 'background.paper',
-        transform: 'translate(-50%, -50%)',
-        border: '2px solid #000',
-        p: 2.5
-    }
 
 
     return (

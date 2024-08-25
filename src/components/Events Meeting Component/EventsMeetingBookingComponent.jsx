@@ -1,10 +1,15 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+//import { useDispatch } from 'react-redux';
 
 import styles from "./EventsMeetingBookingComponent.module.css";
 import SingleDateBookingComponent from "./Single Room Booking/SingleDateBookingComponent.jsx";
 import MultipleDateContinuousBookingComponent from "./Multiple Date Continuous Booking/MultipleDateContinuousBookingComponent.jsx";
 import MultipleDateNonContinuousBookingComponent from "./Multiple Date Noncontinuous Booking/MultipleDateNonContinuousBookingComponent.jsx";
+import { useAppDispatch } from "@/redux store/hooks.js";
+import { getEventsFoodPrice } from "@/redux store/features/Price Features/Event Meeting Features/eachDayFoodPriceSlice.js";
+import { getEventsEachDayPrice } from "@/redux store/features/Price Features/Event Meeting Features/eachDayInformationSlice.js";
+import { getEventsSeatingArrangementPrice } from "@/redux store/features/Price Features/Event Meeting Features/eachDaySeatingArrangementSlice.js";
 
 
 function EventsMeetingBookingComponent(props) {
@@ -12,6 +17,14 @@ function EventsMeetingBookingComponent(props) {
     const meetingEventsSeatingInfo = props.meetingEventsSeatingInfo;
 
     const [roomBookingDateType, setRoomBookingDateType] = useState("");
+
+    const dispatch = useAppDispatch();
+
+    useEffect(()=>{
+        dispatch(getEventsFoodPrice());
+        dispatch(getEventsEachDayPrice());
+        dispatch(getEventsSeatingArrangementPrice());
+    }, []);
 
     function roomBookingDateTypeChangeHandler(event) {
         setRoomBookingDateType(event.target.value);

@@ -10,11 +10,14 @@ import styles from "./MultipleDateNonContinuousBookingComponent.module.css";
 import EachDateBookingComponent from "./EachDateBookingComponent.jsx";
 import { getOnlyDate, getOnlyMonth, getOnlyYear, convertDateTextToDate } from "@/functions/date.js";
 import { isAllElementsUniqueInArray } from "@/functions/array.js";
-import { useAppDispatch } from "@/redux store/hooks.js";
+import { useAppDispatch, useAppSelector } from "@/redux store/hooks.js";
 import { addNewBookingToEventMeetingCart } from "@/redux store/features/Booking Features/eventMeetingRoomBookingCartSlice.js";
 
 
 function MultipleDateNonContinuousBookingComponent(props) {
+
+    const loginUserIdDetails = useAppSelector((reduxStore)=> reduxStore.userSlice.loginUserDetails);
+
     const meetingEventsInfoTitle = props.meetingEventsInfoTitle;
     const meetingEventsSeatingInfo = props.meetingEventsSeatingInfo;
     const roomBookingDateType = props.roomBookingDateType;
@@ -27,6 +30,7 @@ function MultipleDateNonContinuousBookingComponent(props) {
     const [showValidateBlock, setShowValidateBlock] = useState(true);
     const [showDateContainer, setShowDateContainer] = useState(false);
     const [validationError, setValidationError] = useState('');
+    const [isDataSavingToCart, setIsDataSavingToCart] = useState(false);
     const [showSuccessfullyCartAddedBlock, setShowSuccessfullyCartAddedBlock] = useState(false);
 
     const isRoomAvailable = true;
@@ -96,6 +100,7 @@ function MultipleDateNonContinuousBookingComponent(props) {
         allDatesBookingInformation.forEach(function(eachDate){
             totalPriceOfAllDates = totalPriceOfAllDates + eachDate.totalPriceEventMeetingRoom;
         });
+        setIsDataSavingToCart(true);
         const bookingDetails = {
             eventCartId: Date.now(),
             roomBookingDateType,
@@ -104,8 +109,38 @@ function MultipleDateNonContinuousBookingComponent(props) {
             allDatesBookingInformation
         }
         console.log(bookingDetails);
-        dispatch(addNewBookingToEventMeetingCart(bookingDetails));
-        setShowSuccessfullyCartAddedBlock(true);
+        if(loginUserIdDetails === null){
+            dispatch(addNewBookingToEventMeetingCart(bookingDetails));
+            setShowSuccessfullyCartAddedBlock(true);
+            setIsDataSavingToCart(false);
+        }
+        if(loginUserIdDetails !== null){
+            addToDatabaseCartHandler(bookingDetails);
+        }
+    }
+
+    async function addToDatabaseCartHandler(bookingDetails) {
+        try {
+            const loginUserId = loginUserIdDetails.userId;
+            const response = await fetch(`/api/add-cart/meeting-events/multiple-dates-non-continous/${loginUserId}`, {
+                method: 'POST',
+                body: JSON.stringify(bookingDetails),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            });
+            const data = await response.json();
+            if(response.status === 200){
+                if(data.message === 'Cart Information Successfully Added To Cart'){
+                    setShowSuccessfullyCartAddedBlock(true);
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        finally{
+            setIsDataSavingToCart(false);
+        }
     }
 
 
@@ -157,7 +192,14 @@ function MultipleDateNonContinuousBookingComponent(props) {
                     <div className={styles.buttonContainer}>
                         <p className={styles.roomAvailableMessage}>The Meeting and Event Room is available in choosen Date and Time Slot.</p>
                         <br />
+                        
+                        {!isDataSavingToCart &&
                         <Button onClick={addCartHandler} variant="contained">Add to Cart</Button>
+                        }
+
+                        {isDataSavingToCart &&
+                        <Button variant="contained" disabled>Please Wait</Button>
+                        }
                     </div>
                 }
                 {(!showValidateBlock && !isRoomAvailable) &&

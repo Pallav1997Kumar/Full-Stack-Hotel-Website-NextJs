@@ -1,0 +1,33 @@
+.eachEventMeetingCartInformation{
+    width: 60%;
+    padding: 0%;
+}
+
+.eachEventMeetingTitle{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1%;
+}
+
+.eventMeetingCartEachInfo{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-bottom: 0.7%;
+    text-transform: capitalize;
+}
+
+.eventMeetingCartEachInfoTitle{
+    font-weight: 600;
+}
+
+.buttonContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-right: 3%;
+}
+
+.viewFoodItems{
+    margin-left: 2%;
+}

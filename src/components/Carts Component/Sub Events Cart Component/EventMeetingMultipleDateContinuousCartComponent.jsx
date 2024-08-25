@@ -13,6 +13,18 @@ import { useAppDispatch } from "@/redux store/hooks.js";
 import { deleteParticularBookingFromEventMeetingCart } from "@/redux store/features/Booking Features/eventMeetingRoomBookingCartSlice.js";
 
 
+const boxStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    width: 1000,
+    bgcolor: 'background.paper',
+    transform: 'translate(-50%, -50%)',
+    border: '2px solid #000',
+    p: 2.5
+}
+
+
 function EventMeetingMultipleDateContinuousCartComponent(props){
 
     const eachEventMeetingInCart = props.eachEventMeetingInCart;
@@ -21,17 +33,6 @@ function EventMeetingMultipleDateContinuousCartComponent(props){
 
     function removeCartHandler(eventCartId){
         dispatch(deleteParticularBookingFromEventMeetingCart(eventCartId));
-    }
-
-    const boxStyle = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        width: 1000,
-        bgcolor: 'background.paper',
-        transform: 'translate(-50%, -50%)',
-        border: '2px solid #000',
-        p: 2.5
     }
 
 

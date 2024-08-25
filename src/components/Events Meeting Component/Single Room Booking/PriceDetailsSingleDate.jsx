@@ -9,20 +9,18 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 import { convertDateTextToDate, getDateText } from "@/functions/date.js";
+import { useAppSelector } from "@/redux store/hooks.js";
 import EquipmentsPriceBreakup from '@/components/Events Meeting Component/Common Components/EquipmentsPriceBreakup.jsx';
 import MealsPriceBreakup from '@/components/Events Meeting Component/Common Components/MealsPriceBreakup.jsx';
 
 
 function PriceDetailsSingleDate(props) {
 
-    useEffect(()=>{
-        fetchCurrentDateBasicPrice();
-        fetchCurrentRoomSeatingArrangementPrice();
-        fetchCurrentDayFoodServicePrice();
-    }, []);
+    const eachDayFoodPrice = useAppSelector((reduxStore) => reduxStore.eventMeetingEachDayFoodPriceSliceName.eachDayFoodPrice);
+    const eachDayInfomation = useAppSelector((reduxStore) => reduxStore.eventMeetingEachDayInformationSliceName.eachDayInfomation);
+    const eachDaySeatingArrangement = useAppSelector((reduxStore) => reduxStore.eventMeetingEachDaySeatingArrangementSliceName.eachDaySeatingArrangement);
 
     const bookingDetails = props.bookingDetailsForCart;
-    //console.log(bookingDetails);
 
     const meetingEventAreaTitle = bookingDetails.meetingEventsInfoTitle;
     const meetingEventBookingSlots = bookingDetails.meetingEventBookingTime;
@@ -36,59 +34,42 @@ function PriceDetailsSingleDate(props) {
     const isNightSlotSelected = meetingEventBookingSlots.includes('Night');
     const isMidNightSlotSelected = meetingEventBookingSlots.includes('Mid Night');
 
-    let morningSlotBasicPrice = 0;
-    let afternoonSlotBasicPrice = 0;
-    let eveningSlotBasicPrice = 0;
-    let nightSlotBasicPrice = 0;
-    let midNightSlotBasicPrice = 0;
+    const foodServicePriceInformation = fetchCurrentDayFoodServicePrice(eachDayFoodPrice);
+    const basicPriceDetailsInformation = fetchCurrentDateBasicPrice(eachDayInfomation);
+    const seatingArrangementPriceInformation = fetchCurrentRoomSeatingArrangementPrice(eachDaySeatingArrangement);
 
-    const [basicPriceDetailsInformation, setBasicPriceDetailsInformation] = useState(null);
-    const [seatingArrangementPriceInformation, setSeatingArrangementPriceInformation] = useState(null);
-    const [foodServicePriceInformation, setFoodServicePriceInformation] = useState(null);
-    //console.log(basicPriceDetailsInformation);
-    //console.log(seatingArrangementPriceInformation);
-    //console.log(foodServicePriceInformation);
+    const bookingDateEventArray = basicPriceDetailsInformation.eventTimingDetails;
+    const morningSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, 'Morning');
+    const afternoonSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, 'Afternoon');
+    const eveningSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, 'Evening');
+    const nightSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, 'Night');
+    const midNightSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, 'Mid Night');
 
-    if(basicPriceDetailsInformation != null){
-        const bookingDateEventArray = basicPriceDetailsInformation.eventTimingDetails;
-        morningSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, 'Morning');
-        afternoonSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, 'Afternoon');
-        eveningSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, 'Evening');
-        nightSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, 'Night');
-        midNightSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, 'Mid Night');
+
+    const priceList = seatingArrangementPriceInformation.priceForEquipments;
+    const priceOfEachSeat = priceList.priceForEachSeat;
+    const totalPriceOfAllSeats = maximumGuestAttending * priceOfEachSeat;
+    const finalPriceList = { ...priceList, totalPriceOfAllSeats };
+    if(Object.hasOwn(priceList, 'priceForEachCircularTable') && Object.hasOwn(priceList, 'noOfGuestInEachCircularTable')){
+        const noOfGuestInEachCircularTable = priceList.noOfGuestInEachCircularTable;
+        const priceForEachCircularTable = priceList.priceForEachCircularTable;
+        const numberOfCircularTableRequired = Math.ceil(maximumGuestAttending/noOfGuestInEachCircularTable);
+        const totalPriceOfAllCircularTables = priceForEachCircularTable * numberOfCircularTableRequired;
+        finalPriceList.totalPriceOfAllCircularTables = totalPriceOfAllCircularTables;
+        finalPriceList.numberOfCircularTableRequired = numberOfCircularTableRequired;
     }
-    //console.log(morningSlotBasicPrice, afternoonSlotBasicPrice, eveningSlotBasicPrice, nightSlotBasicPrice, midNightSlotBasicPrice);
-
-    let seatingArrangementPriceList = [];
-    if(seatingArrangementPriceInformation != null){
-        const priceList = seatingArrangementPriceInformation.priceForEquipments;
-        const finalPriceList = priceList;
-        const priceOfEachSeat = priceList.priceForEachSeat;
-        const totalPriceOfAllSeats = maximumGuestAttending * priceOfEachSeat;
-        finalPriceList.totalPriceOfAllSeats = totalPriceOfAllSeats;
-        if(Object.hasOwn(priceList, 'priceForEachCircularTable') && Object.hasOwn(priceList, 'noOfGuestInEachCircularTable')){
-            const noOfGuestInEachCircularTable = priceList.noOfGuestInEachCircularTable;
-            const priceForEachCircularTable = priceList.priceForEachCircularTable;
-            const numberOfCircularTableRequired = Math.ceil(maximumGuestAttending/noOfGuestInEachCircularTable);
-            const totalPriceOfAllCircularTables = priceForEachCircularTable * numberOfCircularTableRequired;
-            finalPriceList.totalPriceOfAllCircularTables = totalPriceOfAllCircularTables;
-            finalPriceList.numberOfCircularTableRequired = numberOfCircularTableRequired;
-        }
-        //console.log(finalPriceList);
         
-        const priceListNameArray = Object.keys(finalPriceList);
-        const priceListArrayObj = priceListNameArray.map(function(eachName){
-            const eachPrice = {};
-            let propertyName =  eachName;
-            propertyName = propertyName.replace(/([A-Z])/g, ' $1');
-            propertyName = propertyName.charAt(0).toUpperCase() + propertyName.substr(1);
-            eachPrice.priceNameProperty = propertyName;
-            eachPrice.priceOfProperty = finalPriceList[eachName];
-            return eachPrice;
-        });
-        seatingArrangementPriceList = priceListArrayObj;
-    }
-    //console.log(seatingArrangementPriceList);
+    const priceListNameArray = Object.keys(finalPriceList);
+    const priceListArrayObj = priceListNameArray.map(function(eachName){
+        const eachPrice = {};
+        let propertyName =  eachName;
+        propertyName = propertyName.replace(/([A-Z])/g, ' $1');
+        propertyName = propertyName.charAt(0).toUpperCase() + propertyName.substr(1);
+        eachPrice.priceNameProperty = propertyName;
+        eachPrice.priceOfProperty = finalPriceList[eachName];
+        return eachPrice;
+    });
+    const seatingArrangementPriceList = priceListArrayObj;
 
     let totalPriceOfRoomAppliance = 0;
     seatingArrangementPriceList.forEach(function(eachPriceList) {
@@ -117,48 +98,40 @@ function PriceDetailsSingleDate(props) {
     let selectedNightMeals;
     let selectedMidNightMeals;
 
-    let allMorningMealsInformation = null;
-    let allAfternoonMealsInformation = null;
-    let allEveningMealsInformation = null;
-    let allNightMealsInformation = null;
-    let allMidNightMealsInformation = null;
+    const allMorningMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, 'Morning');
+    const allAfternoonMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, 'Afternoon');
+    const allEveningMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, 'Evening');
+    const allNightMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, 'Night');
+    const allMidNightMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, 'Mid Night');
 
-    if(foodServicePriceInformation != null){
-        allMorningMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, 'Morning');
-        allAfternoonMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, 'Afternoon');
-        allEveningMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, 'Evening');
-        allNightMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, 'Night');
-        allMidNightMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, 'Mid Night');
-
-        if(bookingDetails.wantFoodServices == 'Yes' && Object.hasOwn(bookingDetails, 'selectedMealsOnBookingDate')){
-            const mealsBookingDetails = bookingDetails.selectedMealsOnBookingDate;
-            if(mealsBookingDetails.morning.length > 0){
-                selectedMorningMeals = mealsBookingDetails.morning;
-                morningSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, 'Morning', selectedMorningMeals);
-                morningSlotTotalFoodPrice = morningSlotTotalFoodPricePerGuest * maximumGuestAttending;
-            }
-            if(mealsBookingDetails.afternoon.length > 0){
-                selectedAfternoonMeals = mealsBookingDetails.afternoon;
-                afternoonSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, 'Afternoon', selectedAfternoonMeals);
-                afternoonSlotTotalFoodPrice = afternoonSlotTotalFoodPricePerGuest * maximumGuestAttending;
-            }
-            if(mealsBookingDetails.evening.length > 0){
-                selectedEveningMeals = mealsBookingDetails.evening;
-                eveningSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, 'Evening', selectedEveningMeals);
-                eveningSlotTotalFoodPrice = eveningSlotTotalFoodPricePerGuest * maximumGuestAttending;
-            }
-            if(mealsBookingDetails.night.length > 0){
-                selectedNightMeals = mealsBookingDetails.night;
-                nightSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, 'Night', selectedNightMeals);
-                nightSlotTotalFoodPrice = nightSlotTotalFoodPricePerGuest * maximumGuestAttending;
-            }
-            if(mealsBookingDetails.midNight.length > 0){
-                selectedMidNightMeals = mealsBookingDetails.midNight;
-                midNightSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, 'Mid Night', selectedMidNightMeals);
-                midNightSlotTotalFoodPrice = midNightSlotTotalFoodPricePerGuest * maximumGuestAttending;
-            }
+    if(bookingDetails.wantFoodServices == 'Yes' && Object.hasOwn(bookingDetails, 'selectedMealsOnBookingDate')){
+        const mealsBookingDetails = bookingDetails.selectedMealsOnBookingDate;
+        if(mealsBookingDetails.morning.length > 0){
+            selectedMorningMeals = mealsBookingDetails.morning;
+            morningSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, 'Morning', selectedMorningMeals);
+            morningSlotTotalFoodPrice = morningSlotTotalFoodPricePerGuest * maximumGuestAttending;
         }
-    }  
+        if(mealsBookingDetails.afternoon.length > 0){
+            selectedAfternoonMeals = mealsBookingDetails.afternoon;
+            afternoonSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, 'Afternoon', selectedAfternoonMeals);
+            afternoonSlotTotalFoodPrice = afternoonSlotTotalFoodPricePerGuest * maximumGuestAttending;
+        }
+        if(mealsBookingDetails.evening.length > 0){
+            selectedEveningMeals = mealsBookingDetails.evening;
+            eveningSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, 'Evening', selectedEveningMeals);
+            eveningSlotTotalFoodPrice = eveningSlotTotalFoodPricePerGuest * maximumGuestAttending;
+        }
+        if(mealsBookingDetails.night.length > 0){
+            selectedNightMeals = mealsBookingDetails.night;
+            nightSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, 'Night', selectedNightMeals);
+            nightSlotTotalFoodPrice = nightSlotTotalFoodPricePerGuest * maximumGuestAttending;
+        }
+        if(mealsBookingDetails.midNight.length > 0){
+            selectedMidNightMeals = mealsBookingDetails.midNight;
+            midNightSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, 'Mid Night', selectedMidNightMeals);
+            midNightSlotTotalFoodPrice = midNightSlotTotalFoodPricePerGuest * maximumGuestAttending;
+        }
+    } 
     
     let morningSlotTotalPrice = 0;
     let afternoonSlotTotalPrice = 0;
@@ -187,60 +160,40 @@ function PriceDetailsSingleDate(props) {
     
 
 
-    async function fetchCurrentDateBasicPrice() {
-        try{
-            const response = await fetch('/api/hotel-booking-information/events-meeting-room-information/each-day-information/');
-            const data = await response.json();
-            const allRoomBasicPriceData = data.meetingEventDetailsWithDate;
-            const bookingRoomBasicPriceData = allRoomBasicPriceData.find(function(eachRoom){
-                return meetingEventAreaTitle == eachRoom.diningTitle;
-            });
-            const bookingRoomAllDateBasicPriceData = bookingRoomBasicPriceData.dateDetails;
-            const bookingDateBasicPricData = bookingRoomAllDateBasicPriceData.find(function(eachDate){
-                const eachDateString = (eachDate.date).split("T")[0];
-                return eachDateString == meetingEventBookingDateString;
-            });
-            setBasicPriceDetailsInformation(bookingDateBasicPricData);
-        }
-        catch(error){
-            console.log(error);
-        }
+    function fetchCurrentDateBasicPrice(eachDayInfomation) {
+        const allRoomBasicPriceData = eachDayInfomation.meetingEventDetailsWithDate;
+        const bookingRoomBasicPriceData = allRoomBasicPriceData.find(function(eachRoom){
+            return meetingEventAreaTitle == eachRoom.diningTitle;
+        });
+        const bookingRoomAllDateBasicPriceData = bookingRoomBasicPriceData.dateDetails;
+        const bookingDateBasicPricData = bookingRoomAllDateBasicPriceData.find(function(eachDate){
+            const eachDateString = (eachDate.date).split("T")[0];
+            return eachDateString == meetingEventBookingDateString;
+        });
+        return bookingDateBasicPricData;
+        
     }
 
-    async function fetchCurrentRoomSeatingArrangementPrice(){
-        try {
-            const response = await fetch('/api/hotel-booking-information/events-meeting-room-information/each-seating-arrangement-price/');
-            const data = await response.json();
-            const allEventMeetingRoomData = data.eventMeetingPriceForSeatingArrangement;
-
-            const selectedEventMeetingRoomData = allEventMeetingRoomData.find(function(eachRoom){
-                return eachRoom.meetingEventAreaTitle == meetingEventAreaTitle;
-            });
-
-            const allSeatingArrangementData = selectedEventMeetingRoomData.seatingArrangement;
-            const selectedSeatingArrangementData = allSeatingArrangementData.find(function(eachArrangement){
-                return meetingEventSeatingArrangement == eachArrangement.meetingEventAreaSeatingTitle;
-            });
-            setSeatingArrangementPriceInformation(selectedSeatingArrangementData);
-        } catch (error) {
-            console.log(error);
-        }
+    function fetchCurrentRoomSeatingArrangementPrice(eachDaySeatingArrangement){
+        const allEventMeetingRoomData = eachDaySeatingArrangement.eventMeetingPriceForSeatingArrangement;
+        const selectedEventMeetingRoomData = allEventMeetingRoomData.find(function(eachRoom){
+            return eachRoom.meetingEventAreaTitle == meetingEventAreaTitle;
+        });
+        const allSeatingArrangementData = selectedEventMeetingRoomData.seatingArrangement;
+        const selectedSeatingArrangementData = allSeatingArrangementData.find(function(eachArrangement){
+            return meetingEventSeatingArrangement == eachArrangement.meetingEventAreaSeatingTitle;
+        });
+        return selectedSeatingArrangementData;
     }
 
-    async function fetchCurrentDayFoodServicePrice() {
-        try {
-            const response = await fetch('/api/hotel-booking-information/events-meeting-room-information/each-day-food-price/');
-            const data = await response.json();
-            const allDateFoodServicePrice = data.meetingEventFoodPriceWithDate;
-
-            const bookingDateFoodServicePrice = allDateFoodServicePrice.find(function(eachDate){
-                const eachDateString = (eachDate.date).split("T")[0];
-                return eachDateString == meetingEventBookingDateString;
-            });
-            setFoodServicePriceInformation(bookingDateFoodServicePrice);
-        } catch (error) {
-            console.log(error);
-        }
+    function fetchCurrentDayFoodServicePrice(eachDayFoodPrice) {
+        const allDateFoodServicePrice = eachDayFoodPrice.meetingEventFoodPriceWithDate;
+        const bookingDateFoodServicePrice = allDateFoodServicePrice.find(function(eachDate){
+            const eachDateString = (eachDate.date).split("T")[0];
+            return eachDateString == meetingEventBookingDateString;
+        });
+        return bookingDateFoodServicePrice;
+        
     }
 
     function getBasicPriceOfRoomForSlot(dateEvent, timeSlot){

@@ -83,7 +83,9 @@ function EachRoomCartComponent(props){
                         View Guest Details
                     </p>
                 </div>
+                
             </div>
+            
             {displayGuestDetails && 
             <div className={styles.eachRoomCartGuestContainer}>
                 <div className={styles.eachRoomCartGuestInfo}>

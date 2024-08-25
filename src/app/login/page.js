@@ -10,12 +10,15 @@ import stylesLabel from "@/components/Input Area/InputAreaForRegisterLogin.modul
 import styles from "./page.module.css";
 
 import InputAreaForRegisterLogin from "@/components/Input Area/InputAreaForRegisterLogin.jsx";
-import { useAppDispatch } from "@/redux store/hooks.js";
+import { useAppDispatch , useAppSelector} from "@/redux store/hooks.js";
 import { login } from "@/redux store/features/Auth Features/loginUserDetailsSlice.js";
 
 
 export default function page(){
     const router = useRouter();
+
+    const loginPageCalledFrom = useAppSelector((reduxStore)=> reduxStore.loginPageCalledFromSliceName.loginPageCalledFrom);
+    const loginRedirectPage = useAppSelector((reduxStore)=> reduxStore.loginPageCalledFromSliceName.loginRedirectPage);
 
     const dispatch = useAppDispatch();
 
@@ -93,7 +96,8 @@ export default function page(){
                 const loginUserDetails = data.loginUserDetails;
                 dispatch(login(loginUserDetails));
                 localStorage.setItem('loginUserDetails', JSON.stringify(loginUserDetails));
-                router.push('/profile-home-page');
+                // router.push('/profile-home-page');
+                router.push(loginRedirectPage);
             }
         } catch (error) {
             console.log(error);

@@ -3,7 +3,7 @@ import Image from 'next/image'
 import React from "react";
 import Link from 'next/link';
 import Button from '@mui/material/Button';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { wrapper } from '@/redux store/storePersistance.js';
 
 import styles from "./page.module.css";
@@ -11,9 +11,12 @@ import styles from "./page.module.css";
 import RoomsBookingCartComponent from "@/components/Carts Component/RoomsBookingCartComponent.jsx";
 import DiningBookingCartComponent from "@/components/Carts Component/DiningBookingCartComponent.jsx";
 import EventMeetingRoomBookingCartComponent from "@/components/Carts Component/EventMeetingRoomBookingCartComponent.jsx";
+import { updateLoginPageCalledFrom, updateLoginRedirectPage } from '@/redux store/features/Login Page Called From Features/loginPageCalledFromSlice';
 
 
 export default function Page(){
+
+    const dispatch = useDispatch();
 
     const allRoomBookingCart = useSelector((reduxStore) => reduxStore.roomCartSlice.roomCart);
     const allDiningBookingCart = useSelector((reduxStore) => reduxStore.diningCartSlice.diningCart);
@@ -23,6 +26,14 @@ export default function Page(){
     let loginUserId = null;
     if(loginUserIdDetails != null){
         loginUserId = loginUserIdDetails.loginUserId;
+    }
+
+
+    function loginButtonClickHandler(){
+        const loginPageCalledFrom = 'Navigation Bar';
+        const loginRedirectPage = '/profile-home-page';
+        dispatch(updateLoginPageCalledFrom(loginPageCalledFrom));
+        dispatch(updateLoginRedirectPage(loginRedirectPage));
     }
 
 
@@ -68,15 +79,21 @@ export default function Page(){
                     <EventMeetingRoomBookingCartComponent />
                     }
 
-                    {loginUserId == null &&
+                    {(loginUserId == null 
+                        && (allEventMeetingBookingCart.length > 0 
+                            || allDiningBookingCart.length > 0 
+                            || allRoomBookingCart.length > 0)) &&
                         <div className={styles.loginBtnContainer}>
                             <Link href={`/login`} passHref>
-                                <Button variant="contained"> Please Login For Booking </Button>
+                                <Button onClick={loginButtonClickHandler} variant="contained"> Please Login For Booking </Button>
                             </Link>
                         </div>
                     }
 
-                    {(loginUserId != null) &&
+                    {(loginUserId != null 
+                        && (allEventMeetingBookingCart.length > 0 
+                            || allDiningBookingCart.length > 0 
+                            || allRoomBookingCart.length > 0)) &&
                         <div className={styles.proceedBtnContainer}>
                             <Button variant="contained"> Proceed For Booking </Button>
                         </div>

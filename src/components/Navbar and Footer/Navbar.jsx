@@ -5,12 +5,15 @@ import Link from 'next/link';
 
 import styles from "./Navbar.module.css";
 
-import { useAppSelector } from "@/redux store/hooks.js";
+import { useAppSelector, useAppDispatch } from "@/redux store/hooks.js";
+import { updateLoginPageCalledFrom, updateLoginRedirectPage } from "@/redux store/features/Login Page Called From Features/loginPageCalledFromSlice";
 
 
 function Navbar(){
     const loginUserDetails = useAppSelector((reduxStore)=> reduxStore.userSlice.loginUserDetails);
     console.log(loginUserDetails);
+
+    const dispatch = useAppDispatch();
     
     let loginUserId;
     let loginUserFullName;
@@ -19,6 +22,13 @@ function Navbar(){
         loginUserId = loginUserDetails.userId;
         loginUserFullName = loginUserDetails.fullName;
     } 
+
+    function loginClickHandler(){
+        const loginPageCalledFrom = 'Navigation Bar';
+        const loginRedirectPage = '/profile-home-page';
+        dispatch(updateLoginPageCalledFrom(loginPageCalledFrom));
+        dispatch(updateLoginRedirectPage(loginRedirectPage));
+    }
 
     
     return(
@@ -55,7 +65,7 @@ function Navbar(){
                         <Link href="/cart">My Cart</Link>
                     </li>
                     <li>
-                        <Link href="/login">Login</Link>
+                        <Link onClick={loginClickHandler} href="/login">Login</Link>
                     </li>
                 </ul>
             </div>
