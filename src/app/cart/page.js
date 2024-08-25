@@ -1,6 +1,6 @@
 'use client'
-import Image from 'next/image'
-import React from "react";
+import Image from 'next/image';
+import React, { useState } from "react";
 import Link from 'next/link';
 import Button from '@mui/material/Button';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,6 +12,9 @@ import RoomsBookingCartComponent from "@/components/Carts Component/RoomsBooking
 import DiningBookingCartComponent from "@/components/Carts Component/DiningBookingCartComponent.jsx";
 import EventMeetingRoomBookingCartComponent from "@/components/Carts Component/EventMeetingRoomBookingCartComponent.jsx";
 import { updateLoginPageCalledFrom, updateLoginRedirectPage } from '@/redux store/features/Login Page Called From Features/loginPageCalledFromSlice';
+import { deleteParticularBookingFromRoomCart } from '@/redux store/features/Booking Features/roomBookingCartSlice';
+import { deleteParticularBookingFromDiningCart } from '@/redux store/features/Booking Features/diningBookingCartSlice';
+import { deleteParticularBookingFromEventMeetingCart } from '@/redux store/features/Booking Features/eventMeetingRoomBookingCartSlice';
 
 
 export default function Page(){
@@ -25,15 +28,141 @@ export default function Page(){
     const loginUserIdDetails = useSelector((reduxStore)=> reduxStore.userSlice.loginUserDetails);
     let loginUserId = null;
     if(loginUserIdDetails != null){
-        loginUserId = loginUserIdDetails.loginUserId;
+        loginUserId = loginUserIdDetails.userId;
     }
+
+    const [informationAddingToUserCart, setInformationAddingToUserCart] = useState(false);
 
 
     function loginButtonClickHandler(){
-        const loginPageCalledFrom = 'Navigation Bar';
-        const loginRedirectPage = '/profile-home-page';
+        const loginPageCalledFrom = 'Cart Component';
+        const loginRedirectPage = '/cart';
         dispatch(updateLoginPageCalledFrom(loginPageCalledFrom));
         dispatch(updateLoginRedirectPage(loginRedirectPage));
+    }
+
+    async function addAccountCart() {
+        try {
+            setInformationAddingToUserCart(true);
+            if(allRoomBookingCart.length > 0){
+                allRoomBookingCart.forEach(async function(eachRoomCart){
+                    try {
+                        const response = await fetch(`/api/add-cart/rooms-suites/${loginUserId}`, {
+                            method: 'POST',
+                            body: JSON.stringify(eachRoomCart),
+                            headers: {
+                                'Content-type': 'application/json; charset=UTF-8',
+                            }
+                        });
+                        const data = await response.json();
+                        if(response.status === 200){
+                            if(data.message === 'Cart Information Successfully Added To Cart'){
+                                dispatch(deleteParticularBookingFromRoomCart(eachRoomCart.roomCartId));
+                            }
+                        }
+                    } catch (error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+            if(allDiningBookingCart.length > 0){
+                allDiningBookingCart.forEach(async function(eachDiningCart){
+                    try {
+                        const response = await fetch(`/api/add-cart/dining/${loginUserId}`, {
+                            method: 'POST',
+                            body: JSON.stringify(eachDiningCart),
+                            headers: {
+                                'Content-type': 'application/json; charset=UTF-8',
+                            }
+                        });
+                        const data = await response.json();
+                        if(response.status === 200){
+                            if(data.message === 'Cart Information Successfully Added To Cart'){
+                                dispatch(deleteParticularBookingFromDiningCart(eachDiningCart.diningCartId));
+                            }
+                        }
+                    } catch (error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+            if(allEventMeetingBookingCart.length > 0){
+
+                allEventMeetingBookingCart.forEach(async function(eachEventMeeting){
+
+                    if(eachEventMeeting.roomBookingDateType === 'Single Date'){
+                        try {
+                            const response = await fetch(`/api/add-cart/meeting-events/single-date/${loginUserId}`, {
+                                method: 'POST',
+                                body: JSON.stringify(eachEventMeeting),
+                                headers: {
+                                    'Content-type': 'application/json; charset=UTF-8',
+                                }
+                            });
+                            const data = await response.json();
+                            if(response.status === 200){
+                                if(data.message === 'Cart Information Successfully Added To Cart'){
+                                    dispatch(deleteParticularBookingFromEventMeetingCart(eachEventMeeting.eventCartId));
+                                }
+                            }
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    }
+
+                    if(eachEventMeeting.roomBookingDateType === 'Multiple Dates Continuous'){
+                        try {
+                            const response = await fetch(`/api/add-cart/meeting-events/multiple-dates-continous/${loginUserId}`, {
+                                method: 'POST',
+                                body: JSON.stringify(eachEventMeeting),
+                                headers: {
+                                    'Content-type': 'application/json; charset=UTF-8',
+                                }
+                            });
+                            const data = await response.json();
+                            if(response.status === 200){
+                                if(data.message === 'Cart Information Successfully Added To Cart'){
+                                    dispatch(deleteParticularBookingFromEventMeetingCart(eachEventMeeting.eventCartId));
+                                }
+                            }
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    }
+
+                    if(eachEventMeeting.roomBookingDateType === 'Multiple Dates Non Continuous'){
+                        try {
+                            const response = await fetch(`/api/add-cart/meeting-events/multiple-dates-non-continous/${loginUserId}`, {
+                                method: 'POST',
+                                body: JSON.stringify(eachEventMeeting),
+                                headers: {
+                                    'Content-type': 'application/json; charset=UTF-8',
+                                }
+                            });
+                            const data = await response.json();
+                            if(response.status === 200){
+                                if(data.message === 'Cart Information Successfully Added To Cart'){
+                                    dispatch(deleteParticularBookingFromEventMeetingCart(eachEventMeeting.eventCartId));
+                                }
+                            }
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    }
+
+                });
+
+            }
+
+        } 
+        catch (errorAccountAdd) {
+            console.log(errorAccountAdd);
+        }  
+        finally {
+            setInformationAddingToUserCart(false);
+        }     
     }
 
 
@@ -95,7 +224,14 @@ export default function Page(){
                             || allDiningBookingCart.length > 0 
                             || allRoomBookingCart.length > 0)) &&
                         <div className={styles.proceedBtnContainer}>
-                            <Button variant="contained"> Proceed For Booking </Button>
+                            {!informationAddingToUserCart && 
+                                <Button onClick={addAccountCart} variant="contained"> 
+                                    Add to Account Cart 
+                                </Button>
+                            }
+                            {informationAddingToUserCart &&
+                                <Button disabled variant="contained">Please Wait...</Button>
+                            }
                         </div>
                     }
                 </div>

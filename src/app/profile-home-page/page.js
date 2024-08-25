@@ -7,6 +7,7 @@ import styles from "./page.module.css";
 
 import { logout } from "@/redux store/features/Auth Features/loginUserDetailsSlice.js";
 import { useAppSelector, useAppDispatch } from "@/redux store/hooks.js";
+import { updateLoginPageCalledFrom, updateLoginRedirectPage } from "@/redux store/features/Login Page Called From Features/loginPageCalledFromSlice";
 
 
 export default function page(){
@@ -35,6 +36,10 @@ export default function page(){
             });
             const data = await response.json();
             if(response.status === 200){
+                const loginPageCalledFrom = 'Profile Page';
+                const loginRedirectPage = '/profile-home-page';
+                dispatch(updateLoginPageCalledFrom(loginPageCalledFrom));
+                dispatch(updateLoginRedirectPage(loginRedirectPage));
                 router.push('/login');
                 dispatch(logout());
                 localStorage.removeItem('loginUserDetails');

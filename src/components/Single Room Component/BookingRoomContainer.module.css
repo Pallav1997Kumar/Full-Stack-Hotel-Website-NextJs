@@ -148,3 +148,10 @@
     background-color: azure;
     font-weight: 700;
 }
+
+.loginContainer{
+    margin-top: 2.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -4,12 +4,19 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Button from '@mui/material/Button';
 import validator from "validator";
+import { useRouter } from 'next/navigation';
 
-import InputAreaForRegisterLogin from "@/components/Input Area/InputAreaForRegisterLogin.jsx";
 import stylesLabel from "@/components/Input Area/InputAreaForRegisterLogin.module.css";
 import styles from "./page.module.css";
 
+import InputAreaForRegisterLogin from "@/components/Input Area/InputAreaForRegisterLogin.jsx";
+import { useAppDispatch } from "@/redux store/hooks.js";
+import { updateLoginPageCalledFrom, updateLoginRedirectPage } from "@/redux store/features/Login Page Called From Features/loginPageCalledFromSlice";
+
 export default function Page(){
+
+    const dispatch = useAppDispatch();
+    const router = useRouter();
 
     const [inputValue, setInputValue] = useState({
         firstName: "",
@@ -170,6 +177,17 @@ export default function Page(){
         }
     }
 
+
+    function loginPageClickHandler(event){
+        event.preventDefault();
+        const loginPageCalledFrom = 'Registration Page';
+        const loginRedirectPage = '/profile-home-page';
+        dispatch(updateLoginPageCalledFrom(loginPageCalledFrom));
+        dispatch(updateLoginRedirectPage(loginRedirectPage));
+        router.push('/login');
+    }
+
+
     return(
         <div className={styles.registerContainer}>
             <div className={styles.registerFormPart}>
@@ -324,7 +342,7 @@ export default function Page(){
                 <div className={styles.loginNavigation}>
                     <p>Already have an account</p>
                     <p className={styles.loginLink}>
-                        <Link href='/login'>Click here to Login</Link>
+                        <Link onClick={loginPageClickHandler} href='/login'>Click here to Login</Link>
                     </p>
                 </div>
 

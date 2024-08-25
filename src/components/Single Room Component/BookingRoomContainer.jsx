@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { useRouter } from 'next/navigation';
 
 import styles from "./BookingRoomContainer.module.css";
 
@@ -17,6 +18,7 @@ import { getAllElementsInArrayFormatFromStartToEndOfNumber } from "@/functions/a
 import { useAppDispatch, useAppSelector } from "@/redux store/hooks.js";
 import { addNewBookingToRoomCart } from "@/redux store/features/Booking Features/roomBookingCartSlice.js";
 import { getRoomsSuitesEachDayPrice } from "@/redux store/features/Price Features/roomsSuitesEachDayPriceSlice";
+import { updateLoginPageCalledFrom, updateLoginRedirectPage } from "@/redux store/features/Login Page Called From Features/loginPageCalledFromSlice";
 
 
 const modalBoxStyle = {
@@ -61,6 +63,8 @@ function roomCounterReducer(state, action){
 export default function BookingRoomContainer(props) {
 
     const dispatch = useAppDispatch();
+    const router = useRouter();
+
     const loginUserIdDetails = useAppSelector((reduxStore)=> reduxStore.userSlice.loginUserDetails);
 
     useEffect(()=>{
@@ -70,8 +74,9 @@ export default function BookingRoomContainer(props) {
 
     const [roomsWithDateInformation, setRoomsWithDateInformation] = useState(null);
 
-    const roomInfo = props.roomInfo; 
+    const roomInfo = props.roomInfo;
     const roomTitle = roomInfo.title;
+    const roomPath = roomInfo.path;
 
     const todayDate = new Date().toISOString().split("T")[0];
     const today = new Date(todayDate);
@@ -140,6 +145,15 @@ export default function BookingRoomContainer(props) {
     const [totalPriceOfAllRooms, setTotalPrice] = useState(0);
     function getTotalPriceOfRoom(totalPriceOfAllRooms){
         setTotalPrice(totalPriceOfAllRooms);
+    }
+
+    function loginButtonClickHandler(event){
+        event.preventDefault();
+        const loginPageCalledFrom = `Rooms and Suites/ ${roomTitle} Page`;
+        const loginRedirectPage = `/rooms-suites/${roomPath}`;
+        dispatch(updateLoginPageCalledFrom(loginPageCalledFrom));
+        dispatch(updateLoginRedirectPage(loginRedirectPage));
+        router.push('/login');
     }
 
     async function fetchRoomsSuitesEachDayData(){
@@ -431,9 +445,17 @@ export default function BookingRoomContainer(props) {
                     }
                 </div>
                 }
+
+                
                 {roomAddedToCart && 
                 <div className={styles.successfullyAddedCart}>
                     <p>Room has been Successfully Added to Cart</p>
+                </div>
+                }
+
+                {loginUserIdDetails === null &&
+                <div className={styles.loginContainer}>
+                    <Button onClick={loginButtonClickHandler} variant="contained">Proceed to Login</Button>
                 </div>
                 }
             </div>

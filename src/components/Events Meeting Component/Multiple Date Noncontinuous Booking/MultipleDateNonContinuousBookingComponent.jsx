@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
+import { useRouter } from 'next/navigation';
 
 import styles from "./MultipleDateNonContinuousBookingComponent.module.css";
 
@@ -12,6 +13,7 @@ import { getOnlyDate, getOnlyMonth, getOnlyYear, convertDateTextToDate } from "@
 import { isAllElementsUniqueInArray } from "@/functions/array.js";
 import { useAppDispatch, useAppSelector } from "@/redux store/hooks.js";
 import { addNewBookingToEventMeetingCart } from "@/redux store/features/Booking Features/eventMeetingRoomBookingCartSlice.js";
+import { updateLoginPageCalledFrom, updateLoginRedirectPage } from '@/redux store/features/Login Page Called From Features/loginPageCalledFromSlice';
 
 
 function MultipleDateNonContinuousBookingComponent(props) {
@@ -21,7 +23,10 @@ function MultipleDateNonContinuousBookingComponent(props) {
     const meetingEventsInfoTitle = props.meetingEventsInfoTitle;
     const meetingEventsSeatingInfo = props.meetingEventsSeatingInfo;
     const roomBookingDateType = props.roomBookingDateType;
+    const meetingEventAreaPath = props.meetingEventAreaPath;
+
     const dispatch = useAppDispatch();
+    const router = useRouter();
 
     const [noOfDateForBooking, setNoOfDateForBooking] = useState(2);
     const [noOfDateForEventBooking,setNoOfDateForEventBooking] = useState(2);
@@ -144,6 +149,16 @@ function MultipleDateNonContinuousBookingComponent(props) {
     }
 
 
+    function loginButtonClickHandler(event){
+        event.preventDefault();
+        const loginPageCalledFrom = `Event Meeting Room/ ${meetingEventsInfoTitle} Page`;
+        const loginRedirectPage = `/meetings-events/${meetingEventAreaPath}`;
+        dispatch(updateLoginPageCalledFrom(loginPageCalledFrom));
+        dispatch(updateLoginRedirectPage(loginRedirectPage));
+        router.push('/login');
+    }
+
+
     return (
         <div className={styles.multipleDateNonContinuousBookContainer}>
             <form>
@@ -215,6 +230,13 @@ function MultipleDateNonContinuousBookingComponent(props) {
                 </div>
                 }
             </form>
+
+            {(loginUserIdDetails === null) &&
+                <div className={styles.loginContainer}>
+                    <Button onClick={loginButtonClickHandler} variant="contained">Proceed to Login</Button>
+                </div>
+            }
+
         </div>
     );
 }

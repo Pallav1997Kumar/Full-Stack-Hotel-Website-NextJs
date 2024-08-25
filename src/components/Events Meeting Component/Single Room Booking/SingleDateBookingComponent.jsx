@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
+import { useRouter } from 'next/navigation';
 
 import styles from "./SingleDateBookingComponent.module.css";
 
@@ -12,6 +13,7 @@ import { useAppDispatch, useAppSelector } from "@/redux store/hooks.js";
 import { addNewBookingToEventMeetingCart } from "@/redux store/features/Booking Features/eventMeetingRoomBookingCartSlice.js";
 import PriceDetailsSingleDate from './PriceDetailsSingleDate.jsx';
 import EventMeetingBookingsDetailsConfirmation from '@/components/Events Meeting Component/Common Components/EventMeetingBookingsDetailsConfirmation.jsx';
+import { updateLoginPageCalledFrom, updateLoginRedirectPage } from '@/redux store/features/Login Page Called From Features/loginPageCalledFromSlice';
 
 
 function SingleDateBookingComponent(props) {
@@ -22,7 +24,11 @@ function SingleDateBookingComponent(props) {
     const meetingEventsInfoTitle = props.meetingEventsInfoTitle;
     const meetingEventsSeatingInfo = props.meetingEventsSeatingInfo;
     const roomBookingDateType = props.roomBookingDateType;
+    const meetingEventAreaPath = props.meetingEventAreaPath;
+    
     const dispatch = useAppDispatch();
+    const router = useRouter();
+    
 
     const todayDate = new Date().toISOString().split("T")[0];
     const today = new Date(todayDate);
@@ -306,6 +312,15 @@ function SingleDateBookingComponent(props) {
         finally{
             setIsDataSavingToCart(false);
         }
+    }
+
+    function loginButtonClickHandler(event){
+        event.preventDefault();
+        const loginPageCalledFrom = `Event Meeting Room/ ${meetingEventsInfoTitle} Page`;
+        const loginRedirectPage = `/meetings-events/${meetingEventAreaPath}`;
+        dispatch(updateLoginPageCalledFrom(loginPageCalledFrom));
+        dispatch(updateLoginRedirectPage(loginRedirectPage));
+        router.push('/login');
     }
 
 
@@ -644,6 +659,13 @@ function SingleDateBookingComponent(props) {
                 }   
 
             </form>
+
+            {(loginUserIdDetails === null) &&
+                <div className={styles.loginContainer}>
+                    <Button onClick={loginButtonClickHandler} variant="contained">Proceed to Login</Button>
+                </div>
+            }
+
         </div>
     );
 }

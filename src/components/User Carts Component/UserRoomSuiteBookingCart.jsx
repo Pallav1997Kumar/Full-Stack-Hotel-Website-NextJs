@@ -10,7 +10,7 @@ function UserRoomSuiteBookingCart(props){
         <div className={styles.roomCartContainer}>
             {(roomSuitesCart.length > 0) && roomSuitesCart.map(function(eachRoomInCart){
                 return(
-                    <UserEachRoomCart key={1} eachRoomInCart={eachRoomInCart} />
+                    <UserEachRoomCart key={eachRoomInCart._id} eachRoomInCart={eachRoomInCart} />
                 )
             })}
         </div>

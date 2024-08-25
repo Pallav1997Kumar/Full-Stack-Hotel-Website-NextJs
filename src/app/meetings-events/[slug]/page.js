@@ -110,7 +110,11 @@ async function Page(context){
             </div>
 
             <div>
-                <EventsMeetingBookingComponent meetingEventsInfoTitle={meetingEventsInfo.meetingEventAreaTitle} meetingEventsSeatingInfo={meetingEventsInfo.meetingEventAreaSeatingCapacityInfo}  />
+                <EventsMeetingBookingComponent 
+                    meetingEventsInfoTitle={meetingEventsInfo.meetingEventAreaTitle} 
+                    meetingEventsSeatingInfo={meetingEventsInfo.meetingEventAreaSeatingCapacityInfo} 
+                    meetingEventAreaPath ={meetingEventsInfo.meetingEventAreaPath} 
+                />
             </div>
 
         </div>

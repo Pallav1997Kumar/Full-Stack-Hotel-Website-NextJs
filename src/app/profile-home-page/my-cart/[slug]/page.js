@@ -19,13 +19,12 @@ export default function Page(){
     useEffect(()=>{
         fetchRoomSuiteCartDb(loginUserId);
         fetchDiningCartDb(loginUserId);
-        fetchEventMeetingCartDb(loginUserId)
+        fetchEventMeetingCartDb(loginUserId);
     }, []);
 
     const [roomSuitesCart, setRoomSuitesCart] = useState(null);
     const [diningCart, setDiningCart] = useState(null);
     const [eventMeetingCart, setEventMeetingCart] = useState(null);
-    console.log(roomSuitesCart);
 
 
     async function fetchRoomSuiteCartDb(loginUserId) {

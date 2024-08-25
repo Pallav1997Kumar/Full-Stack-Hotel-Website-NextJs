@@ -7,6 +7,7 @@ import 'react-calendar/dist/Calendar.css';
 import 'react-time-picker/dist/TimePicker.css';
 import 'react-clock/dist/Clock.css';
 import Button from '@mui/material/Button';
+import { useRouter } from 'next/navigation';
 
 import styles from "./DiningBookingComponent.module.css";
 
@@ -14,6 +15,7 @@ import { useAppDispatch, useAppSelector } from "@/redux store/hooks.js";
 import { addNewBookingToDiningCart } from "@/redux store/features/Booking Features/diningBookingCartSlice.js";
 import { convertDateTextToDate } from "@/functions/date.js";
 import { getDiningEachDayPrice } from "@/redux store/features/Price Features/diningEachDayPriceSlice";
+import { updateLoginPageCalledFrom, updateLoginRedirectPage } from '@/redux store/features/Login Page Called From Features/loginPageCalledFromSlice';
 
 
 const initialDiningTableCount = {
@@ -49,6 +51,8 @@ function diningTableCounterReducer(state, action){
 function DiningBookingComponent(props){
 
     const dispatch = useAppDispatch();
+    const router = useRouter();
+
     const loginUserIdDetails = useAppSelector((reduxStore)=> reduxStore.userSlice.loginUserDetails);
 
     const [diningTableCountState, diningTableCountDispatch] = useReducer(diningTableCounterReducer, initialDiningTableCount);
@@ -63,6 +67,7 @@ function DiningBookingComponent(props){
 
     const diningRestaurantInfo = props.diningRestaurantInfo;
     const diningRestaurantTitle = diningRestaurantInfo.diningAreaTitle;
+    const diningPath = diningRestaurantInfo.diningPath;
 
     const [diningEachDayInfo, setDiningEachDayInfo] = useState(null);
     // console.log(diningEachDayInfo)
@@ -306,6 +311,15 @@ function DiningBookingComponent(props){
 
     const addCartClickHandler = useCallback(addCartClickHandlerFunction, [dispatch, bookingDetailsForCart, priceForBooking]);
 
+    function loginButtonClickHandler(event){
+        event.preventDefault();
+        const loginPageCalledFrom = `Dining/ ${diningRestaurantTitle} Page`;
+        const loginRedirectPage = `/dining/${diningPath}`;
+        dispatch(updateLoginPageCalledFrom(loginPageCalledFrom));
+        dispatch(updateLoginRedirectPage(loginRedirectPage));
+        router.push('/login');
+    }
+
 
     return (
         <div className={styles.reserveDining}>
@@ -431,6 +445,12 @@ function DiningBookingComponent(props){
                 </div>
                 }
             </form>
+
+            {(loginUserIdDetails === null) &&
+                <div className={styles.loginContainer}>
+                    <Button onClick={loginButtonClickHandler} variant="contained">Proceed to Login</Button>
+                </div>
+            }
         </div>
     );
 

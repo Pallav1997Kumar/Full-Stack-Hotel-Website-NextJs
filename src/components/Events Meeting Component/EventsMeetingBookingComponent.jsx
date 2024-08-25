@@ -15,6 +15,7 @@ import { getEventsSeatingArrangementPrice } from "@/redux store/features/Price F
 function EventsMeetingBookingComponent(props) {
     const meetingEventsInfoTitle = props.meetingEventsInfoTitle;
     const meetingEventsSeatingInfo = props.meetingEventsSeatingInfo;
+    const meetingEventAreaPath = props.meetingEventAreaPath;
 
     const [roomBookingDateType, setRoomBookingDateType] = useState("");
 
@@ -74,6 +75,7 @@ function EventsMeetingBookingComponent(props) {
                         meetingEventsInfoTitle={meetingEventsInfoTitle} 
                         meetingEventsSeatingInfo={meetingEventsSeatingInfo} 
                         roomBookingDateType={roomBookingDateType}
+                        meetingEventAreaPath={meetingEventAreaPath}
                     />
                 }
                 {(roomBookingDateType === 'Multiple Dates Continuous') &&
@@ -81,6 +83,7 @@ function EventsMeetingBookingComponent(props) {
                         meetingEventsInfoTitle={meetingEventsInfoTitle} 
                         meetingEventsSeatingInfo={meetingEventsSeatingInfo}
                         roomBookingDateType={roomBookingDateType} 
+                        meetingEventAreaPath={meetingEventAreaPath}
                     />
                 }
                 {(roomBookingDateType === 'Multiple Dates Non Continuous') &&
@@ -88,6 +91,7 @@ function EventsMeetingBookingComponent(props) {
                         meetingEventsInfoTitle={meetingEventsInfoTitle} 
                         meetingEventsSeatingInfo={meetingEventsSeatingInfo} 
                         roomBookingDateType={roomBookingDateType}
+                        meetingEventAreaPath={meetingEventAreaPath}
                     />
                 }
             </div>

@@ -69,3 +69,10 @@
     padding: 1%;
     background-color: whitesmoke;
 }
+
+.loginContainer{
+    margin-top: 2.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
