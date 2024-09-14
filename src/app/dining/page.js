@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import styles from "./page.module.css";
 
@@ -24,6 +25,19 @@ export default async function page(){
             <div className={styles.imageContainer}>
                 <Image src={'/Dining/The Chambers.jpeg'} alt="room image" width={1400} height={500} />
             </div>
+
+            <div className={styles.breadcrumbsContainer}>
+                <p>
+                    <Link href="/">
+                        <span className={styles.breadcrumbsLink}> HOME </span>
+                    </Link> 
+                    <span>{'>>'}</span> 
+                    <Link href="/dining"> 
+                        <span className={styles.breadcrumbsLink}> DINING </span>
+                    </Link>
+                </p>
+            </div>
+
             <div className={styles.descriptionContainer}>
                 <h2>DINING</h2>
                 <p>For your safety and comfort we have put in place strict measures adhering to both governmental requirements and sanitary guidelines.</p>

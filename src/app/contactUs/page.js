@@ -1,9 +1,17 @@
-import Image from 'next/image'
+import Image from 'next/image';
 import React from "react";
+import Link from 'next/link';
 
 import ContactUsForm from "@/components/ContactUsForm/ContactUsForm.jsx";
 import styles from "./page.module.css";
 import hotelBasicInfo from "@/json objects/hotelBasicInfo.js";
+
+
+export function generateMetadata(){
+    return {
+        title: 'Royal Palace - Contact Us'
+    }
+}
 
 
 export default function Page() {
@@ -13,9 +21,20 @@ export default function Page() {
             <div>
                 <Image src={'/hotel photo.jpg'} alt="hotel" width={1500} height={500} />
             </div>
+            <div className={styles.breadcrumbsContainer}>
+                <p>
+                    <Link href="/">
+                        <span className={styles.breadcrumbsLink}> HOME </span>
+                    </Link> 
+                    <span>{'>>'}</span> 
+                    <Link href="/contactUs"> 
+                        <span className={styles.breadcrumbsLink}>CONTACT US </span>
+                    </Link>
+                </p>
+            </div>
             <div className={styles.contactInfoContainer}>
                 <div>
-                    <h1>CONTACT US - PEERLESS HOTEL, KOLKATA</h1>
+                    <h1>CONTACT US - ROYAL PALACE, KOLKATA</h1>
                     <Image src={'/hotel-logo.jpg'} alt="icon" width={200} height={100} />
                 </div>
                 <div className={styles.contactInfoDiv}>

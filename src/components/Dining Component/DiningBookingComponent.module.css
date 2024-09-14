@@ -107,6 +107,10 @@
     padding: 1%;
 }
 
+.editDetailsBtn{
+    margin-bottom: 2%;
+}
+
 .availableSlot{
     margin: 1%;
     color: green;

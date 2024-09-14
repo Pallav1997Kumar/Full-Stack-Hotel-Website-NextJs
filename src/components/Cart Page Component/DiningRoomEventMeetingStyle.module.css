@@ -1,0 +1,36 @@
+.breadcrumbsContainer{
+    margin: 1.5% 3%;
+    background-color: lightgreen;
+    padding: 1% 2%;
+}
+
+.breadcrumbsContainer p{
+    font-size: 1.25rem;
+    font-weight: bolder;
+    letter-spacing: 1px;
+    word-spacing: 2.2px;
+    color: blueviolet;
+}
+
+.breadcrumbsContainer span{
+    padding-right: 1.5%;
+}
+
+.breadcrumbsLink:hover{
+    color: darkmagenta;
+    text-decoration: underline;
+}
+
+.loginBtnContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2%;
+}
+
+.proceedBtnContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2%;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from "./page.module.css";
+import Link from 'next/link';
 
 import RoomBasicContainer from "@/components/Single Room Component/RoomBasicContainer.jsx";
 import RoomAmenitiesContainer from "@/components/Single Room Component/RoomAmenitiesContainer.jsx";
@@ -46,6 +47,23 @@ async function Page(context) {
 
     return (
         <div className={styles.roomContainer}>
+
+            <div className={styles.breadcrumbsContainer}>
+                <p>
+                    <Link href="/">
+                        <span className={styles.breadcrumbsLink}> HOME </span>
+                    </Link> 
+                    <span>{'>>'}</span> 
+                    <Link href="/rooms-suites"> 
+                        <span className={styles.breadcrumbsLink}> ROOMS AND SUITES </span>
+                    </Link>
+                    <span>{'>>'}</span>
+                    <Link href={`/rooms-suites/${currentRoomPath}`}> 
+                        <span className={styles.breadcrumbsLink}> {roomSuitesInfo.title} </span>
+                    </Link> 
+                </p>
+            </div>
+
             <h2>{roomSuitesInfo.title}</h2>
             <p className={styles.roomIntro}>{roomSuitesInfo.intro}</p>
             <RoomBasicContainer roomInfo={roomSuitesInfo} />

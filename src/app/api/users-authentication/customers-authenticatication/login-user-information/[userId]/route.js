@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-
 import HotelCustomersUsers from "@/database models/hotelCustomersUsers.js";
 import Connection from "@/database config/config.js";
+import { INTERNAL_SERVER_ERROR, USER_NOT_FOUND } from "@/constant string files/apiErrorMessageConstants.js";
+
 
 Connection();
 
@@ -33,7 +34,7 @@ async function GET(NextRequest, context){
         }
         else{
             return NextResponse.json(
-                { errorMessage: 'User not Found!' },
+                { errorMessage: USER_NOT_FOUND },
                 { status: 404 }
             );
         }
@@ -41,7 +42,7 @@ async function GET(NextRequest, context){
     }
     catch(error){
         return NextResponse.json(
-            { error: 'Internal Server Error' }, 
+            { error: INTERNAL_SERVER_ERROR }, 
             { status: 500 }
         )
     }

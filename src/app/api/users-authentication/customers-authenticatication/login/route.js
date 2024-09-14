@@ -3,6 +3,9 @@ import jwt from "jsonwebtoken";
 
 import HotelCustomersUsers from "@/database models/hotelCustomersUsers.js";
 import Connection from "@/database config/config.js";
+import { INTERNAL_SERVER_ERROR, LOGIN_ERROR_MESSAGE } from "@/constant string files/apiErrorMessageConstants.js";
+import { SUCCESSFUL_LOGIN } from "@/constant string files/apiSuccessMessageConstants.js";
+
 
 Connection();
 
@@ -28,7 +31,7 @@ async function POST(NextRequest){
                 }
                 const token = jwt.sign(tokenData,jwtSecretKey, { expiresIn: '1d' });
                 const response =  NextResponse.json(
-                    { message: 'Successful Login', loginUserDetails: loginUserDetails },
+                    { message: SUCCESSFUL_LOGIN, loginUserDetails: loginUserDetails },
                     { status: 200 }
                 );
                 response.cookies.set('jwt-token', token, { httpOnly: true });
@@ -36,21 +39,21 @@ async function POST(NextRequest){
             }
             else{
                 return NextResponse.json(
-                    { errorMessage: 'Incorrect Password!' },
+                    { errorMessage: LOGIN_ERROR_MESSAGE.INCORRECT_PASSWORD },
                     { status: 404 }
                 ); 
             }
         }
         else{
             return NextResponse.json(
-                { errorMessage: 'Email Address does not exist!' },
+                { errorMessage: LOGIN_ERROR_MESSAGE.EMAIL_ADDRESS_DOES_NOT_EXIST },
                 { status: 404 }
             );
         }
     }
     catch(error){
         console.log(error);
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
+        return NextResponse.json({ error: INTERNAL_SERVER_ERROR }, { status: 500 })
     }
 }
 

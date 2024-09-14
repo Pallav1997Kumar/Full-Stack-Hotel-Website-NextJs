@@ -12,6 +12,7 @@ import { convertDateTextToDate, getDateText } from "@/functions/date.js";
 import { useAppSelector } from "@/redux store/hooks.js";
 import EquipmentsPriceBreakup from '@/components/Events Meeting Component/Common Components/EquipmentsPriceBreakup.jsx';
 import MealsPriceBreakup from '@/components/Events Meeting Component/Common Components/MealsPriceBreakup.jsx';
+import { eventMeetingTimingConstants } from "@/constant string files/eventsMeetingRoomImportantConstants.js";
 
 
 function PriceDetailsEachDate(props) {
@@ -28,11 +29,11 @@ function PriceDetailsEachDate(props) {
     const maximumGuestAttending = bookingDetails.maximumGuestAttending;
     const meetingEventBookingDateString = convertDateTextToDate(bookingDetails.meetingEventBookingDate).toString();
     
-    const isMorningSlotSelected = meetingEventBookingSlots.includes('Morning');
-    const isAfternoonSlotSelected = meetingEventBookingSlots.includes('Afternoon');
-    const isEveningSlotSelected = meetingEventBookingSlots.includes('Evening');
-    const isNightSlotSelected = meetingEventBookingSlots.includes('Night');
-    const isMidNightSlotSelected = meetingEventBookingSlots.includes('Mid Night');
+    const isMorningSlotSelected = meetingEventBookingSlots.includes(eventMeetingTimingConstants.MORNING_TIME);
+    const isAfternoonSlotSelected = meetingEventBookingSlots.includes(eventMeetingTimingConstants.AFTERNOON_TIME);
+    const isEveningSlotSelected = meetingEventBookingSlots.includes(eventMeetingTimingConstants.EVENING_TIME);
+    const isNightSlotSelected = meetingEventBookingSlots.includes(eventMeetingTimingConstants.NIGHT_TIME);
+    const isMidNightSlotSelected = meetingEventBookingSlots.includes(eventMeetingTimingConstants.MID_NIGHT_TIME);
 
     const basicPriceDetailsInformation = fetchCurrentDateBasicPrice(eachDayInfomation);
     const seatingArrangementPriceInformation = fetchCurrentRoomSeatingArrangementPrice(eachDaySeatingArrangement);
@@ -42,11 +43,11 @@ function PriceDetailsEachDate(props) {
     //console.log(foodServicePriceInformation);
 
     const bookingDateEventArray = basicPriceDetailsInformation.eventTimingDetails;
-    const morningSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, 'Morning');
-    const afternoonSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, 'Afternoon');
-    const eveningSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, 'Evening');
-    const nightSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, 'Night');
-    const midNightSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, 'Mid Night');
+    const morningSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, eventMeetingTimingConstants.MORNING_TIME);
+    const afternoonSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, eventMeetingTimingConstants.AFTERNOON_TIME);
+    const eveningSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, eventMeetingTimingConstants.EVENING_TIME);
+    const nightSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, eventMeetingTimingConstants.NIGHT_TIME);
+    const midNightSlotBasicPrice = getBasicPriceOfRoomForSlot(bookingDateEventArray, eventMeetingTimingConstants.MID_NIGHT_TIME);
 
     
     const priceList = seatingArrangementPriceInformation.priceForEquipments;
@@ -101,37 +102,37 @@ function PriceDetailsEachDate(props) {
     let selectedNightMeals;
     let selectedMidNightMeals;
 
-    const allMorningMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, 'Morning');
-    const allAfternoonMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, 'Afternoon');
-    const allEveningMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, 'Evening');
-    const allNightMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, 'Night');
-    const allMidNightMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, 'Mid Night');
+    const allMorningMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, eventMeetingTimingConstants.MORNING_TIME);
+    const allAfternoonMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, eventMeetingTimingConstants.AFTERNOON_TIME);
+    const allEveningMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, eventMeetingTimingConstants.EVENING_TIME);
+    const allNightMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, eventMeetingTimingConstants.NIGHT_TIME);
+    const allMidNightMealsInformation = getSpecificMealAllFoodService(foodServicePriceInformation, eventMeetingTimingConstants.MID_NIGHT_TIME);
 
     if(bookingDetails.wantFoodServices == 'Yes' && Object.hasOwn(bookingDetails, 'selectedMealsOnBookingDate')){
         const mealsBookingDetails = bookingDetails.selectedMealsOnBookingDate;
         if(mealsBookingDetails.morning.length > 0){
             selectedMorningMeals = mealsBookingDetails.morning;
-            morningSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, 'Morning', selectedMorningMeals);
+            morningSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, eventMeetingTimingConstants.MORNING_TIME, selectedMorningMeals);
             morningSlotTotalFoodPrice = morningSlotTotalFoodPricePerGuest * maximumGuestAttending;
         }
         if(mealsBookingDetails.afternoon.length > 0){
             selectedAfternoonMeals = mealsBookingDetails.afternoon;
-            afternoonSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, 'Afternoon', selectedAfternoonMeals);
+            afternoonSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, eventMeetingTimingConstants.AFTERNOON_TIME, selectedAfternoonMeals);
             afternoonSlotTotalFoodPrice = afternoonSlotTotalFoodPricePerGuest * maximumGuestAttending;
         }
         if(mealsBookingDetails.evening.length > 0){
             selectedEveningMeals = mealsBookingDetails.evening;
-            eveningSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, 'Evening', selectedEveningMeals);
+            eveningSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, eventMeetingTimingConstants.EVENING_TIME, selectedEveningMeals);
             eveningSlotTotalFoodPrice = eveningSlotTotalFoodPricePerGuest * maximumGuestAttending;
         }
         if(mealsBookingDetails.night.length > 0){
             selectedNightMeals = mealsBookingDetails.night;
-            nightSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, 'Night', selectedNightMeals);
+            nightSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, eventMeetingTimingConstants.NIGHT_TIME, selectedNightMeals);
             nightSlotTotalFoodPrice = nightSlotTotalFoodPricePerGuest * maximumGuestAttending;
         }
         if(mealsBookingDetails.midNight.length > 0){
             selectedMidNightMeals = mealsBookingDetails.midNight;
-            midNightSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, 'Mid Night', selectedMidNightMeals);
+            midNightSlotTotalFoodPricePerGuest = getSpecificMealFoodServiceTotalPricePerGuest(foodServicePriceInformation, eventMeetingTimingConstants.MID_NIGHT_TIME, selectedMidNightMeals);
             midNightSlotTotalFoodPrice = midNightSlotTotalFoodPricePerGuest * maximumGuestAttending;
         }
     }

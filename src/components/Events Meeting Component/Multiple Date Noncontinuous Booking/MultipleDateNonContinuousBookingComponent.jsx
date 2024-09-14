@@ -14,6 +14,7 @@ import { isAllElementsUniqueInArray } from "@/functions/array.js";
 import { useAppDispatch, useAppSelector } from "@/redux store/hooks.js";
 import { addNewBookingToEventMeetingCart } from "@/redux store/features/Booking Features/eventMeetingRoomBookingCartSlice.js";
 import { updateLoginPageCalledFrom, updateLoginRedirectPage } from '@/redux store/features/Login Page Called From Features/loginPageCalledFromSlice';
+import { multipleNonContinousDatesEventsMeetingSelectionErrorConstants } from "@/constant string files/eventsMeetingSelectionErrorConstants.js";
 
 
 function MultipleDateNonContinuousBookingComponent(props) {
@@ -53,7 +54,7 @@ function MultipleDateNonContinuousBookingComponent(props) {
         }
         else{
             setShowDateContainer(false);
-            setProceedErrorMessage('Number of input cannot be less than 2');
+            setProceedErrorMessage(multipleNonContinousDatesEventsMeetingSelectionErrorConstants.INPUT_NOT_LESS_THAN_TWO);
         }
     }
 
@@ -70,11 +71,11 @@ function MultipleDateNonContinuousBookingComponent(props) {
                 setShowValidateBlock(false);
             }
             else{
-                setValidationError('You have not Choosen Two or More Same Dates');
+                setValidationError(multipleNonContinousDatesEventsMeetingSelectionErrorConstants.MULTIPLE_SAME_DATES_CHOOSEN);
             }
         }
         else{
-            setValidationError('You have not Choosen Inputs for all the Dates');
+            setValidationError(multipleNonContinousDatesEventsMeetingSelectionErrorConstants.ALL_DATES_INPUT_NOT_CHOOSEN);
         }
         
         

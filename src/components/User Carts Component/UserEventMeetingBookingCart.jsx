@@ -9,11 +9,13 @@ import styles from './UserEventMeetingBookingCart.module.css';
 import UserEventMeetingSingleDateCart from "./User SubEvent Carts Component/UserEventMeetingSingleDateCart.jsx";
 import UserEventMeetingMultipleDateContinuousCart from "./User SubEvent Carts Component/UserEventMeetingMultipleDateContinuousCart.jsx";
 import UserEventMeetingMultipleDateNonContinuousCart from "./User SubEvent Carts Component/UserEventMeetingMultipleDateNonContinuousCart.jsx";
+import { roomBookingDateTypeConstants } from "@/constant string files/eventsMeetingRoomImportantConstants.js";
 
 
 function UserEventMeetingBookingCart(props){
 
     const eventMeetingCart = props.eventMeetingCart;
+    console.log(eventMeetingCart);   
     const [meetingEventsRooms, setMeetingEventsRooms] = useState([]);
 
     useEffect(()=>{
@@ -29,6 +31,12 @@ function UserEventMeetingBookingCart(props){
             console.log(error);
         }
     }
+
+
+    function onRemoveEventMeetingItemFromCart(id,bookingType){
+        props.onRemoveEventMeetingItemFromCart(id, bookingType);
+    }
+
 
     return (
         <div className={styles.eventMeetingCartContainer}>
@@ -52,15 +60,24 @@ function UserEventMeetingBookingCart(props){
                         </div>
                         
 
-                        {(eachEventMeetingInCart.roomBookingDateType == 'Single Date') &&
-                            <UserEventMeetingSingleDateCart eachEventMeetingInCart={eachEventMeetingInCart}  />
+                        {(eachEventMeetingInCart.roomBookingDateType == roomBookingDateTypeConstants.SINGLE_DATE) &&
+                            <UserEventMeetingSingleDateCart 
+                                eachEventMeetingInCart={eachEventMeetingInCart} 
+                                onRemoveEventMeetingItemFromCart={onRemoveEventMeetingItemFromCart} 
+                            />
                         }
 
-                        {(eachEventMeetingInCart.roomBookingDateType == 'Multiple Dates Continuous') &&
-                            <UserEventMeetingMultipleDateContinuousCart eachEventMeetingInCart={eachEventMeetingInCart} />
+                        {(eachEventMeetingInCart.roomBookingDateType == roomBookingDateTypeConstants.MULTIPLE_DATES_CONTINOUS) &&
+                            <UserEventMeetingMultipleDateContinuousCart 
+                                eachEventMeetingInCart={eachEventMeetingInCart} 
+                                onRemoveEventMeetingItemFromCart={onRemoveEventMeetingItemFromCart}
+                            />
                         }
-                        {(eachEventMeetingInCart.roomBookingDateType == 'Multiple Dates Non Continuous') &&
-                            <UserEventMeetingMultipleDateNonContinuousCart eachEventMeetingInCart={eachEventMeetingInCart} />
+                        {(eachEventMeetingInCart.roomBookingDateType == roomBookingDateTypeConstants.MULTIPLE_DATES_NON_CONTINOUS) &&
+                            <UserEventMeetingMultipleDateNonContinuousCart 
+                                eachEventMeetingInCart={eachEventMeetingInCart} 
+                                onRemoveEventMeetingItemFromCart={onRemoveEventMeetingItemFromCart}
+                            />
                         }
                     </div>
                 )

@@ -2,6 +2,29 @@
     margin: 1% 0%;
 }
 
+.breadcrumbsContainer{
+    margin: 1.5% 3% 1.5% 10%;
+    background-color: aliceblue;
+    padding: 1% 2%;
+}
+
+.breadcrumbsContainer p{
+    font-size: 1.25rem;
+    font-weight: bolder;
+    letter-spacing: 1px;
+    word-spacing: 2.2px;
+    color: blueviolet;
+}
+
+.breadcrumbsContainer span{
+    padding-right: 1.5%;
+}
+
+.breadcrumbsLink:hover{
+    color: darkmagenta;
+    text-decoration: underline;
+}
+
 .facilityContainer{
     margin: 5% 12%;
 }

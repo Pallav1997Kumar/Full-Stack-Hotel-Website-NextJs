@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
+import Link from 'next/link';
 
 import styles from "./page.module.css";
 
@@ -119,6 +120,23 @@ async function Page(context){
     return (
         
         <div className={styles.diningContainer}>
+
+            <div className={styles.breadcrumbsContainer}>
+                <p>
+                    <Link href="/">
+                        <span className={styles.breadcrumbsLink}> HOME </span>
+                    </Link> 
+                    <span>{'>>'}</span> 
+                    <Link href="/dining"> 
+                        <span className={styles.breadcrumbsLink}> DINING </span>
+                    </Link>
+                    <span>{'>>'}</span> 
+                    <Link href={`/dining/${currentDiningPath}`}> 
+                        <span className={styles.breadcrumbsLink}> {diningRestaurantInfo.diningAreaTitle} </span>
+                    </Link>
+                </p>
+            </div>
+
             <h2>{diningRestaurantInfo.diningAreaTitle}</h2>
             
             <div className={styles.topContainer}>

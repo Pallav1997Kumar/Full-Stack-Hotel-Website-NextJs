@@ -2,6 +2,30 @@
     margin: 3% 5%;
 }
 
+.breadcrumbsContainer{
+    margin: 1.5% 0%;
+    background-color: lightpink;
+    padding: 1% 2%;
+}
+
+.breadcrumbsContainer p{
+    font-size: 1.25rem;
+    font-weight: bolder;
+    letter-spacing: 1px;
+    word-spacing: 2.2px;
+    color: blueviolet;
+}
+
+.breadcrumbsContainer span{
+    padding-right: 1.5%;
+    text-transform: uppercase;
+}
+
+.breadcrumbsLink:hover{
+    color: darkmagenta;
+    text-decoration: underline;
+}
+
 .roomContainer h2{
     text-align: center;
     text-transform: uppercase;

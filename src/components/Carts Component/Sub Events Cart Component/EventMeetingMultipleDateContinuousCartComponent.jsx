@@ -11,6 +11,8 @@ import { getCommaAndSeperatedArray, getSubarraysOfTwoElements } from "@/function
 import EventMeetingFoodServices from "./Food Services Of Event/EventMeetingFoodServices.jsx";
 import { useAppDispatch } from "@/redux store/hooks.js";
 import { deleteParticularBookingFromEventMeetingCart } from "@/redux store/features/Booking Features/eventMeetingRoomBookingCartSlice.js";
+import { wantFoodServiceConstants } from "@/constant string files/eventsMeetingRoomImportantConstants.js";
+
 
 
 const boxStyle = {
@@ -81,7 +83,7 @@ function EventMeetingMultipleDateContinuousCartComponent(props){
                 <Button onClick={()=>removeCartHandler(eachEventMeetingInCart.eventCartId)} variant="contained">
                     Remove From Cart
                 </Button>
-                {(eachEventMeetingInCart.wantFoodServices == "Yes") &&
+                {(eachEventMeetingInCart.wantFoodServices == wantFoodServiceConstants.WANT_FOOD_SERVICE_YES) &&
                 <div className={styles.viewFoodItems}>
                     <Button onClick={()=>setViewFoodItems(true)} variant="outlined">View Food Items</Button>
                     <Modal

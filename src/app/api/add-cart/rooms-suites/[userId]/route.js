@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import HotelCustomersUsers from "@/database models/hotelCustomersUsers.js";
 import RoomsSuitesCartInfo from "@/database models/booking models/room suites models/roomsSuitesCartInfo.js";
-
 import Connection from "@/database config/config.js";
+import { INTERNAL_SERVER_ERROR, USER_NOT_FOUND } from "@/constant string files/apiErrorMessageConstants.js";
+import { INFORMATION_ADD_TO_CART_SUCCESSFUL } from "@/constant string files/apiSuccessMessageConstants.js";
+
 
 Connection();
 
@@ -37,20 +39,20 @@ async function POST(NextRequest, context){
             });
             await newRoomSuitesCartInfo.save();
             return NextResponse.json(
-                { message: 'Cart Information Successfully Added To Cart' },
+                { message: INFORMATION_ADD_TO_CART_SUCCESSFUL },
                 { status: 200 }
             );
         }
         else{
             return NextResponse.json(
-                { errorMessage: 'User not Found!' },
+                { errorMessage: USER_NOT_FOUND },
                 { status: 404 }
             );
         }
     }
     catch(error){
         return NextResponse.json(
-            { errorMessage: 'Internal Server Error' }, 
+            { errorMessage: INTERNAL_SERVER_ERROR }, 
             { status: 500 }
         );
     }

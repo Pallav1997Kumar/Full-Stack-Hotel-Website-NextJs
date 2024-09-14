@@ -13,6 +13,7 @@ import { getCommaAndSeperatedArray, getSubarraysOfTwoElements } from "@/function
 import EventMeetingSingleDateCartComponent from "./Sub Events Cart Component/EventMeetingSingleDateCartComponent.jsx";
 import EventMeetingMultipleDateContinuousCartComponent from "./Sub Events Cart Component/EventMeetingMultipleDateContinuousCartComponent.jsx";
 import EventMeetingMultipleDateNonContinuousCartComponent from "./Sub Events Cart Component/EventMeetingMultipleDateNonContinuousCartComponent.jsx";
+import { roomBookingDateTypeConstants } from "@/constant string files/eventsMeetingRoomImportantConstants.js";
 
 
 function EventMeetingRoomBookingCartComponent(){
@@ -72,14 +73,14 @@ function EventMeetingRoomBookingCartComponent(){
                         </div>
                         
 
-                        {(eachEventMeetingInCart.roomBookingDateType == 'Single Date') &&
+                        {(eachEventMeetingInCart.roomBookingDateType == roomBookingDateTypeConstants.SINGLE_DATE) &&
                             <EventMeetingSingleDateCartComponent eachEventMeetingInCart={eachEventMeetingInCart}  />
                         }
 
-                        {(eachEventMeetingInCart.roomBookingDateType == 'Multiple Dates Continuous') &&
+                        {(eachEventMeetingInCart.roomBookingDateType == roomBookingDateTypeConstants.MULTIPLE_DATES_CONTINOUS) &&
                             <EventMeetingMultipleDateContinuousCartComponent eachEventMeetingInCart={eachEventMeetingInCart} />
                         }
-                        {(eachEventMeetingInCart.roomBookingDateType == 'Multiple Dates Non Continuous') &&
+                        {(eachEventMeetingInCart.roomBookingDateType == roomBookingDateTypeConstants.MULTIPLE_DATES_NON_CONTINOUS) &&
                             <EventMeetingMultipleDateNonContinuousCartComponent eachEventMeetingInCart={eachEventMeetingInCart} />
                         }
                     </div>

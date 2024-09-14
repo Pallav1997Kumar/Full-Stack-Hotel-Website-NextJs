@@ -11,13 +11,20 @@ import EventsMeetingComponent from "@/components/Home Page Components/EventsMeet
 import HotelFacilitiesComponent from "@/components/Home Page Components/HotelFacilitiesComponent.jsx";
 
 
+export function generateMetadata(){
+  return {
+      title: 'Royal Palace'
+  }
+}
+
+
 export default function Home() {
   return (
     <React.Fragment>
       <div>
         <Image src={'/hotel photo.jpg'} alt="hotel" width={1500} height={500} />
       </div>
-      <h1 className={styles.hotelName}>Taj Bengal</h1>
+      <h1 className={styles.hotelName}>Royal Palace</h1>
       <h4 className={styles.hotelSubIntro}>5 Star Hotel in Kolkata near Victoria Memorial</h4>
       <BasicContactInformation />
       <HomePageHotelIntroduction />

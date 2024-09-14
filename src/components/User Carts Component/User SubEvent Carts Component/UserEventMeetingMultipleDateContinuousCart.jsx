@@ -9,6 +9,7 @@ import styles from './UserEventMeetingMultipleDateContinuousCart.module.css';
 import { getDateTextFromFullDate } from "@/functions/date.js";
 import { getCommaAndSeperatedArray, getSubarraysOfTwoElements } from "@/functions/array.js";
 import UserEventMeetingFoodServices from "./Food Services Of Event/UserEventMeetingFoodServices.jsx";
+import { wantFoodServiceConstants } from "@/constant string files/eventsMeetingRoomImportantConstants.js";
 
 
 const boxStyle = {
@@ -26,6 +27,12 @@ const boxStyle = {
 function UserEventMeetingMultipleDateContinuousCart(props){
     const eachEventMeetingInCart = props.eachEventMeetingInCart;
     const [viewFoodItems, setViewFoodItems] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
+
+    async function removeEventMeetingMultipleDatesContinuousItemFromCart(id, bookingType){
+        props.onRemoveEventMeetingItemFromCart(id, bookingType);
+    }
 
 
     return (
@@ -70,10 +77,15 @@ function UserEventMeetingMultipleDateContinuousCart(props){
                 {eachEventMeetingInCart.totalPriceEventMeetingRoom}
             </p>
             <div className={styles.buttonContainer}>
-                <Button onClick={()=>removeCartHandler(eachEventMeetingInCart.eventCartId)} variant="contained">
+                
+                <Button 
+                    onClick={()=>removeEventMeetingMultipleDatesContinuousItemFromCart(eachEventMeetingInCart._id, eachEventMeetingInCart.roomBookingDateType)} 
+                    variant="contained"
+                >
                     Remove From Cart
                 </Button>
-                {(eachEventMeetingInCart.wantFoodServices == "Yes") &&
+                
+                {(eachEventMeetingInCart.wantFoodServices == wantFoodServiceConstants.WANT_FOOD_SERVICE_YES) &&
                 <div className={styles.viewFoodItems}>
                     <Button onClick={()=>setViewFoodItems(true)} variant="outlined">View Food Items</Button>
                     <Modal

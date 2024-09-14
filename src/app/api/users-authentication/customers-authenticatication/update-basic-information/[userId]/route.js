@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import HotelCustomersUsers from "@/database models/hotelCustomersUsers.js";
 import Connection from "@/database config/config.js";
+import { INTERNAL_SERVER_ERROR, USER_NOT_FOUND } from "@/constant string files/apiErrorMessageConstants.js";
+import { USER_INFORMATION_UPDATED_SUCCESSFULLY } from "@/constant string files/apiSuccessMessageConstants.js";
+
 
 Connection();
 
@@ -26,20 +29,20 @@ async function PATCH(NextRequest, context){
                 $set: updatedInfo
             });
             return NextResponse.json(
-                { message: 'User Infomation Updated Successfully' },
+                { message: USER_INFORMATION_UPDATED_SUCCESSFULLY },
                 { status: 200 }
             );
         }
         else{
             return NextResponse.json(
-                { errorMessage: 'User not Found!' },
+                { errorMessage: USER_NOT_FOUND },
                 { status: 404 }
             );
         }
     }
     catch(error){
         return NextResponse.json(
-            { error: 'Internal Server Error' }, 
+            { error: INTERNAL_SERVER_ERROR }, 
             { status: 500 }
         );
     }

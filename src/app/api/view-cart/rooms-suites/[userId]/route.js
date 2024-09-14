@@ -4,6 +4,9 @@ import RoomsSuitesCartInfo from "@/database models/booking models/room suites mo
 
 import Connection from "@/database config/config.js";
 
+import { INTERNAL_SERVER_ERROR, USER_NOT_FOUND } from "@/constant string files/apiErrorMessageConstants.js";
+import { ROOMS_SUITES_PRESENT_IN_CART, ROOMS_SUITES_CART_IS_EMPTY } from "@/constant string files/apiSuccessMessageConstants.js";
+
 Connection();
 
 
@@ -21,35 +24,35 @@ async function GET(NextRequest, context){
                 
                 if(cartRoomSuiteUser.length > 0){
                     return NextResponse.json(
-                        { message: 'Rooms and Suites Present in Cart!', roomSuiteCartInfo: cartRoomSuiteUser },
+                        { message: ROOMS_SUITES_PRESENT_IN_CART, roomSuiteCartInfo: cartRoomSuiteUser },
                         { status: 200 }
                     );
                 }
 
                 else{
                     return NextResponse.json(
-                        { message: 'Rooms and Suites Cart is Empty!' },
+                        { message: ROOMS_SUITES_CART_IS_EMPTY },
                         { status: 200 }
                     );
                 }
             }
             else{
                 return NextResponse.json(
-                    { message: 'Rooms and Suites Cart is Empty!' },
+                    { message: ROOMS_SUITES_CART_IS_EMPTY },
                     { status: 200 }
                 );
             }
         }
         else{
             return NextResponse.json(
-                { errorMessage: 'User not Found!' },
+                { errorMessage: USER_NOT_FOUND },
                 { status: 404 }
             );
         }
     } catch (error) {
         console.log(error);
         return NextResponse.json(
-            { errorMessage: 'Internal Server Error' }, 
+            { errorMessage: INTERNAL_SERVER_ERROR }, 
             { status: 500 }
         );
     }

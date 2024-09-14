@@ -1,7 +1,15 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import styles from "./page.module.css";
+
+
+export function generateMetadata(){
+    return {
+        title: 'Royal Palace - Indoor Games'
+    }
+}
 
 
 export default function page() {
@@ -10,6 +18,23 @@ export default function page() {
             <div className={styles.imageContainer}>
                 <Image src={'/Indoor Games/indoor -games.jpg'} alt="gym image" width={1400} height={500} />
             </div>
+
+            <div className={styles.breadcrumbsContainer}>
+                <p>
+                    <Link href="/">
+                        <span className={styles.breadcrumbsLink}> HOME </span>
+                    </Link> 
+                    <span>{'>>'}</span> 
+                    <Link href="/facility-in-our-hotel"> 
+                        <span className={styles.breadcrumbsLink}> HOTEL FACILITIES </span>
+                    </Link>
+                    <span>{'>>'}</span> 
+                    <Link href="/facility-in-our-hotel/indoor-games"> 
+                        <span className={styles.breadcrumbsLink}> INDOOR GAMES CENTRE </span>
+                    </Link>
+                </p>
+            </div>
+
             <div className={styles.gamesHeaderContainer}>
                 <h2>Indoor Games at our hotel</h2>
                 <p>Gaming is not always about to sweat, many games can relax and revive you even if you are sitting inside a room. </p>

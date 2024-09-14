@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import HotelCustomersUsers from "@/database models/hotelCustomersUsers.js";
 import HotelCustomersTransaction from "@/database models/hotelCustomersTransaction.js";
 import Connection from "@/database config/config.js";
+import { INTERNAL_SERVER_ERROR, USER_NOT_FOUND } from "@/constant string files/apiErrorMessageConstants.js";
+import { SUCCESSFUL_AMOUNT_ADD_TRANSACTION } from "@/constant string files/apiSuccessMessageConstants.js";
 
 Connection();
 
@@ -31,20 +33,20 @@ async function POST(NextRequest, context) {
             });
             await newTransactionAmountAdd.save();
             return NextResponse.json(
-                { message: 'Amount Add Transaction Successfully Added' },
+                { message: SUCCESSFUL_AMOUNT_ADD_TRANSACTION },
                 { status: 200 }
             );
         }
         else{
             return NextResponse.json(
-                { errorMessage: 'User not Found!' },
+                { errorMessage: USER_NOT_FOUND },
                 { status: 404 }
             );
         }
     }
     catch(error){
         return NextResponse.json(
-            { errorMessage: 'Internal Server Error' }, 
+            { errorMessage: INTERNAL_SERVER_ERROR }, 
             { status: 500 }
         );
     }

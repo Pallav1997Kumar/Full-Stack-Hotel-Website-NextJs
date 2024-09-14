@@ -38,8 +38,19 @@ function PriceDetailsAllDates(props){
     //console.log(eventMeetingBookingDatesStringArrayList);
 
     function getEachDateTotalPrice(dateWithPrice){
-        const updatedEachDateTotalPrice = [...eachDateTotalPrice, dateWithPrice];
-        setEachDateTotalPrice(updatedEachDateTotalPrice);
+        setEachDateTotalPrice(function(previousState){
+            let updatedEachDateTotalPrice;
+            const isSameDateInPreviousDate = previousState.filter(function(eachDate){
+                return eachDate.currentDate === dateWithPrice.currentDate
+            });
+            if(isSameDateInPreviousDate.length === 0){
+                updatedEachDateTotalPrice = [...previousState, dateWithPrice];
+            }
+            else if(isSameDateInPreviousDate.length > 0){
+                updatedEachDateTotalPrice = previousState;
+            }
+            return updatedEachDateTotalPrice;
+        });
     }
 
     let totalPriceForAllDay = 0;

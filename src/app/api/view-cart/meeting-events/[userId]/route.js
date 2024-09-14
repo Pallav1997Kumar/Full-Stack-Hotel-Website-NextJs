@@ -6,6 +6,9 @@ import ContinousMultipleDatesCartInfo from "@/database models/booking models/eve
 
 import Connection from "@/database config/config.js";
 
+import { INTERNAL_SERVER_ERROR, USER_NOT_FOUND } from "@/constant string files/apiErrorMessageConstants.js";
+import { EVENT_MEETING_ROOM_PRESENT_IN_CART, EVENT_MEETING_ROOM_CART_IS_EMPTY } from "@/constant string files/apiSuccessMessageConstants.js";
+
 Connection();
 
 
@@ -36,33 +39,33 @@ async function GET(NextRequest, context){
                         ]
 
                     return NextResponse.json(
-                        { message: 'Event and Meeting Rooms Present in Cart!', eventMeetingCartInfo },
+                        { message: EVENT_MEETING_ROOM_PRESENT_IN_CART, eventMeetingCartInfo },
                         { status: 200 }
                     );
                 }
                 else{
                     return NextResponse.json(
-                        { message: 'Event and Meeting Rooms Cart is Empty!' },
+                        { message: EVENT_MEETING_ROOM_CART_IS_EMPTY },
                         { status: 200 }
                     );
                 }
             }
             else{
                 return NextResponse.json(
-                    { message: 'Event and Meeting Rooms Cart is Empty!' },
+                    { message: EVENT_MEETING_ROOM_CART_IS_EMPTY },
                     { status: 200 }
                 );
             }
         }
         else{
             return NextResponse.json(
-                { errorMessage: 'User not Found!' },
+                { errorMessage: USER_NOT_FOUND },
                 { status: 404 }
             );
         }
     } catch (error) {
         return NextResponse.json(
-            { errorMessage: 'Internal Server Error' }, 
+            { errorMessage: INTERNAL_SERVER_ERROR }, 
             { status: 500 }
         );
     }

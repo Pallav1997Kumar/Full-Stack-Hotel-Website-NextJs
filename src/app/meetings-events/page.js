@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import styles from "./page.module.css";
 
@@ -23,6 +24,19 @@ export default async function page(){
             <div className={styles.imageContainer}>
                 <Image src={'/events-meeting/event meeting.jpg'} alt="meeting image" width={1400} height={500} />
             </div>
+
+            <div className={styles.breadcrumbsContainer}>
+                <p>
+                    <Link href="/">
+                        <span className={styles.breadcrumbsLink}> HOME </span>
+                    </Link> 
+                    <span>{'>>'}</span> 
+                    <Link href="/meetings-events"> 
+                        <span className={styles.breadcrumbsLink}> EVENTS AND MEETINGS </span>
+                    </Link>
+                </p>
+            </div>
+
             <div className={styles.descriptionContainer}>
                 <h2>EVENTS AND MEETINGS</h2>
                 <p>From private meetings to grand corporate events, wedding anniversaries, engagements and birthday parties. When in Kolkata, it has to be The Oberoi Grand.</p>

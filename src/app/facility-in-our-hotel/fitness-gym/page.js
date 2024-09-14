@@ -1,7 +1,15 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import styles from "./page.module.css";
+
+
+export function generateMetadata(){
+    return {
+        title: 'Royal Palace - Gym'
+    }
+}
 
 
 export default function page(){
@@ -10,6 +18,23 @@ export default function page(){
             <div className={styles.imageContainer}>
                 <Image src={'/Fitness/Fitness-24-hr-gym.jpg'} alt="gym image" width={1400} height={500} />
             </div>
+
+            <div className={styles.breadcrumbsContainer}>
+                <p>
+                    <Link href="/">
+                        <span className={styles.breadcrumbsLink}> HOME </span>
+                    </Link> 
+                    <span>{'>>'}</span> 
+                    <Link href="/facility-in-our-hotel"> 
+                        <span className={styles.breadcrumbsLink}> HOTEL FACILITIES </span>
+                    </Link>
+                    <span>{'>>'}</span> 
+                    <Link href="/facility-in-our-hotel/fitness-gym"> 
+                        <span className={styles.breadcrumbsLink}> FITNESS CENTRE </span>
+                    </Link>
+                </p>
+            </div>
+            
             <div className={styles.fitnessHeader}>
                 <h2>Find your perfect fit with our hotels with gym.</h2>
                 <p>When you choose to stay at NH Hotels, there will be no need to put your healthy habits on hold while you are away from home: in our hotels, you can rely on exercise and wellness spaces that are designed to meet your needs and complement your day-to-day life when you are traveling.</p>

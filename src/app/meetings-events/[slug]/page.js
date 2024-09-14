@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import styles from "./page.module.css";
 
@@ -57,6 +58,23 @@ async function Page(context){
 
     return(
         <div className={styles.meetingEventsContainer}>
+
+            <div className={styles.breadcrumbsContainer}>
+                <p>
+                    <Link href="/">
+                        <span className={styles.breadcrumbsLink}> HOME </span>
+                    </Link> 
+                    <span>{'>>'}</span> 
+                    <Link href="/meetings-events"> 
+                        <span className={styles.breadcrumbsLink}> EVENTS AND MEETINGS </span>
+                    </Link>
+                    <span>{'>>'}</span> 
+                    <Link href={`/meetings-events/${currentEventMeetingAreaPath}`}> 
+                        <span className={styles.breadcrumbsLink}> {meetingEventsInfo.meetingEventAreaTitle} </span>
+                    </Link>
+                </p>
+            </div>
+
             <h2>{meetingEventsInfo.meetingEventAreaTitle}</h2>
 
             <div className={styles.topContainer}>

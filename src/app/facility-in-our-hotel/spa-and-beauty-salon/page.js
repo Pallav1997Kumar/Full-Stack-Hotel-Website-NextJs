@@ -1,10 +1,19 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import styles from "./page.module.css";
 
 import spaImage from "../../../../public/Spa and Salon/spa-image.webp";
 import salonImage from "../../../../public/Spa and Salon/salon.jpg";
+
+
+export function generateMetadata(){
+    return {
+        title: 'Royal Palace - Spa and Salon'
+    }
+}
+
 
 export default function page(){
     return(
@@ -12,6 +21,23 @@ export default function page(){
             <div className={styles.imageContainer}>
                 <Image src={'/Spa and Salon/salon.jpg'} alt="gym image" width={1400} height={500} />
             </div>
+
+            <div className={styles.breadcrumbsContainer}>
+                <p>
+                    <Link href="/">
+                        <span className={styles.breadcrumbsLink}> HOME </span>
+                    </Link> 
+                    <span>{'>>'}</span> 
+                    <Link href="/facility-in-our-hotel"> 
+                        <span className={styles.breadcrumbsLink}> HOTEL FACILITIES </span>
+                    </Link>
+                    <span>{'>>'}</span> 
+                    <Link href="/facility-in-our-hotel/spa-and-beauty-salon"> 
+                        <span className={styles.breadcrumbsLink}> SPA AND SALON </span>
+                    </Link>
+                </p>
+            </div>
+
             <div className={styles.spaContainer}>
                 <h2>Spa at our Hotel</h2>
                 <p>Novotel Spa believes in the mantra that the mind and body needs peace to achieve spiritual and sensual bliss. We provide a serene and unforgettable experience of indulgence, relaxation and pure pampering.</p>

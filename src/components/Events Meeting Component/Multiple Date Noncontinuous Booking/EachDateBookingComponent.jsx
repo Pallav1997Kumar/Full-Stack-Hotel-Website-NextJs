@@ -11,6 +11,8 @@ import { convertDateTextToDate } from "@/functions/date.js";
 import EventMeetingBookingsDetailsConfirmation from '@/components/Events Meeting Component/Common Components/EventMeetingBookingsDetailsConfirmation.jsx';
 import PriceDetailsEachDate from "./PriceDetailsEachDate.jsx";
 import { useAppSelector } from "@/redux store/hooks.js";
+import { multipleNonContinousDatesEventsMeetingSelectionErrorConstants } from "@/constant string files/eventsMeetingSelectionErrorConstants.js";
+import { wantFoodServiceConstants, eventMeetingTimingConstants } from "@/constant string files/eventsMeetingRoomImportantConstants.js";
 
 
 function EachDateBookingComponent(props){
@@ -28,7 +30,7 @@ function EachDateBookingComponent(props){
     const [meetingEventBookingTime, setMeetingEventBookingTime] = useState([]);
     const [meetingEventSeatingArrangement, setMeetingEventSeatingArrangement] = useState('');
     const [maximumGuestAttending, setMaximumGuestAttending] = useState(1);
-    const [wantFoodServices, setWantFoodServices] = useState('No');
+    const [wantFoodServices, setWantFoodServices] = useState(wantFoodServiceConstants.WANT_FOOD_SERVICE_NO);
 
     const [selectedMeals, setSelectedMeals] = useState({
         midNight: [],
@@ -52,23 +54,23 @@ function EachDateBookingComponent(props){
     const isRoomAvailable = true;
 
     const isMidNightChecked = meetingEventBookingTime.some(function (eachTime){
-        return (eachTime === "Mid Night")
+        return (eachTime === eventMeetingTimingConstants.MID_NIGHT_TIME)
     });
 
     const isMorningChecked = meetingEventBookingTime.some(function (eachTime){
-        return (eachTime === "Morning")
+        return (eachTime === eventMeetingTimingConstants.MORNING_TIME)
     });
 
     const isAfternoonChecked = meetingEventBookingTime.some(function (eachTime){
-        return (eachTime === "Afternoon")
+        return (eachTime === eventMeetingTimingConstants.AFTERNOON_TIME)
     });
 
     const isEveningChecked = meetingEventBookingTime.some(function (eachTime){
-        return (eachTime === "Evening")
+        return (eachTime === eventMeetingTimingConstants.EVENING_TIME)
     });
 
     const isNightChecked = meetingEventBookingTime.some(function (eachTime){
-        return (eachTime === "Night")
+        return (eachTime === eventMeetingTimingConstants.NIGHT_TIME)
     });
 
     const onlyMeetingEventsSeatingInfoWhereSeatingPresent = meetingEventsSeatingInfo.filter(function(eachSeatingArrangement){
@@ -76,15 +78,15 @@ function EachDateBookingComponent(props){
     });
 
     let showFoodOptions = false;
-    if(wantFoodServices == 'Yes' && meetingEventBookingDate != null && meetingEventBookingTime.length > 0){
+    if(wantFoodServices == wantFoodServiceConstants.WANT_FOOD_SERVICE_YES && meetingEventBookingDate != null && meetingEventBookingTime.length > 0){
         showFoodOptions = true;
     }
 
-    const midNightFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Mid Night');
-    const morningFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Morning');
-    const afternoonFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Afternoon');
-    const eveningFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Evening');
-    const nightFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, 'Night');
+    const midNightFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, eventMeetingTimingConstants.MID_NIGHT_TIME);
+    const morningFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, eventMeetingTimingConstants.MORNING_TIME);
+    const afternoonFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, eventMeetingTimingConstants.AFTERNOON_TIME);
+    const eveningFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, eventMeetingTimingConstants.EVENING_TIME);
+    const nightFoodArray = getFoodListOfCurrentMeal(meetingEventDateFoodDetails, eventMeetingTimingConstants.NIGHT_TIME);
 
     let maximumGuestAllowedForSeatingArrangement = 0;
     if(meetingEventSeatingArrangement != ''){
@@ -174,10 +176,10 @@ function EachDateBookingComponent(props){
             if(maximumGuestAttending >= 1){
                 if(maximumGuestAttending > maximumGuestAllowedForSeatingArrangement){
                     setIncorrectInput(true);
-                    setIncorrectInputMessage('You have entered Number of Guests greater than Seating Arrangement Capacity');
+                    setIncorrectInputMessage(multipleNonContinousDatesEventsMeetingSelectionErrorConstants.GUEST_COUNT_GREATER_THAN_CAPACITY);
                 }
                 else if(maximumGuestAttending <= maximumGuestAllowedForSeatingArrangement){
-                    if(wantFoodServices == 'No'){
+                    if(wantFoodServices == wantFoodServiceConstants.WANT_FOOD_SERVICE_NO){
                         setIncorrectInput(false);
                         setIncorrectInputMessage('');
                         const bookingDetails = {
@@ -191,7 +193,7 @@ function EachDateBookingComponent(props){
                         }
                         setBookingDetailsForCart(bookingDetails);
                     }
-                    else if(wantFoodServices == 'Yes'){
+                    else if(wantFoodServices == wantFoodServiceConstants.WANT_FOOD_SERVICE_YES){
                         const midNightSelectedMeals = selectedMeals.midNight;
                         const morningSelectedMeals = selectedMeals.morning;
                         const afternoonSelectedMeals = selectedMeals.afternoon;
@@ -199,7 +201,7 @@ function EachDateBookingComponent(props){
                         const nightSelectedMeals = selectedMeals.night;
                         if(midNightSelectedMeals.length == 0 && morningSelectedMeals.length == 0 && afternoonSelectedMeals.length == 0 && eveningSelectedMeals.length == 0 && nightSelectedMeals.length == 0){
                             setIncorrectInput(true);
-                            setIncorrectInputMessage('Please Select atleast one Food Item if you want Food Services!');
+                            setIncorrectInputMessage(multipleNonContinousDatesEventsMeetingSelectionErrorConstants.SELECT_FOOD_ITEM);
                         }
                         else if(midNightSelectedMeals.length > 0 || morningSelectedMeals.length > 0 || afternoonSelectedMeals.length > 0 || eveningSelectedMeals.length > 0 || nightSelectedMeals.length > 0){
                             setIncorrectInput(false);
@@ -221,36 +223,36 @@ function EachDateBookingComponent(props){
             }
             else if(maximumGuestAttending < 1){
                 setIncorrectInput(true);
-                setIncorrectInputMessage('Number of guest cannot be less than 1');
+                setIncorrectInputMessage(multipleNonContinousDatesEventsMeetingSelectionErrorConstants.GUEST_NOT_LESS_THAN_ONE);
             }
         }
         else if(meetingEventBookingTime.length == 0 && meetingEventSeatingArrangement === '' && meetingEventBookingDate == null){
             setIncorrectInput(true);
-            setIncorrectInputMessage('Incorrect Input !!!  Please Choose Event Booking Date, Event Booking Time and Event Seating Arrangement');
+            setIncorrectInputMessage(multipleNonContinousDatesEventsMeetingSelectionErrorConstants.BOOKING_DATE_BOOKING_TIME_SEATING_ARRANGEMENT_REQUIRED);
         }
         else if(meetingEventBookingTime.length == 0 && meetingEventSeatingArrangement === ''){
             setIncorrectInput(true);
-            setIncorrectInputMessage('Incorrect Input !!!  Please Choose Event Booking Time and Event Seating Arrangement');
+            setIncorrectInputMessage(multipleNonContinousDatesEventsMeetingSelectionErrorConstants.BOOKING_TIME_SEATING_ARRANGEMENT_REQUIRED);
         }
         else if(meetingEventBookingTime.length == 0 && meetingEventBookingDate == null){
             setIncorrectInput(true);
-            setIncorrectInputMessage('Incorrect Input !!!  Please Choose Event Booking Date and Event Booking Time');
+            setIncorrectInputMessage(multipleNonContinousDatesEventsMeetingSelectionErrorConstants.BOOKING_DATE_BOOKING_TIME_REQUIRED);
         }
         else if(meetingEventSeatingArrangement === '' && meetingEventBookingDate == null){
             setIncorrectInput(true);
-            setIncorrectInputMessage('Incorrect Input !!!  Please Choose Event Booking Date and Event Seating Arrangement');
+            setIncorrectInputMessage(multipleNonContinousDatesEventsMeetingSelectionErrorConstants.BOOKING_DATE_SEATING_ARRANGEMENT_REQUIRED);
         }
         else if(meetingEventBookingDate == null){
             setIncorrectInput(true);
-            setIncorrectInputMessage('Incorrect Input !!!  Please Choose Event Booking Date');
+            setIncorrectInputMessage(multipleNonContinousDatesEventsMeetingSelectionErrorConstants.BOOKING_DATE_REQUIRED);
         }
         else if(meetingEventBookingTime.length == 0){
             setIncorrectInput(true);
-            setIncorrectInputMessage('Incorrect Input !!!  Please Choose Event Booking Time');
+            setIncorrectInputMessage(multipleNonContinousDatesEventsMeetingSelectionErrorConstants.BOOKING_TIME_REQUIRED);
         }
         else if(meetingEventSeatingArrangement === ''){
             setIncorrectInput(true);
-            setIncorrectInputMessage('Incorrect Input !!!  Please Choose Event Seating Arrangement');
+            setIncorrectInputMessage(multipleNonContinousDatesEventsMeetingSelectionErrorConstants.SEATING_ARRANGEMENT_REQUIRED);
         }
     }
 
@@ -295,7 +297,7 @@ function EachDateBookingComponent(props){
                     id="mid-night" 
                     className={styles.eachLabelForTime}
                     name="meeting-event-time-check"
-                    value="Mid Night"
+                    value={eventMeetingTimingConstants.MID_NIGHT_TIME}
                     checked={isMidNightChecked}
                     onChange={meetingEventTimeChangeHandler}
                 />
@@ -305,7 +307,7 @@ function EachDateBookingComponent(props){
                     id="morning" 
                     className={styles.eachLabelForTime}
                     name="meeting-event-time-check"
-                    value="Morning"
+                    value={eventMeetingTimingConstants.MORNING_TIME}
                     checked={isMorningChecked}
                     onChange={meetingEventTimeChangeHandler}
                 />
@@ -315,7 +317,7 @@ function EachDateBookingComponent(props){
                     id="afternoon" 
                     className={styles.eachLabelForTime}
                     name="meeting-event-time-check"
-                    value="Afternoon"
+                    value={eventMeetingTimingConstants.AFTERNOON_TIME}
                     checked={isAfternoonChecked}
                     onChange={meetingEventTimeChangeHandler}
                 />
@@ -325,7 +327,7 @@ function EachDateBookingComponent(props){
                     id="evening" 
                     className={styles.eachLabelForTime}
                     name="meeting-event-time-check"
-                    value="Evening"
+                    value={eventMeetingTimingConstants.EVENING_TIME}
                     checked={isEveningChecked}
                     onChange={meetingEventTimeChangeHandler}
                 />
@@ -335,7 +337,7 @@ function EachDateBookingComponent(props){
                     id="night"
                     className={styles.eachLabelForTime} 
                     name="meeting-event-time-check"
-                    value="Night"
+                    value={eventMeetingTimingConstants.NIGHT_TIME}
                     checked={isNightChecked}
                     onChange={meetingEventTimeChangeHandler}
                 />
@@ -387,8 +389,8 @@ function EachDateBookingComponent(props){
                     name="food-service-selector" 
                     id="yes-food" 
                     className={styles.eachLabelYesNoFood}
-                    value="Yes"
-                    checked={wantFoodServices == "Yes"}
+                    value={wantFoodServiceConstants.WANT_FOOD_SERVICE_YES}
+                    checked={wantFoodServices == wantFoodServiceConstants.WANT_FOOD_SERVICE_YES}
                     onChange={(event)=>setWantFoodServices(event.target.value)}
                 />
                 <label className={styles.foodYesNo} htmlFor="yes-food">Yes</label>
@@ -397,8 +399,8 @@ function EachDateBookingComponent(props){
                     name="food-service-selector" 
                     id="no-food" 
                     className={styles.eachLabelYesNoFood}
-                    value="No"
-                    checked={wantFoodServices == "No"}
+                    value={wantFoodServiceConstants.WANT_FOOD_SERVICE_NO}
+                    checked={wantFoodServices == wantFoodServiceConstants.WANT_FOOD_SERVICE_NO}
                     onChange={(event)=>setWantFoodServices(event.target.value)}
                 />
                 <label className={styles.foodYesNo} htmlFor="no-food">No</label>

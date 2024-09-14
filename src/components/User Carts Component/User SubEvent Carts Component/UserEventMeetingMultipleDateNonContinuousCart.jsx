@@ -1,4 +1,5 @@
 import Button from '@mui/material/Button';
+import React, { useState } from 'react';
 
 import styles from "./UserEventMeetingMultipleDateNonContinuousCart.module.css";
 
@@ -8,6 +9,12 @@ import UserEventMeetingEachDayNonContinuous from './UserEventMeetingEachDayNonCo
 function UserEventMeetingMultipleDateNonContinuousCart(props){
 
     const eachEventMeetingInCart = props.eachEventMeetingInCart;
+    const [errorMessage, setErrorMessage] = useState('');
+
+
+    async function removeEventMeetingMultipleDatesNonContinuousItemFromCartDb(id, bookingType){
+        props.onRemoveEventMeetingItemFromCart(id, bookingType);
+    }
 
 
     return (
@@ -28,9 +35,14 @@ function UserEventMeetingMultipleDateNonContinuousCart(props){
                 <span className={styles.totalValueTitle}>Total Price All Rooms: </span>
                 {eachEventMeetingInCart.totalPriceOfAllDates}
             </p>
-            <Button variant="contained">
+            
+            <Button 
+                onClick={()=>removeEventMeetingMultipleDatesNonContinuousItemFromCartDb(eachEventMeetingInCart._id, eachEventMeetingInCart.roomBookingDateType)} 
+                variant="contained"
+            >
                 Remove From Cart
             </Button>
+
         </div>
     );
 

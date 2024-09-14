@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import HotelCustomersUsers from "@/database models/hotelCustomersUsers.js";
 import Connection from "@/database config/config.js";
+import { INTERNAL_SERVER_ERROR, REGISTRATION_ERROR_MESSAGE } from "@/constant string files/apiErrorMessageConstants.js";
+import { USER_REGISTERED_SUCCESSFULLY } from "@/constant string files/apiSuccessMessageConstants.js";
+
 
 Connection();
 
@@ -14,7 +17,7 @@ async function POST(NextRequest){
         const hotelUser = await HotelCustomersUsers.findOne( { emailAddress: email } );
         if(hotelUser){
             return NextResponse.json(
-                { errorMessage: 'Email Address already exist!' },
+                { errorMessage: REGISTRATION_ERROR_MESSAGE.EMAIL_ADDRESS_ALREADY_EXIST },
                 { status: 404 }
             );
         }
@@ -35,13 +38,13 @@ async function POST(NextRequest){
             });
             await newHotelCustomerUser.save();
             return NextResponse.json(
-                { message: 'User Registered Successfully' },
+                { message: USER_REGISTERED_SUCCESSFULLY },
                 { status: 200 }
             );
         }
     }
     catch(error){
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
+        return NextResponse.json({ error: INTERNAL_SERVER_ERROR }, { status: 500 })
     }
 }
 

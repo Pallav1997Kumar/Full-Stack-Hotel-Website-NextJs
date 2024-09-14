@@ -11,6 +11,7 @@ import { getDateTextFromOnlyDate } from "@/functions/date.js";
 function UserEachRoomCart(props){
 
     const eachRoomInCart = props.eachRoomInCart;
+    console.log(eachRoomInCart);
     
     const [roomsSuites, setRoomsSuites] = useState([]);
     const [displayGuestDetails, setDisplayGuestDetails] = useState(false);
@@ -23,6 +24,7 @@ function UserEachRoomCart(props){
         return (eachRoomInHotel.title == eachRoomInCart.bookingRoomTitle);
     });
 
+
     async function fetchRoomsSuitesInformation(){
         try {
             const response = await fetch('/api/hotel-booking-information/room-and-suites-information/');
@@ -32,6 +34,11 @@ function UserEachRoomCart(props){
             console.log(error);
         }
     }
+
+    async function removeRoomsSuitesItemFromCart(id){
+        props.onRemoveRoomsSuitesItemFromCart(id);
+    }
+
 
     return(
         <div className={styles.eachRoomCart}>
@@ -67,9 +74,14 @@ function UserEachRoomCart(props){
                         <span className={styles.eachRoomOtherInfoTitle}>Total Price Of Room: </span>
                         {eachRoomInCart.totalPriceOfAllRooms} 
                     </p>
-                    <Button variant="contained">
+                    
+                    <Button 
+                        onClick={()=>removeRoomsSuitesItemFromCart(eachRoomInCart._id)} 
+                        variant="contained"
+                    >
                         Remove From Cart
                     </Button>
+                    
                     <p onClick={()=>setDisplayGuestDetails(true)} className={styles.viewGuests}>
                         View Guest Details
                     </p>

@@ -16,6 +16,8 @@ import { addNewBookingToDiningCart } from "@/redux store/features/Booking Featur
 import { convertDateTextToDate } from "@/functions/date.js";
 import { getDiningEachDayPrice } from "@/redux store/features/Price Features/diningEachDayPriceSlice";
 import { updateLoginPageCalledFrom, updateLoginRedirectPage } from '@/redux store/features/Login Page Called From Features/loginPageCalledFromSlice';
+import { diningSelectionErrorConstants } from "@/constant string files/diningSelectionErrorConstants.js";
+import { INFORMATION_ADD_TO_CART_SUCCESSFUL } from "@/constant string files/apiSuccessMessageConstants.js";
 
 
 const initialDiningTableCount = {
@@ -153,6 +155,11 @@ function DiningBookingComponent(props){
         return lastDate;
     }
 
+    function editDetailsBtnClickHandler(){
+        setShowValidateBlock(true);
+        setAddCartBlock(false);
+    }
+
 
     function tableIncrementDecrementCounter(tableType, counterButtonType){
         diningTableCountDispatch({ type: counterButtonType, payload: { tableType } });
@@ -212,53 +219,53 @@ function DiningBookingComponent(props){
                 setBookingDetailsForCart(bookingDetails);
             }
             else if(maxGuestForTableSelection < noOfGuests){
-                setValidateErrorMessgae('Insufficient Tables you have selected for Guests. Please Select More Tables.')
+                setValidateErrorMessgae(diningSelectionErrorConstants.INSUFFICIENT_TABLES_SELECTED);
             }
         }
         else if(tableBookingDate == null && noOfGuests < 1 && mealType == '' && tableBookingTime ==''){
-            setValidateErrorMessgae('Please Select Dining Date, Meal Type and Table Booking Time. Also Number of guest cannot be less than 1');
+            setValidateErrorMessgae(diningSelectionErrorConstants.DINING_DATE_MEAL_TYPE_BOOKING_TIME_REQUIRED_GUEST_NOT_LESS_THAN_ONE);
         }
         else if(noOfGuests < 1 && mealType == '' && tableBookingTime ==''){
-            setValidateErrorMessgae('Please Select Meal Type and Table Booking Time. Also Number of guest cannot be less than 1');
+            setValidateErrorMessgae(diningSelectionErrorConstants.MEAL_TYPE_BOOKING_TIME_REQUIRED_GUEST_NOT_LESS_THAN_ONE);
         }
         else if(tableBookingDate == null && mealType == '' && tableBookingTime ==''){
-            setValidateErrorMessgae('Please Select Dining Date, Meal Type and Table Booking Time.');
+            setValidateErrorMessgae(diningSelectionErrorConstants.DINING_DATE_MEAL_TYPE_BOOKING_TIME_REQUIRED);
         }
         else if(tableBookingDate == null && noOfGuests < 1 && tableBookingTime ==''){
-            setValidateErrorMessgae('Please Select Dining Date and Table Booking Time. Also Number of guest cannot be less than 1');
+            setValidateErrorMessgae(diningSelectionErrorConstants.DINING_DATE_BOOKING_TIME_REQUIRED_GUEST_NOT_LESS_THAN_ONE);
         }
         else if(tableBookingDate == null && noOfGuests < 1 && mealType == ''){
-            setValidateErrorMessgae('Please Select Dining Date and Meal Type. Also Number of guest cannot be less than 1');
+            setValidateErrorMessgae(diningSelectionErrorConstants.DINING_DATE_MEAL_TYPE_REQUIRED_GUEST_NOT_LESS_THAN_ONE);
         }
         else if(tableBookingDate == null && tableBookingTime ==''){
-            setValidateErrorMessgae('Please Select Dining Date and Table Booking Time.');
+            setValidateErrorMessgae(diningSelectionErrorConstants.DINING_DATE_BOOKING_TIME_REQUIRED);
         }
         else if(tableBookingDate == null && noOfGuests < 1){
-            setValidateErrorMessgae('Please Select Dining Date. Also Number of guest cannot be less than 1.');
+            setValidateErrorMessgae(diningSelectionErrorConstants.DINING_DATE_REQUIRED_GUEST_NOT_LESS_THAN_ONE);
         }
         else if(tableBookingDate == null && mealType ==''){
-            setValidateErrorMessgae('Please Select Dining Date and Meal Type.');
+            setValidateErrorMessgae(diningSelectionErrorConstants.DINING_DATE_MEAL_TYPE_REQUIRED);
         }
         else if(mealType == '' && tableBookingTime ==''){
-            setValidateErrorMessgae('Please Select Meal Type and Table Booking Time.');
+            setValidateErrorMessgae(diningSelectionErrorConstants.MEAL_TYPE_BOOKING_TIME_REQUIRED);
         }
         else if(noOfGuests < 1 && tableBookingTime ==''){
-            setValidateErrorMessgae('Please Select Table Booking Time. Also Number of guest cannot be less than 1');
+            setValidateErrorMessgae(diningSelectionErrorConstants.BOOKING_TIME_REQUIRED_GUEST_NOT_LESS_THAN_ONE);
         }
         else if(noOfGuests < 1 && mealType == ''){
-            setValidateErrorMessgae('Please Select Meal Type. Also Number of guest cannot be less than 1');
+            setValidateErrorMessgae(diningSelectionErrorConstants.MEAL_TYPE_REQUIRED_GUEST_NOT_LESS_THAN_ONE);
         }
         else if(tableBookingDate == null){
-            setValidateErrorMessgae('Please Select Dining Date.');
+            setValidateErrorMessgae(diningSelectionErrorConstants.DINING_DATE_REQUIRED);
         }
         else if(noOfGuests < 1){
-            setValidateErrorMessgae('Number of guest cannot be less than 1');
+            setValidateErrorMessgae(diningSelectionErrorConstants.GUEST_NOT_LESS_THAN_ONE);
         }
         else if(mealType == ''){
-            setValidateErrorMessgae('Please Select Meal Type.');
+            setValidateErrorMessgae(diningSelectionErrorConstants.MEAL_TYPE_REQUIRED);
         }
         else if(tableBookingTime ==''){
-            setValidateErrorMessgae('Please Select Table Booking Time.');
+            setValidateErrorMessgae(diningSelectionErrorConstants.TABLE_BOOKING_TIME_REQUIRED);
         }
     }
 
@@ -297,7 +304,7 @@ function DiningBookingComponent(props){
             });
             const data = await response.json();
             if(response.status === 200){
-                if(data.message === 'Cart Information Successfully Added To Cart'){
+                if(data.message === INFORMATION_ADD_TO_CART_SUCCESSFUL){
                     setAddedToCart(true);
                 }
             }
@@ -427,8 +434,16 @@ function DiningBookingComponent(props){
                     }
                 </div>
                 }
+
                 {(!addedToCart && showAddCartBlock) &&
                 <div className={styles.buttonContainer}>
+
+                    <div className={styles.editDetailsBtn}>
+                        <Button onClick={editDetailsBtnClickHandler} variant="contained">
+                            Want to Edit Details
+                        </Button>
+                    </div>
+
                     {!isDataSavingToCart &&
                     <Button onClick={addCartClickHandler} variant="contained">Add to Cart</Button>
                     }

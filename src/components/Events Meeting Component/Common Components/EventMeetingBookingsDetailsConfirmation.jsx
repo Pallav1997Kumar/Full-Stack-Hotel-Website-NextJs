@@ -7,6 +7,7 @@ import Paper from '@mui/material/Paper';
 
 import { getDateText } from "@/functions/date.js";
 import { getCommaAndSeperatedArray } from "@/functions/array.js";
+import { wantFoodServiceConstants } from "@/constant string files/eventsMeetingRoomImportantConstants.js";
 
 
 function EventMeetingBookingsDetailsConfirmation(props) {
@@ -75,31 +76,31 @@ function EventMeetingBookingsDetailsConfirmation(props) {
                             <TableCell>Want Food Services</TableCell>
                             <TableCell>{bookingDetailsForCart.wantFoodServices}</TableCell>
                         </TableRow>
-                        {(bookingDetailsForCart.wantFoodServices == 'Yes' && bookingDetailsForCart.selectedMealsOnBookingDate.morning.length > 0) &&
+                        {(bookingDetailsForCart.wantFoodServices == wantFoodServiceConstants.WANT_FOOD_SERVICE_YES && bookingDetailsForCart.selectedMealsOnBookingDate.morning.length > 0) &&
                         <TableRow>
                             <TableCell>Morning Meals</TableCell>
                             <TableCell>{getFoodList(bookingDetailsForCart.selectedMealsOnBookingDate.morning)}</TableCell>
                         </TableRow>
                         }
-                        {(bookingDetailsForCart.wantFoodServices == 'Yes' && bookingDetailsForCart.selectedMealsOnBookingDate.afternoon.length > 0) &&
+                        {(bookingDetailsForCart.wantFoodServices == wantFoodServiceConstants.WANT_FOOD_SERVICE_YES && bookingDetailsForCart.selectedMealsOnBookingDate.afternoon.length > 0) &&
                         <TableRow>
                             <TableCell>Afternoon Meals</TableCell>
                             <TableCell>{getFoodList(bookingDetailsForCart.selectedMealsOnBookingDate.afternoon)}</TableCell>
                         </TableRow>
                         }
-                        {(bookingDetailsForCart.wantFoodServices == 'Yes' && bookingDetailsForCart.selectedMealsOnBookingDate.evening.length > 0) &&
+                        {(bookingDetailsForCart.wantFoodServices == wantFoodServiceConstants.WANT_FOOD_SERVICE_YES && bookingDetailsForCart.selectedMealsOnBookingDate.evening.length > 0) &&
                         <TableRow>
                             <TableCell>Evening Meals</TableCell>
                             <TableCell>{getFoodList(bookingDetailsForCart.selectedMealsOnBookingDate.evening)}</TableCell>
                         </TableRow>
                         }
-                        {(bookingDetailsForCart.wantFoodServices == 'Yes' && bookingDetailsForCart.selectedMealsOnBookingDate.night.length > 0) &&
+                        {(bookingDetailsForCart.wantFoodServices == wantFoodServiceConstants.WANT_FOOD_SERVICE_YES && bookingDetailsForCart.selectedMealsOnBookingDate.night.length > 0) &&
                         <TableRow>
                             <TableCell>Night Meals</TableCell>
                             <TableCell>{getFoodList(bookingDetailsForCart.selectedMealsOnBookingDate.night)}</TableCell>
                         </TableRow>
                         }
-                        {(bookingDetailsForCart.wantFoodServices == 'Yes' && bookingDetailsForCart.selectedMealsOnBookingDate.midNight.length > 0) &&
+                        {(bookingDetailsForCart.wantFoodServices == wantFoodServiceConstants.WANT_FOOD_SERVICE_YES && bookingDetailsForCart.selectedMealsOnBookingDate.midNight.length > 0) &&
                         <TableRow>
                             <TableCell>Mid Night Meals</TableCell>
                             <TableCell>{getFoodList(bookingDetailsForCart.selectedMealsOnBookingDate.midNight)}</TableCell>

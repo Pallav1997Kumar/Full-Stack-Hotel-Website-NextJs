@@ -4,6 +4,8 @@ import Button from '@mui/material/Button';
 
 import styles from "./GuestRoomSection.module.css";
 
+import { guestTitleConstant } from "@/constant string files/roomsImportantConstants.js";
+
 
 export default function GuestRoomSection(props){
     const roomNo = props.roomNo;
@@ -25,10 +27,10 @@ export default function GuestRoomSection(props){
     let maxChildGuestCount = 0;
     if(guestCountOfRoom != null && Array.isArray(guestCountOfRoom)){
         guestCountOfRoom.forEach(function(eachGuestTitle){
-            if(eachGuestTitle.guestTitle == "Adult"){
+            if(eachGuestTitle.guestTitle == guestTitleConstant.ADULT){
                 maxAdultGuestCount = eachGuestTitle.maximumGuest;
             }
-            if(eachGuestTitle.guestTitle == "Children"){
+            if(eachGuestTitle.guestTitle == guestTitleConstant.CHILDREN){
                 maxChildGuestCount = eachGuestTitle.maximumGuest;
             }
         });

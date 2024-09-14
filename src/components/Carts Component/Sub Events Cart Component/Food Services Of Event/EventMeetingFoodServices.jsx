@@ -1,16 +1,18 @@
 import styles from './EventMeetingFoodServices.module.css';
 
 import { getCommaAndSeperatedArray } from "@/functions/array.js";
+import { eventMeetingTimingConstants } from "@/constant string files/eventsMeetingRoomImportantConstants.js";
+
 
 function EventMeetingFoodServices(props){
     const eachEventMeetingInCart = props.eachEventMeetingInCart;
 
     const meetingEventBookingTime = eachEventMeetingInCart.meetingEventBookingTime;
-    const isMorningSlotBooked = meetingEventBookingTime.includes('Morning');
-    const isAfternoonSlotBooked = meetingEventBookingTime.includes('Afternoon');
-    const isEveningSlotBooked = meetingEventBookingTime.includes('Evening');
-    const isNightSlotBooked = meetingEventBookingTime.includes('Night');
-    const isMidNightSlotBooked = meetingEventBookingTime.includes('Mid Night');
+    const isMorningSlotBooked = meetingEventBookingTime.includes(eventMeetingTimingConstants.MORNING_TIME);
+    const isAfternoonSlotBooked = meetingEventBookingTime.includes(eventMeetingTimingConstants.AFTERNOON_TIME);
+    const isEveningSlotBooked = meetingEventBookingTime.includes(eventMeetingTimingConstants.EVENING_TIME);
+    const isNightSlotBooked = meetingEventBookingTime.includes(eventMeetingTimingConstants.NIGHT_TIME);
+    const isMidNightSlotBooked = meetingEventBookingTime.includes(eventMeetingTimingConstants.MID_NIGHT_TIME);
 
     const morningFoodItems = eachEventMeetingInCart.selectedMealsOnBookingDate.morning;
     const afternoonFoodItems = eachEventMeetingInCart.selectedMealsOnBookingDate.afternoon;

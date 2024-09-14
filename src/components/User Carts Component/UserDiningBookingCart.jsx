@@ -28,6 +28,10 @@ function UserDiningBookingCart(props){
         }
     }
 
+    function removeDiningItemFromCart(id){
+        props.onRemoveDiningItemFromCart(id);
+    }
+
 
     return (
         <div className={styles.diningCartContainer}>
@@ -85,9 +89,14 @@ function UserDiningBookingCart(props){
                                     {eachDiningInCart.tableBookingCountDetails.tableCountSixPerson}
                                 </p>
                             </div>
-                            <Button variant="contained">
+                            
+                            <Button 
+                                onClick={()=>removeDiningItemFromCart(eachDiningInCart._id)} 
+                                variant="contained"
+                            >
                                 Remove From Cart
                             </Button>
+                            
                         </div>
                     </div>
                 )

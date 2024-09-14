@@ -4,6 +4,10 @@ import {cookies} from "next/headers";
 import HotelCustomersUsers from "@/database models/hotelCustomersUsers.js";
 import Connection from "@/database config/config.js";
 
+import { INTERNAL_SERVER_ERROR, USER_NOT_FOUND, UPDATE_PASSWORD } from "@/constant string files/apiErrorMessageConstants.js";
+import { PASSWORD_UPDATED_SUCCESSFULLY } from "@/constant string files/apiSuccessMessageConstants.js";
+
+
 Connection();
 
 async function PATCH(NextRequest, context){
@@ -27,27 +31,27 @@ async function PATCH(NextRequest, context){
                     $set: updatedInfo
                 });
                 return NextResponse.json(
-                    { message: 'Password Updated Successfully' },
+                    { message: PASSWORD_UPDATED_SUCCESSFULLY },
                     { status: 200 }
                 );
             }
             else{
                 return NextResponse.json(
-                    { errorMessage: 'Incorrect Old Password' },
+                    { errorMessage: UPDATE_PASSWORD.INCORRECT_OLD_PASSWORD },
                     { status: 404 }
                 );
             }
         }
         else{
             return NextResponse.json(
-                { errorMessage: 'User not Found!' },
+                { errorMessage: USER_NOT_FOUND },
                 { status: 404 }
             );
         }
     }
     catch(error){
         return NextResponse.json(
-            { error: 'Internal Server Error' }, 
+            { error: INTERNAL_SERVER_ERROR }, 
             { status: 500 }
         );
     }

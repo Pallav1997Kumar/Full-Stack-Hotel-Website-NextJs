@@ -121,6 +121,10 @@
     background-color: lightcyan;
 }
 
+.editRoomInfoBtn{
+    margin: 2%;
+}
+
 .addCartButton{
     align-items: center;
     justify-content: center;

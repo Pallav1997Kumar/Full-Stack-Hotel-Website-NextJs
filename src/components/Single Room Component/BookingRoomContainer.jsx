@@ -19,6 +19,9 @@ import { useAppDispatch, useAppSelector } from "@/redux store/hooks.js";
 import { addNewBookingToRoomCart } from "@/redux store/features/Booking Features/roomBookingCartSlice.js";
 import { getRoomsSuitesEachDayPrice } from "@/redux store/features/Price Features/roomsSuitesEachDayPriceSlice";
 import { updateLoginPageCalledFrom, updateLoginRedirectPage } from "@/redux store/features/Login Page Called From Features/loginPageCalledFromSlice";
+import { roomsSuitesSelectionErrorConstants } from "@/constant string files/roomsSuitesSelectionErrorConstants.js";
+import { INFORMATION_ADD_TO_CART_SUCCESSFUL } from "@/constant string files/apiSuccessMessageConstants.js";
+import { roomCounterConstant } from "@/constant string files/roomsImportantConstants.js";
 
 
 const modalBoxStyle = {
@@ -40,14 +43,14 @@ const initialRoomCount = {
 
 function roomCounterReducer(state, action){
     switch (action.type) {
-        case 'Increase':
+        case roomCounterConstant.INCREASE:
             return {
                 ...state,
                 roomsCount: state.roomsCount + 1
             }
             break;
 
-        case 'Decrease':
+        case roomCounterConstant.DECREASE:
             return {
                 ...state,
                 roomsCount: state.roomsCount - 1
@@ -125,9 +128,6 @@ export default function BookingRoomContainer(props) {
     const [showCheckoutCalender, setShowCheckoutCalender] = useState(false);
 
     const [noOfGuests, setNoOfGuests] = useState(0);
-
-    const [noOfChildParticularRoom, setNoOfChildParticularRoom] = useState(0);
-    const [noOfAdultParticularRoom, setNoOfAdultParticularRoom] = useState(1);
 
     const [showGuestModal, setShowGuestModal] = useState(false);
 
@@ -214,11 +214,11 @@ export default function BookingRoomContainer(props) {
 
 
     function increaseRoomHandler(){
-        roomCountDispatch({ type: 'Increase' });
+        roomCountDispatch({ type: roomCounterConstant.INCREASE });
     }
 
     function decreaseRoomHandler(){
-        roomCountDispatch({ type: 'Decrease' });
+        roomCountDispatch({ type: roomCounterConstant.DECREASE });
     }
 
 
@@ -256,11 +256,11 @@ export default function BookingRoomContainer(props) {
             guestRoomsDetails
         }
         if(noOfGuests == 0){
-            setShowError('Number of guest cannot be 0');
+            setShowError(roomsSuitesSelectionErrorConstants.GUEST_CANNOT_ZERO);
         }
         
         else if(roomsCount != guestRoomsDetails.length){
-            setShowError('You have not entered Details of Guests for all Rooms');
+            setShowError(roomsSuitesSelectionErrorConstants.ALL_ROOMS_GUEST_DETAILS_REQUIRED);
         }
         else{
             setShowError('');
@@ -307,7 +307,7 @@ export default function BookingRoomContainer(props) {
             });
             const data = await response.json();
             if(response.status === 200){
-                if(data.message === 'Cart Information Successfully Added To Cart'){
+                if(data.message === INFORMATION_ADD_TO_CART_SUCCESSFUL){
                     setRoomAddedToCart(true);
                 }
             }
@@ -434,6 +434,11 @@ export default function BookingRoomContainer(props) {
                         roomDetailsForCart={roomsDetailsAddedToCart} 
                         setTotalPriceOfRoom={getTotalPriceOfRoom} 
                     />
+                    <div className={styles.editRoomInfoBtn}>
+                        <Button onClick={()=>setShowViewAvailablityButton(true)} variant="contained">
+                            Edit Room Info
+                        </Button>
+                    </div>
                     {!isDataSavingToCart &&
                     <Button onClick={addCartHandler} variant="contained">
                         Add to Cart 

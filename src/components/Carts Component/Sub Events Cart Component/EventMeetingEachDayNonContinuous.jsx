@@ -8,6 +8,7 @@ import styles from './EventMeetingEachDayNonContinuous.module.css';
 
 import { getDateTextFromFullDate } from "@/functions/date.js";
 import { getCommaAndSeperatedArray, getSubarraysOfTwoElements } from "@/functions/array.js";
+import { wantFoodServiceConstants, eventMeetingTimingConstants } from "@/constant string files/eventsMeetingRoomImportantConstants.js";
 
 
 const boxStyle = {
@@ -27,11 +28,11 @@ function EventMeetingEachDayNonContinuous(props){
     const eachBookingDate = props.eachBookingDate;
 
     const meetingEventBookingTime = eachBookingDate.meetingEventBookingTime;
-    const isMorningSlotBooked = meetingEventBookingTime.includes('Morning');
-    const isAfternoonSlotBooked = meetingEventBookingTime.includes('Afternoon');
-    const isEveningSlotBooked = meetingEventBookingTime.includes('Evening');
-    const isNightSlotBooked = meetingEventBookingTime.includes('Night');
-    const isMidNightSlotBooked = meetingEventBookingTime.includes('Mid Night');
+    const isMorningSlotBooked = meetingEventBookingTime.includes(eventMeetingTimingConstants.MORNING_TIME);
+    const isAfternoonSlotBooked = meetingEventBookingTime.includes(eventMeetingTimingConstants.AFTERNOON_TIME);
+    const isEveningSlotBooked = meetingEventBookingTime.includes(eventMeetingTimingConstants.EVENING_TIME);
+    const isNightSlotBooked = meetingEventBookingTime.includes(eventMeetingTimingConstants.NIGHT_TIME);
+    const isMidNightSlotBooked = meetingEventBookingTime.includes(eventMeetingTimingConstants.MID_NIGHT_TIME);
 
     let morningFoodItems = [];
     let afternoonFoodItems = [];
@@ -105,7 +106,7 @@ function EventMeetingEachDayNonContinuous(props){
                             <span className={styles.eachDateNumberInformationTitle}>Price of Event/Meeting Room: </span>
                             {eachBookingDate.totalPriceEventMeetingRoom}
                         </p>
-                        {(eachBookingDate.wantFoodServices == "Yes" && Object.hasOwn(eachBookingDate,'selectedMealsOnBookingDate')) &&
+                        {(eachBookingDate.wantFoodServices == wantFoodServiceConstants.WANT_FOOD_SERVICE_YES && Object.hasOwn(eachBookingDate,'selectedMealsOnBookingDate')) &&
                             <div>
                                 {isMorningSlotBooked &&
                                     <div className={styles.eachSlot}>
