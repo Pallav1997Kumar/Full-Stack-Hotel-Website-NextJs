@@ -11,6 +11,7 @@ import styles from "./DiningBookingCartComponent.module.css";
 import { getDateTextFromFullDate } from "@/functions/date.js";
 import { useAppDispatch } from "@/redux store/hooks.js";
 import { deleteParticularBookingFromDiningCart } from "@/redux store/features/Booking Features/diningBookingCartSlice.js";
+import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
 
 
 function DiningBookingCartComponent(){
@@ -94,7 +95,7 @@ function DiningBookingCartComponent(){
                             </p>
                             <p className={styles.diningCartEachInfo}>
                                 <span className={styles.diningCartEachInfoTitle}>Total Booking Price: </span>
-                                {eachDiningInCart.priceForBooking}
+                                {CURRENCY_SYMBOL}{eachDiningInCart.priceForBooking}
                             </p>
                             <p className={styles.diningCartEachInfoTitle}>Total Number Of Tables</p>
                             <div className={styles.tableInformation}>

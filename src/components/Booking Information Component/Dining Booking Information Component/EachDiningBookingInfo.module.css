@@ -1,0 +1,43 @@
+.eachDiningBookingInfo{
+    display: flex;
+    flex-direction: row;
+    padding: 1%;
+    margin: 1%;
+    border: 4px solid gray;
+}
+
+.eachDiningBookingInfoImage{
+    width: 40%;
+}
+
+.eachDiningBookingInformation{
+    width: 60%;
+    padding: 0%;
+}
+
+.eachDiningTitle{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1%;
+}
+
+.diningBookingInfoEachInfo{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-bottom: 0.7%;
+    text-transform: capitalize;
+}
+
+.diningBookingInfoEachInfoTitle{
+    font-weight: 600;
+}
+
+.tableInformation{
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 1%;
+}
+
+.eachTableInfo{
+    padding-right: 3%;
+}

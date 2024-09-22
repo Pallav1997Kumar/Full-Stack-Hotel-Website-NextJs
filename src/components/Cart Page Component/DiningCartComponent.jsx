@@ -19,7 +19,7 @@ function DiningCartComponent(){
     const dispatch = useAppDispatch();
     const router = useRouter();
 
-    const allDiningBookingCart = useAppSelector((reduxStore) => reduxStore.diningCartSlice.diningCart);
+    const allDiningBookingCart = useAppSelector((reduxStore) => reduxStore.diningBookingInfoSlice.diningCart);
 
     const loginUserIdDetails = useAppSelector((reduxStore) => reduxStore.userSlice.loginUserDetails);
     let loginUserId = null;

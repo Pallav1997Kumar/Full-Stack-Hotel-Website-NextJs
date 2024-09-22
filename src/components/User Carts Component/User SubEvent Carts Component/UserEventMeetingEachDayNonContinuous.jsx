@@ -9,6 +9,7 @@ import styles from './UserEventMeetingEachDayNonContinuous.module.css';
 import { getDateTextFromFullDate } from "@/functions/date.js";
 import { getCommaAndSeperatedArray, getSubarraysOfTwoElements } from "@/functions/array.js";
 import { wantFoodServiceConstants, eventMeetingTimingConstants } from "@/constant string files/eventsMeetingRoomImportantConstants.js";
+import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
 
 
 const boxStyle = {
@@ -104,7 +105,7 @@ function UserEventMeetingEachDayNonContinuous(props){
                         </p>
                         <p className={styles.eachDateNumberInformationInsideBox}>
                             <span className={styles.eachDateNumberInformationTitle}>Price of Event/Meeting Room: </span>
-                            {eachBookingDate.totalPriceEventMeetingRoom}
+                            {CURRENCY_SYMBOL}{eachBookingDate.totalPriceEventMeetingRoom}
                         </p>
                         {(eachBookingDate.wantFoodServices == wantFoodServiceConstants.WANT_FOOD_SERVICE_YES && Object.hasOwn(eachBookingDate,'selectedMealsOnBookingDate')) &&
                             <div>

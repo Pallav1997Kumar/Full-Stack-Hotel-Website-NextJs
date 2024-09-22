@@ -1,3 +1,7 @@
+.diningRoomsEventContainer{
+    margin: 2%;
+}
+
 .breadcrumbsContainer{
     margin: 1.5% 2.5%;
     background-color: lightgreen;
@@ -37,4 +41,27 @@
     font-weight: 800;
     font-family: Arial, Helvetica, sans-serif;
     padding-bottom: 1.25%;
+}
+
+.addCartBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+}
+
+.loadingCart{
+    width: 100%;
+    margin: 2% 0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(250, 219, 224, 0.5);
+    min-height: 250px;
+}
+
+.loadingCart p{
+    color: rgb(4, 4, 116);
+    font-weight: 600;
+    font-size: 1.3rem;
 }

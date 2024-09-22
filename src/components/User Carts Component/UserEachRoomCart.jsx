@@ -6,12 +6,13 @@ import Button from '@mui/material/Button';
 import styles from "./UserEachRoomCart.module.css";
 
 import { getDateTextFromOnlyDate } from "@/functions/date.js";
+import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
 
 
 function UserEachRoomCart(props){
 
     const eachRoomInCart = props.eachRoomInCart;
-    console.log(eachRoomInCart);
+    const isRoomSuiteChecked = props.isRoomSuiteChecked;
     
     const [roomsSuites, setRoomsSuites] = useState([]);
     const [displayGuestDetails, setDisplayGuestDetails] = useState(false);
@@ -39,10 +40,22 @@ function UserEachRoomCart(props){
         props.onRemoveRoomsSuitesItemFromCart(id);
     }
 
+    function handleCheckboxChange(event, id){
+        props.onGetRoomsSuitesCheckboxInfo(event, id);
+    }
+
 
     return(
         <div className={styles.eachRoomCart}>
             <div className={styles.eachRoomBasicCart}>
+
+                <div className={styles.roomCartCheckbox}>
+                    <input 
+                        type="checkbox" 
+                        checked={isRoomSuiteChecked}
+                        onChange={()=>handleCheckboxChange(event, eachRoomInCart._id)}      
+                    />
+                </div>
 
                 <div className={styles.eachRoomCartImage}>
                     {(particularRoomBasicInfo != null) && 
@@ -52,7 +65,7 @@ function UserEachRoomCart(props){
 
                 <div className={styles.eachRoomCartInformation}>
                     <p className={styles.eachRoomTitle}>
-                        Room Title: {eachRoomInCart.roomTitle} 
+                        Room Title: {eachRoomInCart.bookingRoomTitle} 
                     </p>
                     <p className={styles.eachRoomOtherInfo}>
                         <span className={styles.eachRoomOtherInfoTitle}>CheckIn Date: </span> 
@@ -72,7 +85,7 @@ function UserEachRoomCart(props){
                     </p>
                     <p className={styles.eachRoomOtherInfo}>
                         <span className={styles.eachRoomOtherInfoTitle}>Total Price Of Room: </span>
-                        {eachRoomInCart.totalPriceOfAllRooms} 
+                        {CURRENCY_SYMBOL}{eachRoomInCart.totalPriceOfAllRooms} 
                     </p>
                     
                     <Button 

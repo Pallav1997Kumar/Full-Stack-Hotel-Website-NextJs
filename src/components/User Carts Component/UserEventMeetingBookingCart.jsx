@@ -15,12 +15,15 @@ import { roomBookingDateTypeConstants } from "@/constant string files/eventsMeet
 function UserEventMeetingBookingCart(props){
 
     const eventMeetingCart = props.eventMeetingCart;
-    console.log(eventMeetingCart);   
+   
     const [meetingEventsRooms, setMeetingEventsRooms] = useState([]);
+    const [checkedId, setCheckedId] = useState([]);
 
     useEffect(()=>{
         fetchMeetingEventsRoomInformation();
     }, []);
+
+    props.onGetCheckIdEventMeetingCart(checkedId);
 
     async function fetchMeetingEventsRoomInformation(){
         try {
@@ -37,6 +40,26 @@ function UserEventMeetingBookingCart(props){
         props.onRemoveEventMeetingItemFromCart(id, bookingType);
     }
 
+    function handleCheckboxChange(event, id, roomBookingDateType){
+        const isChecked = event.target.checked;
+        const cartIdWithRoomBookingDateType = {
+            id, 
+            roomBookingDateType
+        }
+        if(isChecked){
+            setCheckedId(function(previousCheckedItems){
+                return (
+                    [...previousCheckedItems, cartIdWithRoomBookingDateType]
+                );
+            });
+        }
+        if(!isChecked){
+            setCheckedId(checkedId.filter(function(eachIdWithRoomBookingDateType){
+                return (eachIdWithRoomBookingDateType.id !== id && eachIdWithRoomBookingDateType.roomBookingDateType !== roomBookingDateType);
+            }))
+        }
+    }
+
 
     return (
         <div className={styles.eventMeetingCartContainer}>
@@ -48,9 +71,22 @@ function UserEventMeetingBookingCart(props){
                 if(eachEventMeetingInCart.allDatesBookingInfo != undefined){
                     subArrayOfDatesForNonContinousBooking = getSubarraysOfTwoElements(eachEventMeetingInCart.allDatesBookingInfo);
                 }
+                const checkedWithSameId = checkedId.filter(function(eachIdWithRoomBookingDateType){
+                    return (eachIdWithRoomBookingDateType.id === eachEventMeetingInCart._id && eachIdWithRoomBookingDateType.roomBookingDateType === eachEventMeetingInCart.roomBookingDateType) 
+                });
+                //const isEventMeetingItemChecked = checkedId.includes(eachEventMeetingInCart._id);
+                const isEventMeetingItemChecked = checkedWithSameId.length > 0 ? true: false;
                 
                 return (
                     <div className={styles.eachEventMeetingStyles}>
+
+                        <div className={styles.eachEventMeetingCartCheckbox}>
+                            <input 
+                                type="checkbox"
+                                checked={isEventMeetingItemChecked}
+                                onChange={(event)=>handleCheckboxChange(event, eachEventMeetingInCart._id, eachEventMeetingInCart.roomBookingDateType)} 
+                            />
+                        </div>
 
                         
                         <div className={styles.eachEventMeetingCartImage}>

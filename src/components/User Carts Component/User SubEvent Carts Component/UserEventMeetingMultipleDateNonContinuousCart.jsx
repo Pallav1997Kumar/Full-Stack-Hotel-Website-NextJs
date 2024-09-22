@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import styles from "./UserEventMeetingMultipleDateNonContinuousCart.module.css";
 
 import UserEventMeetingEachDayNonContinuous from './UserEventMeetingEachDayNonContinuous.jsx';
+import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
 
 
 function UserEventMeetingMultipleDateNonContinuousCart(props){
@@ -33,7 +34,7 @@ function UserEventMeetingMultipleDateNonContinuousCart(props){
             }
             <p>
                 <span className={styles.totalValueTitle}>Total Price All Rooms: </span>
-                {eachEventMeetingInCart.totalPriceOfAllDates}
+                {CURRENCY_SYMBOL}{eachEventMeetingInCart.totalPriceOfAllDates}
             </p>
             
             <Button 

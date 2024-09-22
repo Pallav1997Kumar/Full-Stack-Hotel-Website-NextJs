@@ -8,6 +8,7 @@ import Paper from '@mui/material/Paper';
 import { getDateText } from "@/functions/date.js";
 import { getCommaAndSeperatedArray } from "@/functions/array.js";
 import { wantFoodServiceConstants } from "@/constant string files/eventsMeetingRoomImportantConstants.js";
+import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
 
 
 function EventMeetingBookingsDetailsConfirmation(props) {
@@ -108,7 +109,7 @@ function EventMeetingBookingsDetailsConfirmation(props) {
                         }
                         <TableRow>
                             <TableCell>Total Price Of Room</TableCell>
-                            <TableCell>{totalPriceEventMeetingRoom}</TableCell>
+                            <TableCell>{CURRENCY_SYMBOL}{totalPriceEventMeetingRoom}</TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>

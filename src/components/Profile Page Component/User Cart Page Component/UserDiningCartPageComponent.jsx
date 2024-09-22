@@ -3,11 +3,13 @@ import React, { useState, useEffect } from "react";
 import Link from 'next/link';
 import Button from '@mui/material/Button';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import styles from './UserDiningRoomsSuitesEventMeetingStyle.module.css';
 
-import { useAppSelector } from "@/redux store/hooks";
+import { useAppSelector, useAppDispatch } from "@/redux store/hooks";
 import UserDiningBookingCart from "@/components/User Carts Component/UserDiningBookingCart.jsx";
+import { addDiningBookingInfo, resetDiningBookingInfo } from "@/redux store/features/Booking Information/diningBookingInfoSlice.js";
 import { DINING_PRESENT_IN_CART, DINING_CART_IS_EMPTY } from "@/constant string files/apiSuccessMessageConstants.js";
 
 
@@ -16,19 +18,28 @@ function UserDiningCartPageComponent(){
     const loginUserDetails = useAppSelector((reduxStore)=> reduxStore.userSlice.loginUserDetails);
     const loginUserId = loginUserDetails.userId;
 
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+
     useEffect(()=>{
         fetchDiningCartDb(loginUserId);
+        dispatch(resetDiningBookingInfo());
     }, []);
 
+    const [loadingCartDetails, setLoadingCartDetails] = useState(true);
+    const [proceedBtnClickable, setProceedBtnClickable] = useState(true);
+
     const [diningCart, setDiningCart] = useState(null);
+    const [diningCartIdList, setDiningCartIdList] = useState([]);
+
 
     async function fetchDiningCartDb(loginUserId) {
         try {
-            const response = await fetch(`/api/view-cart/dining/${loginUserId}`);
+            const response = await fetch(`/api/view-cart/dining/search-by-user-id/${loginUserId}`);
             const data = await response.json();
             if(response.status === 200){
                 if(data.message === DINING_CART_IS_EMPTY){
-                    const diningCartDb = null;
+                    const diningCartDb = [];
                     setDiningCart(diningCartDb);
                 }
                 else if(data.message === DINING_PRESENT_IN_CART){
@@ -36,13 +47,17 @@ function UserDiningCartPageComponent(){
                     setDiningCart(diningCartDb);
                 }
             }
-        } catch (error) {
+        } 
+        catch (error) {
             console.log(error);
+        }
+        finally{
+            setLoadingCartDetails(false);
         }
     }
 
 
-    async function removeDiningItemFromCartDb(id) {
+    async function removeDiningItemFromCartDb(id){
         try {
             const response = await fetch(`/api/delete-cart/dining/${id}`, {
                 method: 'DELETE',
@@ -64,7 +79,37 @@ function UserDiningCartPageComponent(){
     }
 
 
-    if(diningCart === null){
+    function getDiningCheckedItemsId(idList){
+        setDiningCartIdList(idList);
+    }
+
+    async function addToDiningBookingHandler(){ 
+        const diningPaymentCartList = [];
+        setProceedBtnClickable(false);
+        try{
+            const fetchDiningCartPromise = diningCartIdList.map(async function(eachDiningCartId){
+                const diningCartResponse = await fetch(`/api/view-cart/dining/search-by-cart-id/${eachDiningCartId}`);
+                const diningCartData = await diningCartResponse.json();
+                return diningCartData;
+            });
+            const diningCartPromiseResult = await Promise.all(fetchDiningCartPromise);
+            diningCartPromiseResult.forEach(function(eachDiningCartPromise){
+                diningPaymentCartList.push(eachDiningCartPromise);
+            });
+        }
+        catch(error){
+
+        }
+        finally{
+            dispatch(addDiningBookingInfo(diningPaymentCartList));
+            const redirectPage = `/proceed-booking/dining/${loginUserId}`;
+            router.push(redirectPage);
+            setProceedBtnClickable(true);
+        }
+    }
+
+
+    if(!loadingCartDetails && diningCart !== null && diningCart.length == 0){
         return (
             <React.Fragment>
                 <Image src={'/hotel photo.jpg'} alt="hotel" width={1500} height={500} />
@@ -125,12 +170,45 @@ function UserDiningCartPageComponent(){
                 </p>
             </div>
 
-            {(diningCart !== null && diningCart.length > 0) &&
-                <UserDiningBookingCart 
-                    diningCart={diningCart} 
-                    onRemoveDiningItemFromCart={removeDiningItemFromCartDb}
-                />
+            {loadingCartDetails &&
+                <div className={styles.loadingCart}>
+                    <p> LOADING CART ...</p>
+                </div>
             }
+
+            <div className={styles.diningRoomsEventContainer}>
+                {(!loadingCartDetails && diningCart !== null && diningCart.length > 0) &&
+                    <UserDiningBookingCart 
+                        diningCart={diningCart} 
+                        onGetCheckIdDiningCart={getDiningCheckedItemsId}
+                        onRemoveDiningItemFromCart={removeDiningItemFromCartDb}
+                    />
+                }
+
+                {(diningCart !== null && diningCart.length > 0 && diningCartIdList.length > 0) &&
+                    <div className={styles.addCartBtn}>
+                        {proceedBtnClickable && 
+                            <Button onClick={addToDiningBookingHandler} variant="contained">
+                                Procced For Booking
+                            </Button>
+                        }
+                        {!proceedBtnClickable &&
+                            <Button disabled variant="contained">
+                                Please Wait
+                            </Button>
+                        }                        
+                    </div>
+                }
+
+                {(diningCart !== null && diningCart.length > 0 && diningCartIdList.length == 0) &&
+                    <div className={styles.addCartBtn}>
+                        <Button disabled variant="contained">
+                            Procced For Booking
+                        </Button>
+                    </div>
+                }
+            </div>
+
         </div>
     );
 

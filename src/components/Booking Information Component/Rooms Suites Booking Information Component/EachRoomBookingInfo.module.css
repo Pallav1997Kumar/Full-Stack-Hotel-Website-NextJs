@@ -1,0 +1,76 @@
+.eachRoomSuiteBookingInformation{
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+    margin: 1%;
+    border: 4px solid gray;
+}
+
+.eachRoomSuiteBasicBookingInfo{
+    display: flex;
+    flex-direction: row;
+}
+
+.eachRoomSuiteImage{
+    width: 40%;
+}
+
+.eachRoomSuiteBookingInfo{
+    width: 60%;
+    padding: 0%;
+}
+
+.eachRoomTitle{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1%;
+}
+
+.eachRoomOtherInfo{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-bottom: 0.7%;
+}
+
+.eachRoomOtherInfoTitle{
+    font-weight: 600;
+}
+
+.viewGuests{
+    margin-top: 1.25%;
+}
+
+.viewGuests:hover{
+    cursor: pointer;
+    text-transform: uppercase;
+    color: blue;
+}
+
+.eachRoomSuiteBookingGuestContainer{
+    display: flex;
+    flex-direction: column;
+    background-color: bisque;
+    border: 2px solid green;
+}
+
+.eachRoomCartGuestInfo{
+    display: flex;
+    flex-direction: row;
+}
+
+.eachRoomSuiteBookingGuestInfo{
+    padding: 1% 2.5% 1% 1%;
+    margin: 0.1%;
+    border: 1px dotted blue;
+}
+
+.guestDetailsTitle{
+    font-weight: 600;
+}
+
+.closeGuestDetails{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1%;
+}

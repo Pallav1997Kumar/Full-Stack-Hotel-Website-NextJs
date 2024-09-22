@@ -14,6 +14,7 @@ import styles from './ViewAccountBalance.module.css';
 
 import { useAppSelector } from "@/redux store/hooks";
 import { utcTimeToISTConvesion } from "@/functions/date.js";
+import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
 import { TRANSACTION_HISTORY_FOUND, NO_TRANSACTION_HISTORY_FOUND } from "@/constant string files/apiSuccessMessageConstants.js";
 
 
@@ -100,7 +101,7 @@ function ViewAccountBalance() {
             <div className={styles.viewBalance}>
                 <div className={styles.viewBalanceAmount}>
                     <h3>Account Balance: </h3>
-                    <p>Rs.{loginCustomerInfo.accountBalance}</p>
+                    <p>{CURRENCY_SYMBOL}{loginCustomerInfo.accountBalance}</p>
                 </div>
                 <div className={styles.transactionButton}>
                     <Button onClick={()=> setShowTransaction(true)} variant="outlined">View Transaction</Button>
@@ -133,8 +134,8 @@ function ViewAccountBalance() {
                                     <TableRow>
                                         <TableCell>{utcTimeToISTConvesion(eachTransaction.transactionDateTime.toString())}</TableCell>
                                         <TableCell>{eachTransaction.transactionType}</TableCell>
-                                        <TableCell>{eachTransaction.transactionAmount}</TableCell>
-                                        <TableCell>{eachTransaction.updatedAccountBalance}</TableCell>
+                                        <TableCell>{CURRENCY_SYMBOL}{eachTransaction.transactionAmount}</TableCell>
+                                        <TableCell>{CURRENCY_SYMBOL}{eachTransaction.updatedAccountBalance}</TableCell>
                                     </TableRow>
                                 );
                             })}

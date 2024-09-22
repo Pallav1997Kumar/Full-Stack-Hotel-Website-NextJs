@@ -13,6 +13,7 @@ import { useAppSelector } from "@/redux store/hooks.js";
 import EquipmentsPriceBreakup from '@/components/Events Meeting Component/Common Components/EquipmentsPriceBreakup.jsx';
 import MealsPriceBreakup from '@/components/Events Meeting Component/Common Components/MealsPriceBreakup.jsx';
 import { eventMeetingTimingConstants } from "@/constant string files/eventsMeetingRoomImportantConstants.js";
+import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
 
 
 function PriceDetailsSingleDate(props) {
@@ -264,16 +265,16 @@ function PriceDetailsSingleDate(props) {
                         <TableRow>
                             <TableCell>{getDateText(bookingDetails.meetingEventBookingDate)}</TableCell>
                             <TableCell>Morning</TableCell>
-                            <TableCell align="right">{morningSlotBasicPrice}</TableCell>
+                            <TableCell align="right">{CURRENCY_SYMBOL}{morningSlotBasicPrice}</TableCell>
                             <TableCell align="right">
-                                {totalPriceOfRoomAppliance}
+                                {CURRENCY_SYMBOL}{totalPriceOfRoomAppliance}
                                 <EquipmentsPriceBreakup 
                                     maximumGuestAttending={maximumGuestAttending} 
                                     seatingArrangementPriceList={seatingArrangementPriceList} 
                                 />
                             </TableCell>
                             <TableCell align="right">
-                                {morningSlotTotalFoodPrice} 
+                                {CURRENCY_SYMBOL}{morningSlotTotalFoodPrice} 
                                 {(morningSlotTotalFoodPrice > 0) &&
                                 <MealsPriceBreakup 
                                     selectedMeals={selectedMorningMeals} 
@@ -282,7 +283,7 @@ function PriceDetailsSingleDate(props) {
                                 />
                                 }
                             </TableCell>
-                            <TableCell align="right">{morningSlotTotalPrice}</TableCell>
+                            <TableCell align="right">{CURRENCY_SYMBOL}{morningSlotTotalPrice}</TableCell>
                         </TableRow>
                         }
                         
@@ -290,16 +291,16 @@ function PriceDetailsSingleDate(props) {
                         <TableRow>
                             <TableCell>{getDateText(bookingDetails.meetingEventBookingDate)}</TableCell>
                             <TableCell>Afternnon</TableCell>
-                            <TableCell align="right">{afternoonSlotBasicPrice}</TableCell>
+                            <TableCell align="right">{CURRENCY_SYMBOL}{afternoonSlotBasicPrice}</TableCell>
                             <TableCell align="right">
-                                {totalPriceOfRoomAppliance}
+                                {CURRENCY_SYMBOL}{totalPriceOfRoomAppliance}
                                 <EquipmentsPriceBreakup 
                                     maximumGuestAttending={maximumGuestAttending} 
                                     seatingArrangementPriceList={seatingArrangementPriceList} 
                                 />
                             </TableCell>
                             <TableCell align="right">
-                                {afternoonSlotTotalFoodPrice}
+                                {CURRENCY_SYMBOL}{afternoonSlotTotalFoodPrice}
                                 {(afternoonSlotTotalFoodPrice > 0) &&
                                 <MealsPriceBreakup 
                                     selectedMeals={selectedAfternoonMeals} 
@@ -308,7 +309,7 @@ function PriceDetailsSingleDate(props) {
                                 />
                                 }
                             </TableCell>
-                            <TableCell align="right">{afternoonSlotTotalPrice}</TableCell>
+                            <TableCell align="right">{CURRENCY_SYMBOL}{afternoonSlotTotalPrice}</TableCell>
                         </TableRow>
                         }
                         
@@ -316,16 +317,16 @@ function PriceDetailsSingleDate(props) {
                         <TableRow>
                             <TableCell>{getDateText(bookingDetails.meetingEventBookingDate)}</TableCell>
                             <TableCell>Evening</TableCell>
-                            <TableCell align="right">{eveningSlotBasicPrice}</TableCell>
+                            <TableCell align="right">{CURRENCY_SYMBOL}{eveningSlotBasicPrice}</TableCell>
                             <TableCell align="right">
-                                {totalPriceOfRoomAppliance}
+                                {CURRENCY_SYMBOL}{totalPriceOfRoomAppliance}
                                 <EquipmentsPriceBreakup 
                                     maximumGuestAttending={maximumGuestAttending} 
                                     seatingArrangementPriceList={seatingArrangementPriceList} 
                                 />
                             </TableCell>
                             <TableCell align="right">
-                                {eveningSlotTotalFoodPrice}
+                                {CURRENCY_SYMBOL}{eveningSlotTotalFoodPrice}
                                 {(eveningSlotTotalFoodPrice > 0) &&
                                 <MealsPriceBreakup 
                                     selectedMeals={selectedEveningMeals} 
@@ -334,7 +335,7 @@ function PriceDetailsSingleDate(props) {
                                 />
                                 }
                             </TableCell>
-                            <TableCell align="right">{eveningSlotTotalPrice}</TableCell>
+                            <TableCell align="right">{CURRENCY_SYMBOL}{eveningSlotTotalPrice}</TableCell>
                         </TableRow>
                         }
                         
@@ -342,16 +343,16 @@ function PriceDetailsSingleDate(props) {
                         <TableRow>
                             <TableCell>{getDateText(bookingDetails.meetingEventBookingDate)}</TableCell>
                             <TableCell>Night</TableCell>
-                            <TableCell align="right">{nightSlotBasicPrice}</TableCell>
+                            <TableCell align="right">{CURRENCY_SYMBOL}{nightSlotBasicPrice}</TableCell>
                             <TableCell align="right">
-                                {totalPriceOfRoomAppliance}
+                                {CURRENCY_SYMBOL}{totalPriceOfRoomAppliance}
                                 <EquipmentsPriceBreakup 
                                     maximumGuestAttending={maximumGuestAttending} 
                                     seatingArrangementPriceList={seatingArrangementPriceList} 
                                 />
                             </TableCell>
                             <TableCell align="right">
-                                {nightSlotTotalFoodPrice}
+                                {CURRENCY_SYMBOL}{nightSlotTotalFoodPrice}
                                 {(nightSlotTotalFoodPrice > 0) &&
                                 <MealsPriceBreakup 
                                     selectedMeals={selectedNightMeals} 
@@ -360,7 +361,7 @@ function PriceDetailsSingleDate(props) {
                                 />
                                 }
                             </TableCell>
-                            <TableCell align="right">{nightSlotTotalPrice}</TableCell>
+                            <TableCell align="right">{CURRENCY_SYMBOL}{nightSlotTotalPrice}</TableCell>
                         </TableRow>
                         }
                         
@@ -368,16 +369,16 @@ function PriceDetailsSingleDate(props) {
                         <TableRow>
                             <TableCell>{getDateText(bookingDetails.meetingEventBookingDate)}</TableCell>
                             <TableCell>Mid Night</TableCell>
-                            <TableCell align="right">{midNightSlotBasicPrice}</TableCell>
+                            <TableCell align="right">{CURRENCY_SYMBOL}{midNightSlotBasicPrice}</TableCell>
                             <TableCell align="right">
-                                {totalPriceOfRoomAppliance}
+                                {CURRENCY_SYMBOL}{totalPriceOfRoomAppliance}
                                 <EquipmentsPriceBreakup 
                                     maximumGuestAttending={maximumGuestAttending} 
                                     seatingArrangementPriceList={seatingArrangementPriceList} 
                                 />
                             </TableCell>
                             <TableCell align="right">
-                                {midNightSlotTotalFoodPrice}
+                                {CURRENCY_SYMBOL}{midNightSlotTotalFoodPrice}
                                 {(midNightSlotTotalFoodPrice > 0) &&
                                 <MealsPriceBreakup 
                                     selectedMeals={selectedMidNightMeals} 
@@ -386,7 +387,7 @@ function PriceDetailsSingleDate(props) {
                                 />
                                 }
                             </TableCell>
-                            <TableCell align="right">{midNightSlotTotalPrice}</TableCell>
+                            <TableCell align="right">{CURRENCY_SYMBOL}{midNightSlotTotalPrice}</TableCell>
                         </TableRow>
                         }
 
@@ -396,7 +397,7 @@ function PriceDetailsSingleDate(props) {
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-                            <TableCell sx={totalStyling} align="right">{allSlotsTotalPrice}</TableCell>
+                            <TableCell sx={totalStyling} align="right">{CURRENCY_SYMBOL}{allSlotsTotalPrice}</TableCell>
                         </TableRow>
 
                     </TableBody>

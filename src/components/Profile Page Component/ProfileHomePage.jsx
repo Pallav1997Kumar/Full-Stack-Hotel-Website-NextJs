@@ -69,7 +69,12 @@ function ProfileHomePage(){
                     </li>
                     <li>
                         <Link href={`/profile-home-page/my-cart/${loginUserId}`}>
-                            My Carts
+                            My Account Cart
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/cart">
+                            My Browser Cart
                         </Link>
                     </li>
                     <li>

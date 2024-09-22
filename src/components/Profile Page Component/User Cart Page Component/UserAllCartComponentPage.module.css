@@ -55,6 +55,22 @@
     margin: 2% 4%;
 }
 
+.loadingCart{
+    width: 100%;
+    margin: 2% 0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(250, 219, 224, 0.5);
+    min-height: 250px;
+}
+
+.loadingCart p{
+    color: rgb(4, 4, 116);
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
 .emptyCart{
     display: flex;
     flex-direction: column;
@@ -74,4 +90,11 @@
     letter-spacing: 1.25px;
     word-spacing: 3px;
     text-decoration: underline;
+}
+
+.addCartBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
 }

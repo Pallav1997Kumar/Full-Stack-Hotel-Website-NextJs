@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 
 import styles from "./DiningComponent.module.css";
 
+import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
+
 
 export default async function DiningComponent(props) {
 
@@ -58,7 +60,7 @@ export default async function DiningComponent(props) {
                     </div>
                 </div>
                 <div className={styles.startingPrice}>
-                    <p>Booking Price Starts at Rs {startingPriceOfDining}</p>
+                    <p>Booking Price Starts at {CURRENCY_SYMBOL}{startingPriceOfDining}</p>
                 </div>
                 <div className={styles.buttonConatainer}>
                     <Link href={`/dining/${diningPath}`}>

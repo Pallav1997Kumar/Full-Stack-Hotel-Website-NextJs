@@ -11,6 +11,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
+
+
 function EquipmentsPriceBreakup(props) {
     const seatingArrangementPriceList = props.seatingArrangementPriceList;
     const totalNumberOfGuest = props.maximumGuestAttending;
@@ -86,7 +89,7 @@ function EquipmentsPriceBreakup(props) {
                                     return (
                                         <TableRow>
                                             <TableCell>{eachListItem.priceNameProperty}</TableCell>
-                                            <TableCell>{eachListItem.priceOfProperty}</TableCell>
+                                            <TableCell>{CURRENCY_SYMBOL}{eachListItem.priceOfProperty}</TableCell>
                                         </TableRow>
                                     )
                                 })}
@@ -104,7 +107,7 @@ function EquipmentsPriceBreakup(props) {
                                     return (
                                         <TableRow>
                                             <TableCell>{eachListItem.priceNameProperty}</TableCell>
-                                            <TableCell>{eachListItem.priceOfProperty}</TableCell>
+                                            <TableCell>{CURRENCY_SYMBOL}{eachListItem.priceOfProperty}</TableCell>
                                         </TableRow>
                                     )
                                 })} 
@@ -113,14 +116,14 @@ function EquipmentsPriceBreakup(props) {
                                     return (
                                         <TableRow>
                                             <TableCell>{eachListItem.priceNameProperty}</TableCell>
-                                            <TableCell>{eachListItem.priceOfProperty}</TableCell>
+                                            <TableCell>{CURRENCY_SYMBOL}{eachListItem.priceOfProperty}</TableCell>
                                         </TableRow>
                                        )
                                 })} 
 
                                 <TableRow>
                                     <TableCell>Total Price</TableCell>
-                                    <TableCell>{totalPriceForEquipments}</TableCell>
+                                    <TableCell>{CURRENCY_SYMBOL}{totalPriceForEquipments}</TableCell>
                                 </TableRow>
 
                             </TableBody>

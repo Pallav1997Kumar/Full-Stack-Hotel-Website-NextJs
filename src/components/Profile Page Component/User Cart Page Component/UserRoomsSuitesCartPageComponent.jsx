@@ -3,11 +3,13 @@ import React, { useState, useEffect } from "react";
 import Link from 'next/link';
 import Button from '@mui/material/Button';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import styles from './UserDiningRoomsSuitesEventMeetingStyle.module.css';
 
-import { useAppSelector } from "@/redux store/hooks";
+import { useAppSelector, useAppDispatch } from "@/redux store/hooks";
 import UserRoomSuiteBookingCart from "@/components/User Carts Component/UserRoomSuiteBookingCart.jsx";
+import { addRoomSuiteBookingInfo, resetRoomSuiteBookingInfo } from "@/redux store/features/Booking Information/roomSuiteBookingInfoSlice.js";
 import { ROOMS_SUITES_PRESENT_IN_CART, ROOMS_SUITES_CART_IS_EMPTY } from "@/constant string files/apiSuccessMessageConstants.js";
 
 
@@ -16,17 +18,24 @@ function UserRoomsSuitesCartPageComponent(){
     const loginUserDetails = useAppSelector((reduxStore)=> reduxStore.userSlice.loginUserDetails);
     const loginUserId = loginUserDetails.userId;
 
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+
     useEffect(()=>{
         fetchRoomSuiteCartDb(loginUserId);
+        dispatch(resetRoomSuiteBookingInfo());
     }, []);
 
+    const [loadingCartDetails, setLoadingCartDetails] = useState(true);
+    const [proceedBtnClickable, setProceedBtnClickable] = useState(true);
+
     const [roomSuitesCart, setRoomSuitesCart] = useState(null);
+    const [roomSuiteCartIdList, setRoomSuiteCartIdList] = useState([]);
 
     async function fetchRoomSuiteCartDb(loginUserId) {
         try {
-            const response = await fetch(`/api/view-cart/rooms-suites/${loginUserId}`);
+            const response = await fetch(`/api/view-cart/rooms-suites/search-by-user-id/${loginUserId}`);
             const data = await response.json();
-            console.log(data);
             
             if(response.status === 200){
                 if(data.message === ROOMS_SUITES_CART_IS_EMPTY){
@@ -38,8 +47,12 @@ function UserRoomsSuitesCartPageComponent(){
                     setRoomSuitesCart(roomSuitesCartDb);
                 }
             }
-        } catch (error) {
+        } 
+        catch (error) {
             console.log(error);
+        }
+        finally{
+            setLoadingCartDetails(false);
         }
     }
 
@@ -64,8 +77,38 @@ function UserRoomsSuitesCartPageComponent(){
         }
     }
 
+    function getRoomsSuiteCheckedItemsId(idList){
+        setRoomSuiteCartIdList(idList);
+    }
 
-    if(roomSuitesCart === null){
+
+    async function addToRoomSuiteBookingHandler(){ 
+        const roomSuitesPaymentCartList = [];
+        setProceedBtnClickable(false);
+        try{
+            const fetchRoomSuiteCartPromise = roomSuiteCartIdList.map(async function(eachRoomSuiteCartId){
+                const roomSuitesCartResponse = await fetch(`/api/view-cart/rooms-suites/search-by-cart-id/${eachRoomSuiteCartId}`);
+                const roomSuitesCartData = await roomSuitesCartResponse.json();
+                return roomSuitesCartData;
+            });
+            const roomSuitesCartPromiseResult = await Promise.all(fetchRoomSuiteCartPromise);
+            roomSuitesCartPromiseResult.forEach(function(eachRoomSuiteCartPromise){
+                roomSuitesPaymentCartList.push(eachRoomSuiteCartPromise);
+            });
+        }
+        catch(error){
+
+        }
+        finally{
+            dispatch(addRoomSuiteBookingInfo(roomSuitesPaymentCartList));
+            const redirectPage = `/proceed-booking/rooms-suites/${loginUserId}`;
+            router.push(redirectPage);
+            setProceedBtnClickable(true);
+        }
+    }
+
+
+    if(!loadingCartDetails && roomSuitesCart !== null && roomSuitesCart.length == 0){
         return (
             <React.Fragment>
                 <Image src={'/hotel photo.jpg'} alt="hotel" width={1500} height={500} />
@@ -120,17 +163,49 @@ function UserRoomsSuitesCartPageComponent(){
                     </Link>
                     <span>{'>>'}</span>
                     <Link href={`/profile-home-page/my-cart/rooms-suites/${loginUserId}`}> 
-                        <span className={styles.breadcrumbsLink}> MY ACCOUNT DINING CART </span>
+                        <span className={styles.breadcrumbsLink}> MY ACCOUNT ROOMS AND SUITES CART </span>
                     </Link>
                 </p>
             </div>
 
-            {(roomSuitesCart !== null && roomSuitesCart.length > 0) &&
-                <UserRoomSuiteBookingCart 
-                    roomSuitesCart={roomSuitesCart} 
-                    onRemoveRoomsSuitesItemFromCart={removeRoomsSuitesItemFromCartDb}
-                />
+            {loadingCartDetails &&
+                <div className={styles.loadingCart}>
+                    <p> LOADING CART ...</p>
+                </div>
             }
+
+            <div className={styles.diningRoomsEventContainer}>
+                {(!loadingCartDetails && roomSuitesCart !== null && roomSuitesCart.length > 0) &&
+                    <UserRoomSuiteBookingCart 
+                        roomSuitesCart={roomSuitesCart} 
+                        onGetCheckIdRoomsSuitesCart={getRoomsSuiteCheckedItemsId}
+                        onRemoveRoomsSuitesItemFromCart={removeRoomsSuitesItemFromCartDb}
+                    />
+                }
+
+                {(roomSuitesCart !== null && roomSuitesCart.length > 0 && roomSuiteCartIdList.length > 0) &&
+                    <div className={styles.addCartBtn}>
+                        {proceedBtnClickable && 
+                            <Button onClick={addToRoomSuiteBookingHandler} variant="contained">
+                                Procced For Booking
+                            </Button>
+                        }
+                        {!proceedBtnClickable &&
+                            <Button disabled variant="contained">
+                                Please Wait
+                            </Button>
+                        } 
+                    </div>
+                }
+
+                {(roomSuitesCart !== null && roomSuitesCart.length > 0 && roomSuiteCartIdList.length == 0) &&
+                    <div className={styles.addCartBtn}>
+                        <Button disabled variant="contained">
+                            Procced For Booking
+                        </Button>
+                    </div>
+                }
+            </div>
         </div>
     );
 

@@ -13,6 +13,10 @@ import eachDayFoodPriceSliceReducer from "./features/Price Features/Event Meetin
 import eachDayInformationSliceReducer from "./features/Price Features/Event Meeting Features/eachDayInformationSlice.js";
 import eachDaySeatingArrangementSliceReducer from "./features/Price Features/Event Meeting Features/eachDaySeatingArrangementSlice.js";
 
+import diningBookingInfoSliceReducer from "./features/Booking Information/diningBookingInfoSlice.js";
+import roomSuiteBookingInfoSliceReducer from "./features/Booking Information/roomSuiteBookingInfoSlice.js";
+import eventMeetingBookingInfoSliceReducer from "./features/Booking Information/eventMeetingBookingInfoSlice.js";
+
 
 export const store = configureStore({
     reducer: {
@@ -25,6 +29,9 @@ export const store = configureStore({
         roomsSuitesEachDayPriceSliceName: roomsSuitesEachDayPriceSliceReducer,
         eventMeetingEachDayFoodPriceSliceName: eachDayFoodPriceSliceReducer,
         eventMeetingEachDayInformationSliceName: eachDayInformationSliceReducer,
-        eventMeetingEachDaySeatingArrangementSliceName: eachDaySeatingArrangementSliceReducer
+        eventMeetingEachDaySeatingArrangementSliceName: eachDaySeatingArrangementSliceReducer,
+        diningBookingInfoSlice: diningBookingInfoSliceReducer,
+        roomSuiteBookingInfoSlice: roomSuiteBookingInfoSliceReducer,
+        eventMeetingBookingInfoSlice: eventMeetingBookingInfoSliceReducer
     }
 });

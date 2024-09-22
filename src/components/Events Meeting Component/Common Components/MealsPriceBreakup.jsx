@@ -11,6 +11,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
+
+
 function MealsPriceBreakup(props) {
 
     const [showFoodItemsPriceBreakup, setShowFoodItemsPriceBreakup] = useState(false);
@@ -87,9 +90,9 @@ function MealsPriceBreakup(props) {
                                             <TableCell>
                                                 {(eachFoodItem.foodTitle).split('(')[0]}
                                             </TableCell>
-                                            <TableCell>{eachFoodItem.pricePerGuest}</TableCell>
+                                            <TableCell>{CURRENCY_SYMBOL}{eachFoodItem.pricePerGuest}</TableCell>
                                             <TableCell>{maximumGuestAttending}</TableCell>
-                                            <TableCell>{eachFoodItem.pricePerGuest * maximumGuestAttending}</TableCell>
+                                            <TableCell>{CURRENCY_SYMBOL}{eachFoodItem.pricePerGuest * maximumGuestAttending}</TableCell>
                                         </TableRow>
                                     )
                                 })}
@@ -97,7 +100,7 @@ function MealsPriceBreakup(props) {
                                     <TableCell>Total</TableCell>
                                     <TableCell></TableCell>
                                     <TableCell></TableCell>
-                                    <TableCell>{totalPriceOfMeals}</TableCell>
+                                    <TableCell>{CURRENCY_SYMBOL}{totalPriceOfMeals}</TableCell>
                                 </TableRow>
                             </TableBody>
                         </Table>

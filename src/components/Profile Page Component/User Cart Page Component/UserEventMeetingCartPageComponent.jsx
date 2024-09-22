@@ -3,12 +3,15 @@ import React, { useState, useEffect } from "react";
 import Link from 'next/link';
 import Button from '@mui/material/Button';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import styles from './UserDiningRoomsSuitesEventMeetingStyle.module.css';
 
-import { useAppSelector } from "@/redux store/hooks";
+import { useAppSelector, useAppDispatch } from "@/redux store/hooks";
+import { addEventMeetingBookingInfo, resetEventMeetingBookingInfo } from "@/redux store/features/Booking Information/eventMeetingBookingInfoSlice.js";
 import { EVENT_MEETING_ROOM_PRESENT_IN_CART, EVENT_MEETING_ROOM_CART_IS_EMPTY } from "@/constant string files/apiSuccessMessageConstants.js";
 import UserEventMeetingBookingCart from "@/components/User Carts Component/UserEventMeetingBookingCart.jsx";
+import { roomBookingDateTypeConstants } from "@/constant string files/eventsMeetingRoomImportantConstants.js";
 
 
 function UserEventMeetingCartPageComponent(){
@@ -16,16 +19,24 @@ function UserEventMeetingCartPageComponent(){
     const loginUserDetails = useAppSelector((reduxStore)=> reduxStore.userSlice.loginUserDetails);
     const loginUserId = loginUserDetails.userId;
 
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+
     useEffect(()=>{
         fetchEventMeetingCartDb(loginUserId);
+        dispatch(resetEventMeetingBookingInfo());
     }, []);
 
+    const [loadingCartDetails, setLoadingCartDetails] = useState(true);
+    const [proceedBtnClickable, setProceedBtnClickable] = useState(true);
+
     const [eventMeetingCart, setEventMeetingCart] = useState(null);
+    const [eventMeetingCartIdList, setEventMeetingCartIdList] = useState([]);
 
 
     async function fetchEventMeetingCartDb(loginUserId) {
         try {
-            const response = await fetch(`/api/view-cart/meeting-events/${loginUserId}`);
+            const response = await fetch(`/api/view-cart/meeting-events/search-by-user-id/${loginUserId}`);
             const data = await response.json();
             if(response.status === 200){
                 if(data.message === EVENT_MEETING_ROOM_CART_IS_EMPTY){
@@ -37,8 +48,12 @@ function UserEventMeetingCartPageComponent(){
                     setEventMeetingCart(eventMeetingCartDb);
                 }
             }
-        } catch (error) {
+        } 
+        catch (error) {
             console.log(error);
+        }
+        finally{
+            setLoadingCartDetails(false);
         }
     }
 
@@ -120,8 +135,50 @@ function UserEventMeetingCartPageComponent(){
     }
 
 
+    function getEventMeetingCheckedItemsId(idList){
+        setEventMeetingCartIdList(idList);
+    }
 
-    if(eventMeetingCart === null){
+    async function addToEventMeetingBookingHandler(){
+        const eventMeetingPaymentCartList = [];
+        setProceedBtnClickable(false);
+        try{
+            const fetchEventMeetingCartPromise = eventMeetingCartIdList.map(async function(eachEventMeetingCartId){
+                if(eachEventMeetingCartId.roomBookingDateType === roomBookingDateTypeConstants.SINGLE_DATE){
+                    const eventMeetingCartResponse = await fetch(`/api/view-cart/meeting-events/search-by-cart-id/single-date/${eachEventMeetingCartId.id}`);
+                    const eventMeetingCartData = await eventMeetingCartResponse.json();
+                    return eventMeetingCartData;
+                }
+                else if(eachEventMeetingCartId.roomBookingDateType === roomBookingDateTypeConstants.MULTIPLE_DATES_CONTINOUS){
+                    const eventMeetingCartResponse = await fetch(`/api/view-cart/meeting-events/search-by-cart-id/multiple-dates-continous/${eachEventMeetingCartId.id}`);
+                    const eventMeetingCartData = await eventMeetingCartResponse.json();
+                    return eventMeetingCartData;
+                }
+                else if(eachEventMeetingCartId.roomBookingDateType === roomBookingDateTypeConstants.MULTIPLE_DATES_NON_CONTINOUS){
+                    const eventMeetingCartResponse = await fetch(`/api/view-cart/meeting-events/search-by-cart-id/multiple-dates-non-continous/${eachEventMeetingCartId.id}`);
+                    const eventMeetingCartData = await eventMeetingCartResponse.json();
+                    return eventMeetingCartData;
+                }
+            });
+            const eventMeetingCartPromiseResult = await Promise.all(fetchEventMeetingCartPromise);
+            eventMeetingCartPromiseResult.forEach(function(eachEventMeetingCartPromise){
+                eventMeetingPaymentCartList.push(eachEventMeetingCartPromise);
+            });
+        }
+        catch(error){
+            console.log(error);
+        }
+        finally{
+            dispatch(addEventMeetingBookingInfo(eventMeetingPaymentCartList));
+            const redirectPage = `/proceed-booking/events-meetings/${loginUserId}`;
+            router.push(redirectPage);
+            setProceedBtnClickable(true);
+        }
+    }
+
+
+
+    if(!loadingCartDetails && eventMeetingCart !== null && eventMeetingCart.length == 0){
         return (
             <React.Fragment>
                 <Image src={'/hotel photo.jpg'} alt="hotel" width={1500} height={500} />
@@ -176,18 +233,50 @@ function UserEventMeetingCartPageComponent(){
                         <span className={styles.breadcrumbsLink}> MY ACCOUNT CART </span>
                     </Link>
                     <span>{'>>'}</span>
-                    <Link href={`/profile-home-page/my-cart/rooms-suites/${loginUserId}`}> 
-                        <span className={styles.breadcrumbsLink}> MY ACCOUNT DINING CART </span>
+                    <Link href={`/profile-home-page/my-cart/event-meeting-rooms/${loginUserId}`}> 
+                        <span className={styles.breadcrumbsLink}> MY ACCOUNT EVENTS AND MEETING ROOM CART </span>
                     </Link>
                 </p>
             </div>
 
-            {(eventMeetingCart !== null && eventMeetingCart.length > 0) &&
-                <UserEventMeetingBookingCart 
-                    eventMeetingCart={eventMeetingCart} 
-                    onRemoveEventMeetingItemFromCart={removeEventMeetingItemFromCart}
-                />
+            {loadingCartDetails &&
+                <div className={styles.loadingCart}>
+                    <p> LOADING CART ...</p>
+                </div>
             }
+
+            <div className={styles.diningRoomsEventContainer}>
+                {(!loadingCartDetails && eventMeetingCart !== null && eventMeetingCart.length > 0) &&
+                    <UserEventMeetingBookingCart 
+                        eventMeetingCart={eventMeetingCart} 
+                        onGetCheckIdEventMeetingCart={getEventMeetingCheckedItemsId}
+                        onRemoveEventMeetingItemFromCart={removeEventMeetingItemFromCart}
+                    />
+                }
+
+                {(eventMeetingCart !== null && eventMeetingCart.length > 0 && eventMeetingCartIdList.length > 0) &&
+                    <div className={styles.addCartBtn}>
+                        {proceedBtnClickable && 
+                            <Button onClick={addToEventMeetingBookingHandler} variant="contained">
+                                Procced For Booking
+                            </Button>
+                        }
+                        {!proceedBtnClickable &&
+                            <Button disabled variant="contained">
+                                Please Wait
+                            </Button>
+                        } 
+                    </div>
+                }
+
+                {(eventMeetingCart !== null && eventMeetingCart.length > 0 && eventMeetingCartIdList.length == 0) &&
+                    <div className={styles.addCartBtn}>
+                        <Button disabled variant="contained">
+                            Procced For Booking
+                        </Button>
+                    </div>
+                }
+            </div>
         </div>
     );
 

@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 
 import styles from "./Rooms.module.css";
 
+import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
+
 
 export default async function Rooms(props){
 
@@ -34,7 +36,7 @@ export default async function Rooms(props){
                     <p>{description}</p>
                     <p><b>Total Room Size: </b>{totalRoomSize}</p>
 
-                    <p className={styles.startingPrice}><b>Price Starting at Rs {startingPriceOfRoom} only </b></p>
+                    <p className={styles.startingPrice}><b>Price Starting at {CURRENCY_SYMBOL}{startingPriceOfRoom} only </b></p>
 
                     <div className={styles.button}>
                         <div className={styles.explore}>

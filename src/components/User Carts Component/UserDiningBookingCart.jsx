@@ -6,17 +6,20 @@ import Button from '@mui/material/Button';
 import styles from "./UserDiningBookingCart.module.css";
 
 import { getDateTextFromFullDate } from "@/functions/date.js";
+import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
 
 
 function UserDiningBookingCart(props){
 
     const diningCart = props.diningCart;
     const [dining, setDining] = useState([]);
+    const [checkedId, setCheckedId] = useState([]);
 
     useEffect(()=>{
         fetchDiningInformation();
     }, []);
     
+    props.onGetCheckIdDiningCart(checkedId);
 
     async function fetchDiningInformation(){
         try {
@@ -25,6 +28,23 @@ function UserDiningBookingCart(props){
             setDining(diningInfo.dining);
         } catch (error) {
             console.log(error);
+        }
+    }
+
+
+    function handleCheckboxChange(event, id){
+        const isChecked = event.target.checked;
+        if(isChecked){
+            setCheckedId(function(previousCheckedItems){
+                return (
+                    [...previousCheckedItems, id]
+                );
+            });
+        }
+        if(!isChecked){
+            setCheckedId(checkedId.filter(function(eachId){
+                return (eachId !== id);
+            }))
         }
     }
 
@@ -39,9 +59,17 @@ function UserDiningBookingCart(props){
                 const particularDiningBasicInfo = dining.find(function(eachDiningInHotel){
                     return (eachDiningInHotel.diningAreaTitle == eachDiningInCart.diningRestaurantTitle);
                 });
+                const isDiningItemChecked = checkedId.includes(eachDiningInCart._id);
                 return (
                     <div className={styles.eachDiningInCart}>
                         
+                        <div className={styles.diningCheckbox}>
+                            <input 
+                                type="checkbox" 
+                                checked={isDiningItemChecked}
+                                onChange={(event)=>handleCheckboxChange(event,eachDiningInCart._id)} 
+                            />
+                        </div>
                         
                         <div className={styles.eachDiningCartImage}>
                             {(particularDiningBasicInfo != null) && 
@@ -72,7 +100,7 @@ function UserDiningBookingCart(props){
                             </p>
                             <p className={styles.diningCartEachInfo}>
                                 <span className={styles.diningCartEachInfoTitle}>Total Booking Price: </span>
-                                {eachDiningInCart.priceForBooking}
+                                {CURRENCY_SYMBOL}{eachDiningInCart.priceForBooking}
                             </p>
                             <p className={styles.diningCartEachInfoTitle}>Total Number Of Tables</p>
                             <div className={styles.tableInformation}>

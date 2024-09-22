@@ -29,12 +29,19 @@
     border: 4px solid gray;
 }
 
+.diningCheckbox{
+    width: 2.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .eachDiningCartImage{
     width: 40%;
 }
 
 .eachDiningCartInformation{
-    width: 60%;
+    width: 57.5%;
     padding: 0%;
 }
 

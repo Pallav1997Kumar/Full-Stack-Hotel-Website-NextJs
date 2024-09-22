@@ -11,6 +11,7 @@ import Paper from '@mui/material/Paper';
 import styles from './BookingPriceDetails.module.css';
 
 import { getDatesInRange, getDateTextFromFullDate, convertDateTextToDate } from "@/functions/date.js";
+import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
 
 
 const tableHeaderRowStyle = { 
@@ -143,9 +144,9 @@ function BookingPriceDetails(props) {
                             return (
                                 <TableRow key={eachDate.dateInOrdinal}>
                                     <TableCell sx={tableRowCellStyle}>{eachDate.dateInOrdinal}</TableCell>
-                                    <TableCell sx={tableRowCellStyle}>{eachDate.priceOnDate}</TableCell>
+                                    <TableCell sx={tableRowCellStyle}>{CURRENCY_SYMBOL}{eachDate.priceOnDate}</TableCell>
                                     <TableCell sx={tableRowCellStyle}>{eachDate.noOfRooms}</TableCell>
-                                    <TableCell sx={tableRowCellStyle}>{eachDate.totalPriceOnDate}</TableCell>
+                                    <TableCell sx={tableRowCellStyle}>{CURRENCY_SYMBOL}{eachDate.totalPriceOnDate}</TableCell>
                                 </TableRow>
                             )
                         })}
@@ -153,7 +154,7 @@ function BookingPriceDetails(props) {
                             <TableCell sx={tableRowCellStyleForTotal}>Total</TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
-                            <TableCell sx={tableRowCellStyleForTotalAmount}>{totalPriceOfRoom}</TableCell>
+                            <TableCell sx={tableRowCellStyleForTotalAmount}>{CURRENCY_SYMBOL}{totalPriceOfRoom}</TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>

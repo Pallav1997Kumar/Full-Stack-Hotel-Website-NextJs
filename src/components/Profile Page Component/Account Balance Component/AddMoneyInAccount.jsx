@@ -8,6 +8,7 @@ import Link from 'next/link';
 import styles from "./AddMoneyInAccount.module.css";
 
 import { useAppSelector } from "@/redux store/hooks.js";
+import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
 import { incorrectCardDetailsErrorConstant } from "@/constant string files/incorrectCardDetailsErrorConstant.js"
 
 
@@ -217,7 +218,7 @@ function AddMoneyInAccount(){
             <div className={styles.amountDetails}>   
                 <label htmlFor="amount-add">
                     <div className={styles.moneyLabel}>
-                        <div className={styles.amountHeading}>Enter the Amount (in Rs.): </div>
+                        <div className={styles.amountHeading}>Enter the Amount (in {CURRENCY_SYMBOL}): </div>
                         <div className={styles.amountInput}>
                             <input 
                                 id="amount-add" 
@@ -226,7 +227,7 @@ function AddMoneyInAccount(){
                                 value={amount} 
                                 onChange={(event)=>setAmount(event.target.value)}
                             />
-                            <p className={styles.minimumAmount}>Minimum Rs.1000 to be added</p>
+                            <p className={styles.minimumAmount}>Minimum {CURRENCY_SYMBOL}1000 to be added</p>
                         </div>
                         <div className={styles.amountProceed}>
                             <Button onClick={proceedClickHandler} size="medium" variant="outlined" color="success">Proceed</Button>

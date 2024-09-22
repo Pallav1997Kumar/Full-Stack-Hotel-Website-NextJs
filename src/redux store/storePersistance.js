@@ -18,6 +18,10 @@ import eachDayFoodPriceSliceReducer from "./features/Price Features/Event Meetin
 import eachDayInformationSliceReducer from "./features/Price Features/Event Meeting Features/eachDayInformationSlice.js";
 import eachDaySeatingArrangementSliceReducer from "./features/Price Features/Event Meeting Features/eachDaySeatingArrangementSlice.js";
 
+import diningBookingInfoSliceReducer from "./features/Booking Information/diningBookingInfoSlice.js";
+import roomSuiteBookingInfoSliceReducer from "./features/Booking Information/roomSuiteBookingInfoSlice.js";
+import eventMeetingBookingInfoSliceReducer from "./features/Booking Information/eventMeetingBookingInfoSlice.js";
+
 
 const rootReducer = combineReducers({
   roomCartSlice: roomBookingCartSliceReducer,
@@ -29,13 +33,20 @@ const rootReducer = combineReducers({
   roomsSuitesEachDayPriceSliceName: roomsSuitesEachDayPriceSliceReducer,
   eventMeetingEachDayFoodPriceSliceName: eachDayFoodPriceSliceReducer,
   eventMeetingEachDayInformationSliceName: eachDayInformationSliceReducer,
-  eventMeetingEachDaySeatingArrangementSliceName: eachDaySeatingArrangementSliceReducer
+  eventMeetingEachDaySeatingArrangementSliceName: eachDaySeatingArrangementSliceReducer,
+  diningBookingInfoSlice: diningBookingInfoSliceReducer,
+  roomSuiteBookingInfoSlice: roomSuiteBookingInfoSliceReducer,
+  eventMeetingBookingInfoSlice: eventMeetingBookingInfoSliceReducer
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["roomCartSlice", "diningCartSlice", "eventMeetingCartSlice" , "userSlice"], // reducers you want to persist
+  whitelist: ["roomCartSlice", "diningCartSlice", "eventMeetingCartSlice" , 
+    "userSlice", "loginPageCalledFromSliceName", 
+    "diningEachDayPriceSliceName", "roomsSuitesEachDayPriceSliceName",
+    "eventMeetingEachDayFoodPriceSliceName", "eventMeetingEachDayInformationSliceName", "eventMeetingEachDaySeatingArrangementSliceName", 
+    "diningBookingInfoSlice", "roomSuiteBookingInfoSlice", "eventMeetingBookingInfoSlice"], // reducers you want to persist
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

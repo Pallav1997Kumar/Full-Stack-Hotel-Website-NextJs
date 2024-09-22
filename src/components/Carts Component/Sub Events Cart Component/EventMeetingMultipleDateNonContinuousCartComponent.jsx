@@ -6,6 +6,7 @@ import styles from './EventMeetingMultipleDateNonContinuousCartComponent.module.
 import EventMeetingEachDayNonContinuous from './EventMeetingEachDayNonContinuous.jsx';
 import { useAppDispatch } from "@/redux store/hooks.js";
 import { deleteParticularBookingFromEventMeetingCart } from "@/redux store/features/Booking Features/eventMeetingRoomBookingCartSlice.js";
+import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
 
 
 function EventMeetingMultipleDateNonContinuousCartComponent(props){
@@ -34,7 +35,7 @@ function EventMeetingMultipleDateNonContinuousCartComponent(props){
             }
             <p>
                 <span className={styles.totalValueTitle}>Total Price All Rooms: </span>
-                {eachEventMeetingInCart.totalPriceOfAllDates}
+                {CURRENCY_SYMBOL}{eachEventMeetingInCart.totalPriceOfAllDates}
             </p>
             <Button onClick={()=>removeCartHandler(eachEventMeetingInCart.eventCartId)} variant="contained">
                 Remove From Cart
