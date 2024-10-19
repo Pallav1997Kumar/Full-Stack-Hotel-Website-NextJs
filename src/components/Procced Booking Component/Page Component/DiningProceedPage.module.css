@@ -8,3 +8,50 @@
     justify-content: center;
     margin-bottom: 2%;
 }
+
+.paymentContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgba(252, 218, 173, 0.719);
+    margin: 0% 2.5% 2% 2.5%;
+    padding: 1%;
+}
+
+.paymentAmount{
+    font-weight: 700;
+    padding-bottom: 1.2%;
+}
+
+.sufficientBalance{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.sufficientBalance p{
+    background-color: rgba(51, 223, 51, 0.726);
+    padding: 1%;
+    text-align: center;
+    width: 70%;
+    margin-bottom: 1%;
+}
+
+.insufficientBalance{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.insufficientBalance p{
+    background-color: yellow;
+    padding: 1%;
+    text-align: center;
+    width: 90%;
+    margin-bottom: 1%;
+}

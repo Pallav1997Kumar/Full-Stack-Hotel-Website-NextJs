@@ -23,6 +23,11 @@ const diningBookingInfoSchema = new Schema({
         required: true,
         ref: 'HotelCustomersUsers'
     },
+    transactionId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'HotelCustomersTransaction'
+    },
     diningRestaurantTitle: {
         type: String,
         required: true,
@@ -52,6 +57,6 @@ const diningBookingInfoSchema = new Schema({
     }
 });
 
-const DiningBookingInfo = mongoose.models.DININGBOOKINGINFO || mongoose.model('DININGCARTINFO', diningBookingInfoSchema);
+const DiningBookingInfo = mongoose.models.DININGBOOKINGINFO || mongoose.model('DININGBOOKINGINFO', diningBookingInfoSchema);
 
 export default DiningBookingInfo;

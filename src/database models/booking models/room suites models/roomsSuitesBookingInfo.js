@@ -27,6 +27,11 @@ const roomsSuitesBookingInfoSchema = new Schema({
         required: true,
         ref: 'HotelCustomersUsers'
     },
+    transactionId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'HotelCustomersTransaction'
+    },
     bookingRoomTitle: {
         type: String,
         required: true,

@@ -28,6 +28,8 @@ async function DELETE(NextRequest, context){
         }
     } 
     catch (error) {
+        console.log('src/app/api/delete-cart/dining/[cartId]/route.js');
+        console.log(error);
         return NextResponse.json(
             { errorMessage: INTERNAL_SERVER_ERROR }, 
             { status: 500 }

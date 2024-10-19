@@ -8,6 +8,11 @@ const continousMultipleDatesBookingInfoSchema = new Schema({
         required: true,
         ref: 'HotelCustomersUsers'
     },
+    transactionId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'HotelCustomersTransaction'
+    },
     roomBookingDateType: {
         type: String,
         enum: ['Multiple Dates Continuous'],

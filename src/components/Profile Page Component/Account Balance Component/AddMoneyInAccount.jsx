@@ -128,7 +128,7 @@ function AddMoneyInAccount(){
                     });
                     const transactionData = await transactionResponse.json();
                     if(transactionResponse.status === 200){
-                        const updatedAccountBalanceResponse = await fetch(`/api/account-balance-user/update-account-balance/${loginUserId}`, {
+                        const updatedAccountBalanceResponse = await fetch(`/api/account-balance-user/update-account-balance/add-money-in-account/${loginUserId}`, {
                             method: 'PATCH',
                             body: JSON.stringify(amountInfo),
                             headers: {

@@ -31,3 +31,31 @@ export const EVENT_MEETING_ROOM_CART_IS_EMPTY = 'Event and Meeting Rooms Cart is
 export const ROOMS_SUITES_PRESENT_IN_CART = 'Rooms and Suites Present in Cart!';
 
 export const ROOMS_SUITES_CART_IS_EMPTY = 'Rooms and Suites Cart is Empty!';
+
+export const SUCCESSFUL_AMOUNT_DEDUCT_DINING_TRANSACTION = 'Dining Amount Deduction Transaction Successfully';
+
+export const INFORMATION_ADD_TO_DINING_BOOKING_SUCCESSFUL = 'Dining Booking Information Successfully Added';
+
+export const SUCCESSFUL_AMOUNT_DEDUCTED_FROM_ACCOUNT = 'Successful Amount Deducted From Account';
+
+export const DINING_BOOKING_PROCESS_SUCCESSFUL = 'Dining Booking Process Successful';
+
+export const SUCCESSFUL_AMOUNT_DEDUCT_ROOMS_SUITES_TRANSACTION = 'Rooms and Suites Amount Deduction Transaction Successfully';
+
+export const INFORMATION_ADD_TO_ROOMS_SUITES_BOOKING_SUCCESSFUL = 'Rooms and Suites Booking Information Successfully Added';
+
+export const ROOMS_SUITES_BOOKING_PROCESS_SUCCESSFUL = 'Rooms and Suites Booking Process Successful';
+
+export const SUCCESSFUL_AMOUNT_DEDUCT_EVENT_MEETING_ROOM_TRANSACTION = 'Event/ Meeting Room Amount Deduction Transaction Successfully';
+
+export const INFORMATION_ADD_TO_SINGLE_DATE_EVENT_MEETING_ROOM_SUCCESSFUL = 'Single Date Event/ Meeting Room Booking Information Successfully Added';
+
+export const INFORMATION_ADD_TO_CONTINOUS_MULTIPLE_DATES_EVENT_MEETING_ROOM_SUCCESSFUL = 'Continous Multiple Dates Event/ Meeting Room Booking Information Successfully Added';
+
+export const INFORMATION_ADD_TO_NON_CONTINOUS_MULTIPLE_DATES_EVENT_MEETING_ROOM_SUCCESSFUL = 'Non Continous Multiple Dates Event/ Meeting Room Booking Information Successfully Added';
+
+export const EVENT_AND_MEETING_ROOMS_BOOKING_PROCESS_SUCCESSFUL = 'Event and Meeting Rooms Booking Process Successful';
+
+export const SUCCESSFUL_AMOUNT_DEDUCT_ROOMS_SUITES_DINING_EVENT_MEETING_ROOM_TRANSACTION = 'Dining, Rooms Suites and Event Meeting Room Amount Deduction Transaction Successfully';
+
+export const ROOMS_SUITES_DINING_EVENT_MEETING_ROOM_BOOKING_PROCESS_SUCCESSFUL = 'Dining, Rooms Suites and Event Meeting Room Booking Process Successful';
