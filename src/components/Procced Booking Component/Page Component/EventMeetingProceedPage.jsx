@@ -8,7 +8,7 @@ import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 import styles from './EventMeetingProceedPage.module.css';
 
 import { useAppSelector, useAppDispatch } from '@/redux store/hooks';
-import EventMeetingBookingInfo from "@/components/Booking Information Component/Event Meeting Room Booking Information Component/EventMeetingBookingInfo.jsx";
+import EventMeetingBookingInfo from "@/components/Booking Information Component/Event Meeting Booking/EventMeetingBookingInfo.jsx";
 import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
 import { resetEventMeetingBookingInfo } from "@/redux store/features/Booking Information/eventMeetingBookingInfoSlice.js";
 import { EVENT_AND_MEETING_ROOMS_BOOKING_PROCESS_SUCCESSFUL } from "@/constant string files/apiSuccessMessageConstants.js";

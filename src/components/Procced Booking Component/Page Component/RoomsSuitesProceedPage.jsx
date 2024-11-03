@@ -8,7 +8,7 @@ import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 import styles from './RoomsSuitesProceedPage.module.css';
 
 import { useAppSelector, useAppDispatch } from '@/redux store/hooks';
-import RoomSuitesBookingInfo from "@/components/Booking Information Component/Rooms Suites Booking Information Component/RoomSuitesBookingInfo.jsx";
+import RoomSuitesBookingInfo from "@/components/Booking Information Component/Rooms Suites Booking/RoomSuitesBookingInfo.jsx";
 import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
 import { ROOMS_SUITES_BOOKING_PROCESS_SUCCESSFUL } from "@/constant string files/apiSuccessMessageConstants.js";
 import { resetRoomSuiteBookingInfo } from "@/redux store/features/Booking Information/roomSuiteBookingInfoSlice.js";

@@ -78,7 +78,14 @@ function ProfileHomePage(){
                         </Link>
                     </li>
                     <li>
-                        <Link href='/'>View Past Bookings</Link>
+                        <Link href={`/profile-home-page/view-current-bookings/${loginUserId}`}>
+                            View Current Bookings
+                        </Link>
+                    </li>
+                    <li>
+                    <Link href={`/profile-home-page/view-past-bookings/${loginUserId}`}>
+                            View Past Bookings
+                        </Link>
                     </li>
                     <li>
                         <Link href={`/profile-home-page/view-account-balance/${loginUserId}`}>

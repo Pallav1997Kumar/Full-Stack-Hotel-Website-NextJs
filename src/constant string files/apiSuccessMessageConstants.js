@@ -59,3 +59,15 @@ export const EVENT_AND_MEETING_ROOMS_BOOKING_PROCESS_SUCCESSFUL = 'Event and Mee
 export const SUCCESSFUL_AMOUNT_DEDUCT_ROOMS_SUITES_DINING_EVENT_MEETING_ROOM_TRANSACTION = 'Dining, Rooms Suites and Event Meeting Room Amount Deduction Transaction Successfully';
 
 export const ROOMS_SUITES_DINING_EVENT_MEETING_ROOM_BOOKING_PROCESS_SUCCESSFUL = 'Dining, Rooms Suites and Event Meeting Room Booking Process Successful';
+
+export const DINING_BOOKING_INFO_IS_EMPTY = 'Dining Booking Info is Empty!';
+
+export const DINING_BOOKING_INFO_IS_PRESENT = 'Dining Booking Info is Present!';
+
+export const EVENT_MEETING_ROOM_BOOKING_INFO_IS_EMPTY = 'Event and Meeting Rooms Booking Info is Empty!';
+
+export const EVENT_MEETING_ROOM_BOOKING_INFO_IS_PRESENT = 'Event and Meeting Rooms Booking Info is Present!';
+
+export const ROOMS_SUITES_BOOKING_INFO_IS_EMPTY = 'Rooms Suites Booking Info is Empty!';
+
+export const ROOMS_SUITES_BOOKING_INFO_IS_PRESENT = 'Rooms Suites Booking Info is Present!';

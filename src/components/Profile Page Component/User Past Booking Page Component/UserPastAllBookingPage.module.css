@@ -1,0 +1,93 @@
+.breadcrumbsContainer{
+    margin: 1.5% 3%;
+    background-color: lightgreen;
+    padding: 1% 2%;
+}
+
+.breadcrumbsContainer p{
+    font-size: 1.25rem;
+    font-weight: bolder;
+    letter-spacing: 1px;
+    word-spacing: 2.2px;
+    color: blueviolet;
+}
+
+.breadcrumbsContainer span{
+    padding-right: 1.5%;
+}
+
+.breadcrumbsLink:hover{
+    color: darkmagenta;
+    text-decoration: underline;
+}
+
+.myBooking{
+    margin: 2%;
+}
+
+.myBooking h2{
+    text-align: center;
+}
+
+.categoryBooking{
+    margin: 2% 3%;;
+}
+
+.categoryBooking h4{
+    margin-bottom: 1%;
+}
+
+.categoryBooking ol{
+    margin-left: 3%;
+}
+
+.categoryBooking li{
+    list-style:lower-roman;
+    padding: 0.5%;
+}
+
+.categoryBooking li:hover{
+    cursor: pointer;
+    color: goldenrod;
+}
+
+.allBookings{
+    margin: 2% 4%;
+}
+
+.emptyBooking{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: antiquewhite;
+    padding: 5% 0%;
+}
+
+.emptyBooking p{
+    text-transform: uppercase;
+    font-weight: 800;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 2rem;
+    padding: 0.5%;
+    line-height: 200%;
+    letter-spacing: 1.25px;
+    word-spacing: 3px;
+    text-decoration: underline;
+}
+
+.loadingBookings{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(245, 41, 75);
+    padding: 5% 0%;
+    margin: 2% 0%;
+}
+
+.loadingBookings p{
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

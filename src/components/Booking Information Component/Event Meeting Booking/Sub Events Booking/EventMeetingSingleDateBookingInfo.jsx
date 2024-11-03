@@ -28,6 +28,7 @@ const boxStyle = {
 function EventMeetingSingleDateBookingInfo(props){
 
     const eachEventMeetingBookingInfo = props.eachEventMeetingBookingInfo;
+    const transactionDetails = props.transactionDetails;
 
     const [viewFoodItems, setViewFoodItems] = useState(false);
 
@@ -36,6 +37,12 @@ function EventMeetingSingleDateBookingInfo(props){
             <p className={styles.eachEventMeetingTitle}>
                 Meeting / Event Area Name: {eachEventMeetingBookingInfo.meetingEventsInfoTitle}
             </p>
+           {transactionDetails &&
+                <p className={styles.eventMeetingBookingEachInfo}>
+                    <span className={styles.eventMeetingBookingInfoEachInfoTitle}>Meeting / Event Booked On Date: </span>
+                    {getDateTextFromFullDate(transactionDetails.transactionDateTime)}
+                </p>
+            }
             <p className={styles.eventMeetingBookingEachInfo}>
                 <span className={styles.eventMeetingBookingInfoEachInfoTitle}>Meeting / Event Booking Date: </span>
                 {getDateTextFromFullDate(eachEventMeetingBookingInfo.meetingEventBookingDate)}

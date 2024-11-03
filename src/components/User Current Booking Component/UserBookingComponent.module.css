@@ -1,0 +1,32 @@
+/* UserBookingComponent */
+
+.sortingContainer{
+    background-color: rgb(240, 207, 212);
+    margin: 1% 0%;
+    padding: 1%;
+}
+
+.sortingContainer h4{
+    color: rebeccapurple;
+    font-size: 1.2rem;
+    margin-bottom: 0.5%;
+}
+
+.sortingContainer select{
+    color: brown;
+    padding: 0.3% 1%;
+    font-size: 1.05rem;
+    font-weight: 700;
+    background-color: aliceblue;
+    border: 2px solid lightcoral;
+}
+
+.sortingContainer select:focus{
+    outline: none;
+    border: 2px solid lightcoral;
+}
+
+.sortingContainer option{
+    color: rgb(17, 102, 6);
+    font-size: 0.85rem;
+}

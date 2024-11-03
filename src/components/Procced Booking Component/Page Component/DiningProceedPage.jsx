@@ -8,7 +8,7 @@ import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 import styles from './DiningProceedPage.module.css';
 
 import { useAppSelector, useAppDispatch } from '@/redux store/hooks';
-import DiningBookingInfo from "@/components/Booking Information Component/Dining Booking Information Component/DiningBookingInfo.jsx";
+import DiningBookingInfo from "@/components/Booking Information Component/Dining Booking/DiningBookingInfo.jsx";
 import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
 import { resetDiningBookingInfo } from "@/redux store/features/Booking Information/diningBookingInfoSlice.js";
 import { DINING_BOOKING_PROCESS_SUCCESSFUL } from "@/constant string files/apiSuccessMessageConstants.js";

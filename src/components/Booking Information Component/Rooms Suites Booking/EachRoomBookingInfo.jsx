@@ -11,7 +11,7 @@ import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
 
 function EachRoomBookingInfo(props){
     const eachRoomBookingInfo = props.eachRoomBookingInfo;
-    console.log(eachRoomBookingInfo)
+    const transactionDetails = props.transactionDetails;
 
     useEffect(()=>{
         fetchRoomsSuitesInformation();
@@ -49,12 +49,18 @@ function EachRoomBookingInfo(props){
                     <p className={styles.eachRoomTitle}>
                         Room Title: {eachRoomBookingInfo.bookingRoomTitle} 
                     </p>
+                    {transactionDetails != null &&
+                        <p className={styles.eachRoomOtherInfo}>
+                            <span className={styles.eachRoomOtherInfoTitle}>Room Booked On Date: </span> 
+                            {getDateTextFromOnlyDate(transactionDetails.transactionDateTime)} 
+                        </p>
+                    }
                     <p className={styles.eachRoomOtherInfo}>
-                        <span className={styles.eachRoomOtherInfoTitle}>CheckIn Date: </span> 
+                        <span className={styles.eachRoomOtherInfoTitle}>Room CheckIn Date: </span> 
                         {getDateTextFromOnlyDate(eachRoomBookingInfo.bookingCheckinDate)}  
                     </p>
                     <p className={styles.eachRoomOtherInfo}>
-                        <span className={styles.eachRoomOtherInfoTitle}>CheckOut Date: </span> 
+                        <span className={styles.eachRoomOtherInfoTitle}>Room CheckOut Date: </span> 
                         {getDateTextFromOnlyDate(eachRoomBookingInfo.bookingCheckoutDate)} 
                     </p>
                     <p className={styles.eachRoomOtherInfo}>

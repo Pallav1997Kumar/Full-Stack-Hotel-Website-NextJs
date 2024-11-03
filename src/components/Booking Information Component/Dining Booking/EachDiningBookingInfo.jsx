@@ -11,6 +11,7 @@ import { CURRENCY_SYMBOL } from "@/constant string files/commonConstants.js";
 function EachDiningBookingInfo(props){
 
     const eachDiningBookingInfo = props.eachDiningBookingInfo;
+    const transactionDetails = props.transactionDetails;
 
     useEffect(()=>{
         fetchDiningInformation();
@@ -47,8 +48,14 @@ function EachDiningBookingInfo(props){
                 <p className={styles.eachDiningTitle}>
                     Dining Restaurant Name: {eachDiningBookingInfo.diningRestaurantTitle} 
                 </p>
+                {transactionDetails != null &&
+                    <p className={styles.diningBookingInfoEachInfo}>
+                        <span className={styles.diningBookingInfoEachInfoTitle}>Dining Table Booked On Date: </span>
+                        {getDateTextFromFullDate(transactionDetails.transactionDateTime)}
+                    </p>
+                }
                 <p className={styles.diningBookingInfoEachInfo}>
-                    <span className={styles.diningBookingInfoEachInfoTitle}>Table Booking Date: </span>
+                    <span className={styles.diningBookingInfoEachInfoTitle}>Table Dining Date: </span>
                     {getDateTextFromFullDate(eachDiningBookingInfo.tableBookingDate)}
                 </p>
                 <p className={styles.diningBookingInfoEachInfo}>

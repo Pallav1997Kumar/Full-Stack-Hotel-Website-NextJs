@@ -1,0 +1,58 @@
+.breadcrumbsContainer{
+    margin: 1% 1.5%;
+    background-color: lightgreen;
+    padding: 1%;
+}
+
+.breadcrumbsContainer p{
+    font-size: 1.25rem;
+    font-weight: bolder;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    color: blueviolet;
+}
+
+.breadcrumbsContainer span{
+    padding-right: 0.75%;
+}
+
+.breadcrumbsLink:hover{
+    color: darkmagenta;
+    text-decoration: underline;
+}
+
+.loadingBookingDetails{
+    background-color: rgb(235, 98, 121);
+    padding: 3% 1%;
+    margin: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loadingBookingDetails p{
+    color: rgb(204, 203, 216);
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.5rem;
+}
+
+.emptyBooking{
+    background-color: lightblue; 
+    padding: 3% 1%;
+    margin: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.emptyBooking p{
+    color: rgba(192, 46, 46, 0.795);
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.5rem;
+}
+
+.diningRoomsEventContainer{
+    margin: 4%;
+}
