@@ -114,7 +114,8 @@ function Login(){
                     
                     <InputAreaForRegisterLogin 
                         labelName="Email Address" 
-                        name="email" type="email" 
+                        name="email" 
+                        type="email" 
                         placeholder="Enter Email Address" 
                         value={email} 
                         isInvalidEmail={isInvalidEmail} 
